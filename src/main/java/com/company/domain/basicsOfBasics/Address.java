@@ -1,5 +1,6 @@
-package com.company.domain;
+package com.company.domain.basicsOfBasics;
 
+import com.company.domain.Auditable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Address extends Auditable{
+public class Address extends Auditable {
     @Column(nullable = false)
     private String country;
     @Column(nullable = false)

@@ -1,5 +1,6 @@
 package com.company.domain;
 
+import com.company.domain.basicsOfBasics.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

@@ -1,5 +1,8 @@
-package com.company.domain;
+package com.company.domain.basic;
 
+import com.company.domain.Auditable;
+import com.company.domain.basicsOfBasics.Teacher;
+import com.company.domain.basicsOfBasics.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Lesson extends Auditable{
+public class Lesson extends Auditable {
     @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
     @ManyToOne(cascade = CascadeType.ALL)

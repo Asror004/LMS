@@ -1,5 +1,6 @@
-package com.company.domain;
+package com.company.domain.basicsOfBasics;
 
+import com.company.domain.Auditable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Document extends Auditable{
+public class Document extends Auditable {
     @Column(nullable = false)
     private String originalName;
     @Column(nullable = false)

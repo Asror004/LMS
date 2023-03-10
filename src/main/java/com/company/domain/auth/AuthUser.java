@@ -1,8 +1,8 @@
 package com.company.domain.auth;
 
 import com.company.domain.Auditable;
-import com.company.domain.Language;
-import com.company.domain.User;
+import com.company.domain.basicsOfBasics.Language;
+import com.company.domain.basicsOfBasics.User;
 import jakarta.persistence.*;
 import lombok.*;
 

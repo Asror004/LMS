@@ -3,6 +3,7 @@ package com.company.security;
 import com.company.domain.auth.AuthPermission;
 import com.company.domain.auth.AuthRole;
 import com.company.domain.auth.AuthUser;
+import com.company.domain.basicsOfBasics.Language;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,6 +41,9 @@ public record AuthUserUserDetails(AuthUser authUser) implements UserDetails {
     @Override
     public String getUsername() {
         return authUser.getUsername();
+    }
+    public Language getLanguage(){
+        return authUser.getLanguage();
     }
 
     @Override

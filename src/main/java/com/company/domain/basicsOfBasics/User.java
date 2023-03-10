@@ -1,6 +1,7 @@
-package com.company.domain;
+package com.company.domain.basicsOfBasics;
 
 import com.company.domain.auth.AuthUser;
+import com.company.domain.basic.Group;
 import jakarta.persistence.*;
 import lombok.*;
 

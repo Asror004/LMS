@@ -1,10 +1,9 @@
 package com.company.domain.auth;
 
 import com.company.domain.Auditable;
-import com.company.domain.User;
+import com.company.domain.basicsOfBasics.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 import java.util.Collection;

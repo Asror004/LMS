@@ -1,6 +1,6 @@
 package com.company.security;
 
-import dev.jlkeesh.domain.AuthUser;
+import com.company.domain.auth.AuthUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +17,7 @@ public class UserSession {
         return null;
     }
 
-    public String getId() {
+    public Integer getId() {
         AuthUser user = getUser();
         if (user != null)
             return user.getId();

@@ -1,5 +1,7 @@
-package com.company.domain;
+package com.company.domain.basic;
 
+import com.company.domain.Auditable;
+import com.company.domain.basicsOfBasics.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Attendance extends Auditable{
+public class Attendance extends Auditable {
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
     @ManyToOne(cascade = CascadeType.ALL)

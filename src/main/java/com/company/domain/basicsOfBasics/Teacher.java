@@ -1,5 +1,6 @@
-package com.company.domain;
+package com.company.domain.basicsOfBasics;
 
+import com.company.domain.basic.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 

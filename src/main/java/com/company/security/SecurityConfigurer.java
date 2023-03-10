@@ -41,7 +41,7 @@ public class SecurityConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement().requireExplicitAuthenticationStrategy(true);
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf().disable()
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers(WHITE_LIST)
@@ -53,9 +53,9 @@ public class SecurityConfigurer {
                         httpSecurityFormLoginConfigurer
                                 .loginPage("/auth/login")
                                 .loginProcessingUrl("/auth/login")
-                                .usernameParameter("uname")
-                                .passwordParameter("pswd")
-                                .defaultSuccessUrl("/home2", false)
+                                .usernameParameter("username")
+                                .passwordParameter("password")
+                                .defaultSuccessUrl("/home", false)
                                 .failureHandler(authenticationFailureHandler)
                 )
                 .logout(httpSecurityLogoutConfigurer ->
