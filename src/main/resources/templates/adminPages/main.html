@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Admin</title>
+</head>
+<body>
+<section th:replace="fragments :: navbar"></section>
+
+<div class="w-75 mx-auto">
+    <h1 class="text-center">Admin Page</h1>
+    <div class="mt-5">
+        <a class="btn btn-primary me-4">Student qo'shish</a>
+        <a class="btn btn-primary me-4">Studentlarni ro'yxatdan o'tkazish</a>
+    </div>
+</div>
+</body>
+</html>
