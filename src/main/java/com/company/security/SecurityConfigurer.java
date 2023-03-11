@@ -23,7 +23,7 @@ public class SecurityConfigurer {
     public static final String[] WHITE_LIST = {
             "/css/**",
             "/js/**",
-            "/home",
+//            "/home",
             "/auth/login",
             "/auth/register"
     };

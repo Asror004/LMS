@@ -25,15 +25,17 @@ public class Document extends Auditable {
     private String mimeType;
     @Column(nullable = false)
     private Long size;
+
     @Builder(builderMethodName = "childBuilder")
-    public Document(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, User updatedBy, Boolean deleted, String originalName, String generatedName, String extension, String mimeType, Long size) {
-        super(id, createdAt, updatedAt, updatedBy, deleted);
+    public Document(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String originalName, String generatedName, String extension, String mimeType, Long size) {
+        super(id, createdAt, updatedAt, deleted);
         this.originalName = originalName;
         this.generatedName = generatedName;
         this.extension = extension;
         this.mimeType = mimeType;
         this.size = size;
     }
+
 
     @PrePersist
     public void persist(){

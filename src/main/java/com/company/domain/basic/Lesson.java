@@ -30,9 +30,8 @@ public class Lesson extends Auditable {
     private Room room;
 
     @Builder(builderMethodName = "childBuilder")
-
-    public Lesson(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, User updatedBy, Boolean deleted, Subject subject, Teacher teacher, Group group, DayOfWeek dayOfWeek, Byte para, Room room) {
-        super(id, createdAt, updatedAt, updatedBy, deleted);
+    public Lesson(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, Subject subject, Teacher teacher, Group group, DayOfWeek dayOfWeek, Byte para, Room room) {
+        super(id, createdAt, updatedAt, deleted);
         this.subject = subject;
         this.teacher = teacher;
         this.group = group;

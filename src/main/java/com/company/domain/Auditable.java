@@ -22,8 +22,6 @@ public class Auditable {
     @Column(nullable = false, columnDefinition = "timestamp default now()")
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private User updatedBy;
     @Column(columnDefinition = "bool default false")
     private Boolean deleted;
 }

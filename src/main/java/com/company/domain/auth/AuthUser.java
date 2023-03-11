@@ -22,11 +22,10 @@ public class AuthUser extends Auditable {
     private String username;
     @Column(nullable = false)
     private String password;
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Language language;
     @Column(nullable = false)
-    @ManyToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "auth_user_roles",
             joinColumns = @JoinColumn(name = "auth_user_id", referencedColumnName = "id"),
@@ -47,8 +46,8 @@ public class AuthUser extends Auditable {
     }
 
     @Builder(builderMethodName = "childBuilder")
-    public AuthUser(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, User updatedBy, Boolean deleted, String username, String password, Language language, Collection<AuthRole> authRoles, Status status) {
-        super(id, createdAt, updatedAt, updatedBy, deleted);
+    public AuthUser(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String username, String password, Language language, Collection<AuthRole> authRoles, Status status) {
+        super(id, createdAt, updatedAt, deleted);
         this.username = username;
         this.password = password;
         this.language = language;

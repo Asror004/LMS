@@ -27,8 +27,8 @@ public class Attendance extends Auditable {
     private Boolean attended;
 
     @Builder(builderMethodName = "childBuilder")
-    public Attendance(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, User updatedBy, Boolean deleted, User user, Lesson lesson, LocalDate date, Boolean attended) {
-        super(id, createdAt, updatedAt, updatedBy, deleted);
+    public Attendance(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, User user, Lesson lesson, LocalDate date, Boolean attended) {
+        super(id, createdAt, updatedAt, deleted);
         this.user = user;
         this.lesson = lesson;
         this.date = date;

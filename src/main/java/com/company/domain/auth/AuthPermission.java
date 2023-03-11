@@ -19,8 +19,8 @@ public class AuthPermission extends Auditable {
     private String code;
 
     @Builder(builderMethodName = "childBuilder")
-    public AuthPermission(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, User updatedBy, Boolean deleted, String name, String code) {
-        super(id, createdAt, updatedAt, updatedBy, deleted);
+    public AuthPermission(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String name, String code) {
+        super(id, createdAt, updatedAt, deleted);
         this.name = name;
         this.code = code;
     }

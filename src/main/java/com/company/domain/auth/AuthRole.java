@@ -20,7 +20,7 @@ public class AuthRole extends Auditable {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "auth_role_permissions",
             joinColumns = @JoinColumn(name = "auth_role_id", referencedColumnName = "id"),
@@ -29,8 +29,8 @@ public class AuthRole extends Auditable {
     private Collection<AuthPermission> authPermissions;
 
     @Builder(builderMethodName = "childBuilder")
-    public AuthRole(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, User updatedBy, Boolean deleted, String name, String code, Collection<AuthPermission> authPermissions) {
-        super(id, createdAt, updatedAt, updatedBy, deleted);
+    public AuthRole(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String name, String code, Collection<AuthPermission> authPermissions) {
+        super(id, createdAt, updatedAt, deleted);
         this.name = name;
         this.code = code;
         this.authPermissions = authPermissions;

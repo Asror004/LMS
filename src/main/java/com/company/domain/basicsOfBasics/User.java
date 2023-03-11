@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User {
     @Id
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.MERGE)
     private AuthUser authUser;
     @Column(nullable = false)
     private String firstName;
@@ -25,17 +25,17 @@ public class User {
     private String lastName;
     @Column(nullable = false)
     private String middleName;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Group group;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User createdBy;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Address address;
     @Column(nullable = false)
     private LocalDateTime birthDate;
     @Column(nullable = false)
     private String passport;
     private Boolean gender;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Document document;
 }

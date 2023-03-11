@@ -18,8 +18,8 @@ public class Faculty extends Auditable {
     private String name;
 
     @Builder(builderMethodName = "childBuilder")
-    public Faculty(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, User updatedBy, Boolean deleted, String name) {
-        super(id, createdAt, updatedAt, updatedBy, deleted);
+    public Faculty(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String name) {
+        super(id, createdAt, updatedAt, deleted);
         this.name = name;
     }
 }
