@@ -9,7 +9,6 @@ import com.company.repository.LanguageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,6 @@ public class AuthService {
 
     public void save(UserRegisterDTO user) {
         Language language = languageRepository.findById(user.languageId()).orElseThrow();
-        System.out.println(language);
         AuthUser authUser = AuthUser.childBuilder()
                 .username(user.username())
                 .language(language)

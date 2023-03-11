@@ -22,7 +22,7 @@ public class AuthUser extends Auditable {
     private String username;
     @Column(nullable = false)
     private String password;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Language language;
     @Column(nullable = false)
     @ManyToMany(cascade = CascadeType.ALL,
