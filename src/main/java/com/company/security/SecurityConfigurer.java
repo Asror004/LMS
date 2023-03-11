@@ -14,8 +14,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity(
         prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true
+        securedEnabled = true
+//        jsr250Enabled = true
 
 )
 public class SecurityConfigurer {
@@ -53,8 +53,8 @@ public class SecurityConfigurer {
                         httpSecurityFormLoginConfigurer
                                 .loginPage("/auth/login")
                                 .loginProcessingUrl("/auth/login")
-                                .usernameParameter("username")
-                                .passwordParameter("password")
+                                .usernameParameter("uname")
+                                .passwordParameter("pswd")
                                 .defaultSuccessUrl("/home", false)
                                 .failureHandler(authenticationFailureHandler)
                 )
@@ -73,7 +73,6 @@ public class SecurityConfigurer {
                                 .tokenValiditySeconds(10 * 24 * 60 * 60)// default is 30 minutes
                                 .rememberMeCookieName("rememberME")
                 );
-
 
         return http.build();
     }
