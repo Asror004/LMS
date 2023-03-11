@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

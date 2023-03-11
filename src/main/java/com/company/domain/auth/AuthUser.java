@@ -4,7 +4,10 @@ import com.company.domain.Auditable;
 import com.company.domain.basicsOfBasics.Language;
 import com.company.domain.basicsOfBasics.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -12,9 +15,8 @@ import java.util.Collection;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@ToString
 @Entity
+@ToString(callSuper = true)
 public class AuthUser extends Auditable {
     @Column(unique = true, nullable = false)
     private String username;
@@ -32,12 +34,16 @@ public class AuthUser extends Auditable {
     )
     private Collection<AuthRole> authRoles;
     @Builder.Default
-    private Status status = Status.INACTIVE;
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
 
     public enum Status {
         BLOCKED,
         INACTIVE,
         ACTIVE
+    }
+
+    public AuthUser() {
     }
 
     @Builder(builderMethodName = "childBuilder")

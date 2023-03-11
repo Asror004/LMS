@@ -2,10 +2,7 @@ package com.company.domain.basic;
 
 import com.company.domain.Auditable;
 import com.company.domain.basicsOfBasics.User;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @Entity
+@Table(name = "groups")
 public class Group extends Auditable {
     @Column(nullable = false)
     private String name;

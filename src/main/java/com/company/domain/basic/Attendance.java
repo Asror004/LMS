@@ -23,7 +23,7 @@ public class Attendance extends Auditable {
     private Lesson lesson;
     @Column(nullable = false)
     private LocalDate date;
-    @Column(nullable = false, columnDefinition = "default true")
+    @Column(nullable = false, columnDefinition = "bool default true")
     private Boolean attended;
 
     @Builder(builderMethodName = "childBuilder")

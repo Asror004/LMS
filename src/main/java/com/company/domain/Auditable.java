@@ -19,7 +19,7 @@ public class Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "default now()")
+    @Column(nullable = false, columnDefinition = "timestamp default now()")
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @ManyToOne(cascade = CascadeType.ALL)

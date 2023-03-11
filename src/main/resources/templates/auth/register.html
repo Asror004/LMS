@@ -10,15 +10,14 @@
         <div class="col-md-10 offset-1">
             <h1 class="mt-2 text-center">Register Page</h1>
             <form method="post">
-                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
+<!--                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">-->
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username">
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <label for="language" class="form-label">Language code</label>
+                    <input type="text" class="form-control" id="language" name="languageId">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
