@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.dto.UserRegisterDTO;
+import com.company.dto.AuthUserRegisterDTO;
 import com.company.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -29,9 +29,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserRegisterDTO dto) {
+    public String register(@ModelAttribute AuthUserRegisterDTO dto) {
         service.save(dto);
-        return "redirect:/auth/register";
+        return "redirect:/auth/login";
     }
 
 }

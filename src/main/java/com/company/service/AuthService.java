@@ -2,7 +2,7 @@ package com.company.service;
 
 import com.company.domain.auth.AuthUser;
 import com.company.domain.basicsOfBasics.Language;
-import com.company.dto.UserRegisterDTO;
+import com.company.dto.AuthUserRegisterDTO;
 import com.company.mappers.auth.AuthMapper;
 import com.company.repository.AuthUserRepository;
 import com.company.repository.LanguageRepository;
@@ -18,7 +18,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthMapper authMapper;
 
-    public void save(UserRegisterDTO user) {
+    public void save(AuthUserRegisterDTO user) {
         Language language = languageRepository.findById(user.languageId()).orElseThrow();
         AuthUser authUser = AuthUser.childBuilder()
                 .username(user.username())
