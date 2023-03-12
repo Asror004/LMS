@@ -31,6 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
     public String register(@ModelAttribute AuthUserRegisterDTO dto) {
         service.save(dto);
         return "redirect:/auth/login";
