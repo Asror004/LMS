@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/faculty")
+@RequestMapping("/admin/faculty")
 public class FacultyController {
     private final FacultyService facultyService;
 
@@ -28,13 +28,15 @@ public class FacultyController {
 
 
     @GetMapping("/create")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_FACULTY_PERMISSION)")
     public String create(Model model) {
         model.addAttribute("faculty", new Faculty());
         return "faculty/create";
     }
     @PostMapping("/create")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_FACULTY_PERMISSION)")
     public String createPost(@Valid @ModelAttribute("faculty") CreateFacultyDTO faculty, BindingResult errors){
         if (errors.hasErrors()) {
             return "faculty/create";
@@ -42,6 +44,8 @@ public class FacultyController {
         facultyService.create(faculty);
         return "redirect:/faculty";
     }
+
+
     @GetMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
     public String update(){
@@ -54,6 +58,8 @@ public class FacultyController {
         return "redirect:/faculty";
     }
 
+
+
     @GetMapping("/delete")
     @PreAuthorize("hasRole('ADMIN')")
     public String delete(@RequestParam("f_id") String id){
@@ -65,6 +71,8 @@ public class FacultyController {
     public String deletePost(){
         return "redirect:/faculty";
     }
+
+
 
 
 }
