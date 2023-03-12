@@ -1,6 +1,6 @@
 package com.company.service;
 
-import com.company.repository.AuthUserRepository;
+import com.company.repository.auth.AuthUserRepository;
 import com.company.repository.LanguageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

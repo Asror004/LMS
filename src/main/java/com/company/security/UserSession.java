@@ -1,12 +1,14 @@
 package com.company.security;
 
 import com.company.domain.auth.AuthUser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserSession {
     public AuthUser getUser() {
         SecurityContext context = SecurityContextHolder.getContext();

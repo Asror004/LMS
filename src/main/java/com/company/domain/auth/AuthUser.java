@@ -26,7 +26,7 @@ public class AuthUser extends Auditable {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Language language;
     @Column(nullable = false)
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name = "auth_user_roles",
             joinColumns = @JoinColumn(name = "auth_user_id", referencedColumnName = "id"),
