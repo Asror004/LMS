@@ -4,6 +4,7 @@ import com.company.domain.Auditable;
 import com.company.domain.basicsOfBasics.Language;
 import com.company.domain.basicsOfBasics.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

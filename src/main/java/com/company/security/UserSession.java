@@ -23,4 +23,10 @@ public class UserSession {
             return user.getId();
         return null;
     }
+    public String getLanguage() {
+        AuthUser user = getUser();
+        if (user != null)
+            return user.getLanguage().getCode();
+        return null;
+    }
 }
