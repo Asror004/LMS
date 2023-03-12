@@ -22,6 +22,6 @@ public class ApplicationConfig extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(new MultipartConfigElement("/home/jlkesh/to_remove"));
+        registration.setMultipartConfig(new MultipartConfigElement("E:\\IdeaProjects\\LMS\\src\\main\\resources\\files"));
     }
 }
