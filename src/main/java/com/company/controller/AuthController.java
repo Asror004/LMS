@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.dto.AuthUserRegisterDTO;
+
 import com.company.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,10 +30,5 @@ public class AuthController {
         return "auth/logout";
     }
 
-    @PostMapping("/register")
-    @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
-    public String register(@ModelAttribute AuthUserRegisterDTO dto) {
-        service.save(dto);
-        return "redirect:/auth/login";
-    }
+
 }
