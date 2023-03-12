@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Admin</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<div th:replace="fragments :: nav"></div>
+
+<div class="w-75 mx-auto">
+    <h1 class="text-center mt-3">Faculty Page</h1>
+    <div class="mt-5">
+        <a class="btn btn-primary me-4" href="/faculty/create">Add Faculty</a>
+    </div>
+</div>
+</body>
+</html>

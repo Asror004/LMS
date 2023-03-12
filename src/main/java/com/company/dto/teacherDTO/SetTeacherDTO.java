@@ -1,4 +1,4 @@
 package com.company.dto.teacherDTO;
 
-public class SetTeacherDTO {
+public record SetTeacherDTO(Integer authID,Integer subjectID) {
 }

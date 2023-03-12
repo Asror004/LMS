@@ -1,4 +1,10 @@
 package com.company.dto.facultyDTO;
 
-public record DeleteFacultyDTO(Integer id) {
+import jakarta.validation.constraints.NotNull;
+
+public record DeleteFacultyDTO(
+        @NotNull
+        Integer id
+) {
+
 }
