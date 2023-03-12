@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 public class HomeService {
     private final AuthUserRepository authRepository;
     public void get(){
-        AuthUser authUser = authRepository.findById(2).orElseThrow();
-        System.out.println(authUser);
+
     }
 }

@@ -5,10 +5,13 @@
     <link rel="stylesheet" href="">
 </head>
 <body>
+
+<div th:replace="fragments :: nav"></div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 offset-1">
-            <h1 class="mt-2 text-center">Register Page</h1>
+            <h1 class="mt-2 text-center">Student qo'shish uchun to'ldiring</h1>
             <form method="post">
 <!--                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">-->
                 <div class="mb-3">
@@ -16,19 +19,14 @@
                     <input type="text" class="form-control" id="username" name="username">
                 </div>
                 <div class="mb-3">
-                    <label for="language" class="form-label">Language code</label>
-                    <input type="text" class="form-control" id="language" name="languageId">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Parol</label>
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <label for="confirmPassword" class="form-label">Parolni tasdiqlang</label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
                 </div>
-                <button type="submit" class="btn btn-success">Register</button>
-                <a th:href="@{/auth/login}">Login</a>
+                <button type="submit" class="btn btn-success">Qo'shish</button>
             </form>
         </div>
     </div>

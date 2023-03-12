@@ -23,9 +23,7 @@ public class SecurityConfigurer {
     public static final String[] WHITE_LIST = {
             "/css/**",
             "/js/**",
-//            "/home",
-            "/auth/login",
-            "/auth/register"
+            "/auth/login"
     };
     private final AuthUserUserDetailsService authUserUserDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;

@@ -11,7 +11,6 @@ public class HomeController {
     private final HomeService service;
     @GetMapping("/home")
     public String homePage(){
-        service.get();
         return "home";
     }
 }

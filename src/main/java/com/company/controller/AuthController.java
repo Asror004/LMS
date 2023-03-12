@@ -3,6 +3,7 @@ package com.company.controller;
 import com.company.dto.AuthUserRegisterDTO;
 import com.company.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService service;
     @GetMapping("/register")
+    @PreAuthorize("hasAnyAuthority(T(com.company.security.Permissions).HAS_ADD_STUDENT_PERMISSION)")
     public String registerPage() {
         return "auth/register";
     }
@@ -33,5 +35,4 @@ public class AuthController {
         service.save(dto);
         return "redirect:/auth/login";
     }
-
 }

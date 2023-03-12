@@ -19,14 +19,12 @@ public class AuthService {
     private final AuthMapper authMapper;
 
     public void save(AuthUserRegisterDTO user) {
-        Language language = languageRepository.findById(user.languageId()).orElseThrow();
+        Language language = languageRepository.findById(1).orElseThrow();
         AuthUser authUser = AuthUser.childBuilder()
                 .username(user.username())
                 .language(language)
                 .status(AuthUser.Status.INACTIVE)
                 .password(passwordEncoder.encode(user.password())).build();
-
-        System.out.println(authUser.toString());
 
         authRepository.save(authUser);
     }

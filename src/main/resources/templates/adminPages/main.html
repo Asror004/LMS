@@ -3,14 +3,15 @@
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Admin</title>
+    <link rel="stylesheet" href="">
 </head>
 <body>
-<section th:replace="fragments :: navbar"></section>
+<div th:replace="fragments :: nav"></div>
 
 <div class="w-75 mx-auto">
-    <h1 class="text-center">Admin Page</h1>
+    <h1 class="text-center mt-3">Admin Page</h1>
     <div class="mt-5">
-        <a class="btn btn-primary me-4">Student qo'shish</a>
+        <a class="btn btn-primary me-4" href="/auth/register">Student qo'shish</a>
         <a class="btn btn-primary me-4">Studentlarni ro'yxatdan o'tkazish</a>
     </div>
 </div>

@@ -20,7 +20,7 @@ public class AuthRole extends Auditable {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name = "auth_role_permissions",
             joinColumns = @JoinColumn(name = "auth_role_id", referencedColumnName = "id"),

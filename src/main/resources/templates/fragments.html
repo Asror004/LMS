@@ -16,7 +16,7 @@
 <body>
 
 
-<section th:fragment="navbar">
+<div th:fragment="nav">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" th:text="${#authentication.name}"></a>
@@ -30,10 +30,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/home">Home</a>
                     </li>
-                    <li class="nav-item" th:if="hasRole('ADMIN')">
-                        <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link active" aria-current="page" th:href="@{/admin}">Admin</a>
                     </li>
-                    <li class="nav-item" th:if="hasRole('TEACHER')">
+                    <li class="nav-item" sec:authorize="hasRole('TEACHER')">
                         <a class="nav-link active" aria-current="page" href="#">Teacher</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -68,7 +68,7 @@
             </div>
         </div>
     </nav>
-</section>
+</div>
 
 
 <section th:fragment="js_links">
