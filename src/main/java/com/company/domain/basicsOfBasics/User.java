@@ -35,7 +35,7 @@ public class User {
     private LocalDateTime birthDate;
     @Column(nullable = false)
     private String passport;
-    private Boolean gender;
+    private String gender;
     @OneToOne(cascade = CascadeType.MERGE)
     private Document document;
 }

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+
+<div th:replace="fragments :: nav"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <h1 class="mt-2 text-center">Student qo'shish uchun to'ldiring</h1>
+            <form method="post">
+<!--                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">-->
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">FirstName</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName">
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">LastName</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName">
+                </div>
+                <div class="mb-3">
+                    <label for="middleName" class="form-label">MiddleName</label>
+                    <input type="text" class="form-control" id="middleName" name="middleName">
+                </div>
+                <div class="mb-3">
+                    <label for="birthDate" class="form-label">Birth Date</label>
+                    <input type="date" class="form-control" id="birthDate" name="birthDate">
+                </div>
+                <div class="mb-3">
+                    <label for="passport" class="form-label">Passport</label>
+                    <input type="text" class="form-control" id="passport" name="passport">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Gender</label> <br>
+                    <input type="radio" id="male" name="gender">
+                    <label for="male">Male</label> <br>
+                    <input type="radio" id="female" name="gender">
+                    <label for="female">Female</label>
+                </div>
+                <button type="submit" class="btn btn-success">Qo'shish</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
