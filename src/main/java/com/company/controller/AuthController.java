@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService service;
     @GetMapping("/register")
-    @PreAuthorize("hasAnyAuthority(T(com.company.security.Permissions).HAS_ADD_STUDENT_PERMISSION)")
+    @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
     public String registerPage() {
         return "auth/register";
     }
