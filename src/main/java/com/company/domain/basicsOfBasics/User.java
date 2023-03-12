@@ -5,6 +5,7 @@ import com.company.domain.basic.Group;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -32,10 +33,11 @@ public class User {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Address address;
     @Column(nullable = false)
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     @Column(nullable = false)
     private String passport;
-    private Boolean gender;
+    @Column(nullable = false)
+    private String gender;
     @OneToOne(cascade = CascadeType.MERGE)
     private Document document;
 }
