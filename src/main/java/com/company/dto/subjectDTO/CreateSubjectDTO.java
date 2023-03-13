@@ -1,4 +1,4 @@
 package com.company.dto.subjectDTO;
 
-public class CreateSubjectDTO {
+public record CreateSubjectDTO (String name) {
 }

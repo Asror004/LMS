@@ -18,8 +18,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User {
     @Id
-    @OneToOne(cascade = CascadeType.MERGE)
-    private AuthUser authUser;
+    private Integer authUserId;
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
@@ -29,7 +28,7 @@ public class User {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Group group;
     @ManyToOne(cascade = CascadeType.MERGE)
-    private User createdBy;
+    private AuthUser createdBy;
     @ManyToOne(cascade = CascadeType.MERGE)
     private Address address;
     @Column(nullable = false)

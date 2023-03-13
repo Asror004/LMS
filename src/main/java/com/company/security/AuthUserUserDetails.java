@@ -42,8 +42,8 @@ public record AuthUserUserDetails(AuthUser authUser) implements UserDetails {
     public String getUsername() {
         return authUser.getUsername();
     }
-    public Language getLanguage(){
-        return authUser.getLanguage();
+    public String getLanguage(){
+        return authUser.getLanguage().getCode();
     }
 
     @Override

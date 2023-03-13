@@ -1,7 +1,7 @@
 package com.company.security;
 
 import com.company.domain.auth.AuthUser;
-import com.company.repository.AuthUserRepository;
+import com.company.repository.auth.AuthUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
