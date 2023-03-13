@@ -12,6 +12,9 @@ import com.company.repository.auth.AuthRoleRepository;
 import com.company.repository.auth.AuthUserRepository;
 import com.company.security.UserSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +45,15 @@ public class UserService {
 
         authUserRepository.save(authUser);
 
+//        AuthUser authUser = authUserRepository.findById(2).orElseThrow();
+
         user.setAuthUserId(authUser.getId());
         user.setCreatedBy(session.getUser());
 
         repository.save(user);
-        System.out.println(user);
+    }
+
+    public boolean hasPassport(String passport) {
+        return repository.existsByPassport(passport);
     }
 }

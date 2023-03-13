@@ -34,11 +34,17 @@ public class UserController {
 
     @PostMapping("/register")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
-    public String register(@Valid @ModelAttribute("user") CreateUserDTO dto, BindingResult errors) {
+    public String register(@Valid @ModelAttribute("user") CreateUserDTO dto, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             return "adminPages/registerStudent";
         }
+
+        if (service.hasPassport(dto.passport())) {
+            errors.rejectValue("passport", "", "field.exist");
+            return "adminPages/registerStudent";
+        }
         service.save(dto);
-        return "redirect:/admin";
+        model.addAttribute("save", true);
+        return "adminPages/registerStudent";
     }
 }

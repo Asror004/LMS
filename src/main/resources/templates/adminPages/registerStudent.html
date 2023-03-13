@@ -2,11 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Register Page</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/css/register.css">
 </head>
 <body>
 
 <div th:replace="fragments :: nav"></div>
+
+<div th:if="${save}">
+    <div class="sc">Successfully register</div>
+    <div class="bg"></div>
+</div>
 
 <div class="container">
     <div class="row">
@@ -18,23 +23,25 @@
                     <label for="firstName" class="form-label">FirstName</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}">
                     <span th:if="${#fields.hasErrors('firstName')}">
-                        <span th:each="er : ${#fields.errors('firstName')}" th:utext="${#messages.msg('field.blank', 'FirstName')}"
-                            class="text-danger"></span>
+                        <span th:each="er : ${#fields.errors('firstName')}" th:text="${#messages.msg(er, 'FirstName')}"
+                              class="text-danger"></span>
                     </span>
                 </div>
                 <div class="mb-3">
                     <label for="lastName" class="form-label">LastName</label>
                     <input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}">
                     <span th:if="${#fields.hasErrors('lastName')}">
-                        <span th:each="er : ${#fields.errors('lastName')}" th:utext="${#messages.msg('field.blank', 'LastName')}"
+                        <span th:each="er : ${#fields.errors('lastName')}" th:text="${#messages.msg(er, 'LastName')}"
                               class="text-danger"></span>
                     </span>
                 </div>
                 <div class="mb-3">
                     <label for="middleName" class="form-label">MiddleName</label>
-                    <input type="text" class="form-control" id="middleName" name="middleName" th:field="*{middleName}">
+                    <input type="text" class="form-control" id="middleName" name="middleName"
+                           th:field="*{middleName}">
                     <span th:if="${#fields.hasErrors('middleName')}">
-                        <span th:each="er : ${#fields.errors('middleName')}" th:utext="${#messages.msg('field.blank', 'MiddleName')}"
+                        <span th:each="er : ${#fields.errors('middleName')}"
+                              th:text="${#messages.msg(er, 'MiddleName')}"
                               class="text-danger"></span>
                     </span>
                 </div>
@@ -42,7 +49,7 @@
                     <label for="birthDate" class="form-label">Birth Date</label>
                     <input type="date" class="form-control" id="birthDate" name="birthDate" th:field="*{birthDate}">
                     <span th:if="${#fields.hasErrors('birthDate')}">
-                        <span th:each="er : ${#fields.errors('birthDate')}" th:utext="${#messages.msg('field.blank', 'Birth Date')}"
+                        <span th:each="er : ${#fields.errors('birthDate')}" th:text="${#messages.msg(er, 'Birth Date')}"
                               class="text-danger"></span>
                     </span>
                 </div>
@@ -50,7 +57,7 @@
                     <label for="passport" class="form-label">Passport</label>
                     <input type="text" class="form-control" id="passport" name="passport" th:field="*{passport}">
                     <span th:if="${#fields.hasErrors('passport')}">
-                        <span th:each="er : ${#fields.errors('passport')}" th:utext="${#messages.msg('passport.not.correct')}"
+                        <span th:each="er : ${#fields.errors('passport')}" th:text="${#messages.msg(er, 'Passport')}"
                               class="text-danger"></span>
                     </span>
                 </div>
@@ -61,7 +68,7 @@
                     <input type="radio" id="female" th:value="female" name="gender">
                     <label for="female">Female</label> <br>
                     <span th:if="${#fields.hasErrors('gender')}">
-                        <span th:each="er : ${#fields.errors('gender')}" th:utext="${#messages.msg('field.not.selected=', 'Gender')}"
+                        <span th:each="er : ${#fields.errors('gender')}" th:text="${#messages.msg(er, 'Gender')}"
                               class="text-danger"></span>
                     </span>
                 </div>
@@ -70,5 +77,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>
