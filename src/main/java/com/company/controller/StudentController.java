@@ -81,4 +81,10 @@ public class StudentController {
         return "studentPages/diploma-work";
     }
 
+    @GetMapping("/subject")
+    @PreAuthorize("hasRole('STUDENT')")
+    public String subject(){
+        return "studentPages/subject";
+    }
+
 }
