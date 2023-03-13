@@ -11,7 +11,7 @@
 <div class="w-75 mx-auto">
     <h1 class="text-center mt-3">Faculty Page</h1>
     <div class="mt-5">
-        <a class="btn btn-primary me-4" href="/faculty/create">Add Faculty</a>
+        <a class="btn btn-primary me-4" href="/admin/faculty/create">Add Faculty</a>
     </div>
 </div>
 <div>
@@ -20,61 +20,106 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Action</th>
+            <th scope="col">IsDeleted</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="faculty : ${faculties}">
             <th scope="row" th:text="${faculty.id}"></th>
             <td th:text="${faculty.name}"></td>
+            <td th:text="${faculty.deleted}"></td>
             <td>
-                <button type="button" class="btn btn-info" th:onclick="getId(${faculty.id})" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">
-                    Edit
+                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdropUpdate"
+                        th:faculty-id="${faculty.id}"
+                        th:faculty-name="${faculty.name}"
+                        onclick="getIdOnClick(this)">Edit
                 </button>
 
             </td>
             <td>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:onclick="'getId(${faculty.id})'"
-                        data-bs-target="#staticBackdrop">
-                    Delete
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdropDelete"
+                        th:faculty-id="${faculty.id}"
+                        th:faculty-name="${faculty.name}"
+                        onclick="getIdOnClick(this)">Delete
                 </button>
-
             </td>
         </tr>
         </tbody>
     </table>
-    <div>
-        <!-- Modal -->
-
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+    <!-- Modal Delete-->
+    <div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabelDelete" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabelDelete" style="color: orangered">Be Careful You are Going to Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" th:action="@{/admin/faculty/delete}" th:object="${faculty}">
                     <div class="modal-body">
-                        Do you want to delete <p th:text="${faculty.id}"></p> faculty?
+                        <div>
+                            <input type="hidden" id="facultyIdInputDeleteId" th:field="*{id}">
+                        </div>
+                        <div style="color: black">
+                            You are going to delete <span id="facultyIdInputDeleteName" style="color: orangered">
+                        </span> faculty!!!
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Understood</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-
-        <!-- Modal End-->
     </div>
+    <!-- Modal End-->
+    <!-- Modal Update-->
+    <div class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabelUpdate" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #daf332">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabelUpdate">Update</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" th:action="@{/admin/faculty/update}" th:object="${faculty}">
+                    <div class="modal-body">
+                        <div>
+                            <!--/*@thymesVar id="name" type="images"*/-->
+                            <input type="hidden" id="facultyIdInputUpdateId" name="facultyIdInputUpdateId" th:field="*{id}">
+                        </div>
+                        <div>
+                            <input type="text" id="facultyIdInputUpdateName" name="facultyIdInputUpdateName" th:field="*{name}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End-->
 </div>
+
 <section th:replace="fragments::js_links">
 </section>
 <script>
-
-    function getId(id) {
-        document.getElementById("faculty_id").value = id;
+    function getIdOnClick(button) {
+        const facultyId = button.getAttribute("faculty-id"); // Get the faculty ID
+        const facultyName = button.getAttribute("faculty-name"); // Get the faculty ID
+        const facultyIdInputDeleteId = document.getElementById("facultyIdInputDeleteId"); // Get the input element
+        const facultyIdInputDeleteName = document.getElementById("facultyIdInputDeleteName"); // Get the input element
+        const facultyIdInputUpdateId = document.getElementById("facultyIdInputUpdateId"); // Get the input element
+        const facultyIdInputUpdateName = document.getElementById("facultyIdInputUpdateName"); // Get the input element
+        facultyIdInputDeleteId.value = facultyId;
+        facultyIdInputDeleteName.innerText = facultyName;
+        facultyIdInputUpdateId.value = facultyId;
+        facultyIdInputUpdateName.value = facultyName;
     }
 </script>
 </body>
