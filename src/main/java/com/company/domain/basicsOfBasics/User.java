@@ -2,6 +2,7 @@ package com.company.domain.basicsOfBasics;
 
 import com.company.domain.auth.AuthUser;
 import com.company.domain.basic.Group;
+import com.company.domain.basic.Subject;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,4 +49,6 @@ public class User {
     private List<Subject> subjects;
     @OneToOne(cascade = CascadeType.MERGE)
     private Document document;
+    @Column(columnDefinition = "boolean default 'f'")
+    private boolean deleted;
 }
