@@ -2,15 +2,15 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
-    <title th:text="#{create.name(#{name.faculty})}"></title>
+    <title th:text="#{create.name(#{name.room})}"></title>
     <link rel="stylesheet" href="">
 </head>
 <body>
 <div th:replace="fragments :: nav"></div>
 
 <div class="w-75 mx-auto">
-    <h1 class="text-center mt-3" th:text="#{create.name(#{name.faculty})}"></h1>
-    <form th:action="@{/admin/faculty/create}" method="post" class="mt-5" th:object="${faculty}">
+    <h1 class="text-center mt-3" th:text="#{create.name(#{name.room})}"></h1>
+    <form th:action="@{/admin/room/create}" method="post" class="mt-5" th:object="${room}">
         <div class="mb-3">
             <label for="name" class="form-label" th:text="#{name.name}"></label>
             <input type="text" class="form-control" id="name" name="name" th:placeholder="#{enter.smth(#{name.name})}" th:field="*{name}">
