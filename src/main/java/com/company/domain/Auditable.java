@@ -22,6 +22,6 @@ public class Auditable {
     @Column(nullable = false, columnDefinition = "timestamp default now()")
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    @Column(columnDefinition = "bool default false")
+    @Column(columnDefinition = "boolean default false")
     private Boolean deleted;
 }

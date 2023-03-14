@@ -1,9 +1,9 @@
 package com.company.dto.facultyDTO;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record CreateFacultyDTO (
-        @NotBlank(message = "Name is required")
+        @Size(min=5,max = 30,message = "create.faculty.dto.size")
         String name
 ) {
 }
