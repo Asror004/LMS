@@ -63,8 +63,6 @@ public class RoomController {
         return "redirect:/admin/room";
 
     }
-
-
     @GetMapping("/delete")
     @PreAuthorize("hasRole('ADMIN')")
     public String delete() {
