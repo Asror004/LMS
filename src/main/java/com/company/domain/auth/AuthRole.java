@@ -29,7 +29,7 @@ public class AuthRole extends Auditable {
     private Collection<AuthPermission> authPermissions;
 
     @Builder(builderMethodName = "childBuilder")
-    public AuthRole(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String name, String code, Collection<AuthPermission> authPermissions) {
+    public AuthRole(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, boolean deleted, String name, String code, Collection<AuthPermission> authPermissions) {
         super(id, createdAt, updatedAt, deleted);
         this.name = name;
         this.code = code;
