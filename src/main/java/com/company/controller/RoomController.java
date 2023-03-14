@@ -85,7 +85,7 @@
 //
 //    @PostMapping("/delete")
 //    @PreAuthorize("hasRole('ADMIN')")
-//    public String deletePost(@Valid @ModelAttribute("faculty") DeleteRoomDTO roomDTO, BindingResult errors) {
+////    public String deletePost(@Valid @ModelAttribute("faculty") DeleteRoomDTO roomDTO, BindingResult errors) {
 //        if (errors.hasErrors()) {
 //            return "crud/room/main";
 //        }

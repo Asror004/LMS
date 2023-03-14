@@ -87,4 +87,6 @@ public class StudentController {
         return "studentPages/subject";
     }
 
+//    usersession.getuserId
+
 }
