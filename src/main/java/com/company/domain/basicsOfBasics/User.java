@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +19,7 @@ import java.time.LocalDate;
 @Table(name = "users")
 public class User {
     @Id
-    private Integer authUserId;
+    private int authUserId;
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
@@ -36,6 +38,14 @@ public class User {
     private String passport;
     @Column(nullable = false)
     private String gender;
+    @Column(nullable = false)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_subject",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "authUserId"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    )
+    private List<Subject> subjects;
     @OneToOne(cascade = CascadeType.MERGE)
     private Document document;
 }

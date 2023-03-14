@@ -36,6 +36,9 @@
                     <li class="nav-item" sec:authorize="hasRole('TEACHER')">
                         <a class="nav-link active" aria-current="page" href="#">Teacher</a>
                     </li>
+                    <li class="nav-item" sec:authorize="hasRole('STUDENT')">
+                        <a class="nav-link active" aria-current="page" href="/student/main">Student</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <div class="dropdown">
