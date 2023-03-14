@@ -1,7 +1,7 @@
 package com.company.controller;
 
 import com.company.domain.basicsOfBasics.User;
-import com.company.dto.userDTO.CreateUserDTO;
+import com.company.dto.studentDTO.CreateStudentDTO;
 import com.company.security.UserSession;
 import com.company.service.UserService;
 import jakarta.validation.Valid;
@@ -34,7 +34,7 @@ public class UserController {
 
     @PostMapping("/register")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
-    public String register(@Valid @ModelAttribute("user") CreateUserDTO dto, BindingResult errors, Model model) {
+    public String register(@Valid @ModelAttribute("user") CreateStudentDTO dto, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             return "adminPages/registerStudent";
         }
