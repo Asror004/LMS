@@ -23,7 +23,7 @@ public class Address extends Auditable {
     private String street;
 
     @Builder(builderMethodName = "childBuilder")
-    public Address(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String country, String region, String city, String street) {
+    public Address(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, boolean deleted, String country, String region, String city, String street) {
         super(id, createdAt, updatedAt, deleted);
         this.country = country;
         this.region = region;

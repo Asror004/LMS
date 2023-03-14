@@ -24,7 +24,7 @@ public class Group extends Auditable {
     private User owner;
 
     @Builder(builderMethodName = "childBuilder")
-    public Group(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String name, Faculty faculty, Byte course, User owner) {
+    public Group(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, boolean deleted, String name, Faculty faculty, Byte course, User owner) {
         super(id, createdAt, updatedAt, deleted);
         this.name = name;
         this.faculty = faculty;
