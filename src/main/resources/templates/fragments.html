@@ -36,33 +36,20 @@
                     <li class="nav-item" sec:authorize="hasRole('TEACHER')">
                         <a class="nav-link active" aria-current="page" href="#">Teacher</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
+                    <div class="dropdown">
+                        <button  class="btn btn-light mt-1 me-5 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Language
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?lang=uz">O'zbekcha</a></li>
+                            <li><a class="dropdown-item" href="?lang=en">Inglizcha</a></li>
+                            <li><a class="dropdown-item" href="?lang=ru">Ruscha</a></li>
+                        </ul>
+                    </div>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/login}" sec:authorize="isAnonymous()">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/register}" sec:authorize="isAnonymous()">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/logout}" sec:authorize="isAuthenticated()">Logout</a>
+                        <a class="nav-link text-white btn btn-danger" th:href="@{/auth/logout}" sec:authorize="isAuthenticated()">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -72,8 +59,6 @@
 
 <section th:fragment="js_links">
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/main.js"></script>
 </section>
 </body>
 </html>
