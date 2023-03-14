@@ -1,9 +1,7 @@
 package com.company.dto.userDTO;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.LocalDate;
 
@@ -14,7 +12,8 @@ public record CreateUserDTO(
         String lastName,
         @NotBlank(message = "field.blank")
         String middleName,
-        @NotNull(message = "field.blank")
+        @Past(message = "date.invalid")
+        @NotNull(message = "date.invalid")
         LocalDate birthDate,
         @Pattern(regexp = "^[A-Z]{2}\\d{7}?", message = "passport.not.correct")
         String passport,

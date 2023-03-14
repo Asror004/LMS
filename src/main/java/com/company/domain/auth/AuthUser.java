@@ -47,7 +47,7 @@ public class AuthUser extends Auditable {
     }
 
     @Builder(builderMethodName = "childBuilder")
-    public AuthUser(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean deleted, String username, String password, Language language, Collection<AuthRole> authRoles, Status status) {
+    public AuthUser(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, boolean deleted, String username, String password, Language language, Collection<AuthRole> authRoles, Status status) {
         super(id, createdAt, updatedAt, deleted);
         this.username = username;
         this.password = password;

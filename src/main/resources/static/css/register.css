@@ -1,0 +1,57 @@
+@keyframes successfully {
+    0% {
+        visibility: hidden;
+    }
+    1% {
+        visibility: visible;
+        background-color: #4cf64c;
+        box-shadow: 0 0 0 2px #93fa93;
+        opacity: 0.9;
+    }
+    25%{
+        background-color: #4cf64c;
+        box-shadow: 0 0 0 8px #93fa93;
+        opacity: 0.7;
+    }
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.sc{
+    visibility: hidden;
+    z-index: 2;
+    width: 200px;
+    border: none;
+    font-size: 14px;
+    color: white;
+    padding: 6px 35px;
+    border-radius: 20px;
+    position: absolute;
+    left: 42%;
+    top: 45%;
+    animation-name: successfully;
+    animation-duration: 3.2s;
+}
+
+.bg{
+    width: 100%;
+    height: 92vh;
+    position: absolute;
+    animation-name: bg;
+    animation-duration: 4.5s;
+    z-index: -1;
+}
+
+@keyframes bg {
+    from{
+        position: absolute;
+        background-color: #3a3a3a;
+        opacity: 0.5;
+        z-index: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
