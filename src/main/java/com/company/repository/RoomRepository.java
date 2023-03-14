@@ -17,4 +17,9 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     @Query("update Room f set f.deleted = true, f.updatedAt = ?2 where f.id = ?1")
     void delete(Integer id, LocalDateTime updatedAt);
 
+
+    @Transactional
+    @Modifying
+    @Query("update Room f set f.name = ?2 , f.updatedAt = ?3 where f.id = ?1")
+    void update(Integer id, String name, LocalDateTime updatedAt);
 }
