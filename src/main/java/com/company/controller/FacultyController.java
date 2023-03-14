@@ -11,8 +11,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class FacultyController {
     public String main(Model model) {
         model.addAttribute("faculty", new Faculty());
         model.addAttribute("faculties", facultyService.findAll());
-        return "faculty/main";
+        return "crud/faculty/main";
     }
 
 
@@ -33,19 +35,14 @@ public class FacultyController {
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_FACULTY_PERMISSION)")
     public String create(Model model) {
         model.addAttribute("faculty", new Faculty());
-        model.addAttribute("enter.smth");
-        model.addAttribute("name.name");
-        model.addAttribute("create.faculty");
-        model.addAttribute("name.faculty");
-        model.addAttribute("create.name");
-        return "faculty/create";
+        return "crud/faculty/create";
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_FACULTY_PERMISSION)")
     public String createPost(@Valid @ModelAttribute("faculty") CreateFacultyDTO faculty, BindingResult errors) {
         if (errors.hasErrors()) {
-            return "faculty/create";
+            return "crud/faculty/create";
         }
         facultyService.create(faculty);
         return "redirect:/admin/faculty";
@@ -55,24 +52,15 @@ public class FacultyController {
     @GetMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
     public String update() {
-        return "faculty/update";
+        return "crud/faculty/main";
     }
 
     @PostMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
     public String updatePost(@Valid @ModelAttribute("faculty") UpdateFacultyDTO facultyDTO, BindingResult errors) {
         if (errors.hasErrors()) {
-            return "admin/faculty/update";
+            return "crud/faculty/main";
         }
-
-
-
-//            if (!blog.getTitle().equals(blog.getTitle2())) {
-//                errors.rejectValue("title", "", "fields.did.not.match.each.other");
-//                errors.rejectValue("title2", "", "fields.did.not.match.each.other");
-//                return "blog";
-//            }
-
         facultyService.update(facultyDTO);
         return "redirect:/admin/faculty";
 
@@ -90,7 +78,7 @@ public class FacultyController {
     @PreAuthorize("hasRole('ADMIN')")
     public String deletePost(@Valid @ModelAttribute("faculty") DeleteFacultyDTO facultyDTO, BindingResult errors) {
         if (errors.hasErrors()) {
-            return "admin/faculty/update";
+            return "crud/faculty/main";
         }
         facultyService.delete(facultyDTO);
         return "redirect:/admin/faculty";
