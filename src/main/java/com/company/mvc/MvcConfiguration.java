@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -71,6 +72,11 @@ public class MvcConfiguration implements WebMvcConfigurer {
         messageSource.setDefaultLocale(new Locale("uz"));
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
+    }
+
+    @Bean
+    public Pageable pageable(){
+        return Pageable.ofSize(3);
     }
 
     @Bean
