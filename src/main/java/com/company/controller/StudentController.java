@@ -24,6 +24,7 @@ public class StudentController {
     @GetMapping("/my-courses")
     @PreAuthorize("hasRole('STUDENT')")
     public String myCourses(){
+
         return "studentPages/my-courses";
     }
 
