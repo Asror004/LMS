@@ -1,15 +1,12 @@
 package com.company.controller;
 
-import com.company.domain.basic.Lesson;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
-import com.company.dto.teacherDTO.UserDetailForAttendanceDTO;
 import com.company.dto.teacherDTO.WeeklyLessonsDetail;
 import com.company.security.UserSession;
 import com.company.service.TeacherService;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +35,23 @@ public class TeacherController {
     public String homePage(){
         return "teacherPages/main";
     }
+
+
+    @GetMapping("/attendance")
+    @PreAuthorize("hasRole('TEACHER')")
+    public ModelAndView attendance(@RequestParam(name = "monday_date", required = false) String mondayDate){
+        if(mondayDate==null){
+            mondayDate = String.valueOf(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue()-1));
+        }
+        List<WeeklyLessonsDetail> weeklyLessonsDetailsByTeacherId = teacherService.getWeeklyLessonsDetailsByTeacherId(userSession.getId(), mondayDate);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/teacherPages/attendance");
+        modelAndView.addObject("lessons",weeklyLessonsDetailsByTeacherId);
+        modelAndView.addObject("monday_date",mondayDate);
+        return modelAndView;
+    }
+
+
     @PostMapping("/complete-lesson")
     @PreAuthorize("hasRole('TEACHER')")
     public ModelAndView completeLessonPage(@RequestParam(name = "lesson_id") String lessonId,
@@ -55,22 +69,6 @@ public class TeacherController {
         modelAndView.addObject("list",list);
         return modelAndView;
     }
-
-
-    @GetMapping("/attendance")
-    @PreAuthorize("hasRole('TEACHER')")
-    public ModelAndView attendance(@RequestParam(name = "monday_date", required = false) String mondayDate){
-        if(mondayDate==null){
-            mondayDate = String.valueOf(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue()-1));
-        }
-        List<WeeklyLessonsDetail> weeklyLessonsDetailsByTeacherId = teacherService.getWeeklyLessonsDetailsByTeacherId(userSession.getId(), mondayDate);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/teacherPages/attendance");
-        modelAndView.addObject("lessons",weeklyLessonsDetailsByTeacherId);
-        modelAndView.addObject("monday_date",mondayDate);
-        return modelAndView;
-    }
-
 
 
 //    @ExceptionHandler(Exception.class)

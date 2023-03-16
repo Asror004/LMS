@@ -76,14 +76,14 @@
                                 </tbody>
                             </table>
                             <div th:if="${!lesson.isCompleted()}" style="align-content: center">
-                                <div style="align-content: center">
+                                <span style="align-content: center">
                                     <button type="submit" class="btn btn-success">
                                         Complete
                                     </button>
-                                    <div style="text-align: end"> <span
-                                            th:text="${monday_date}"></span></div>
+                                    <span style="text-align: end"> <span
+                                            th:text="${monday_date}"></span></span>
 
-                                </div>
+                                </span>
                             </div>
                         </div>
                         <div>

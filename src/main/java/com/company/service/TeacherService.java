@@ -35,12 +35,10 @@ public class TeacherService {
         String singleResult = entityManager.createQuery("select weekly_lessons(:id,:monday)", String.class)
                 .setParameter("id", id)
                 .setParameter("monday", localDate).getSingleResult();
-        System.out.println(singleResult);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             List<WeeklyLessonsDetail> myObjects = objectMapper
                     .readValue(singleResult, objectMapper.getTypeFactory().constructCollectionType(List.class, WeeklyLessonsDetail.class));
-            myObjects.forEach(System.out::println);
             return myObjects;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
