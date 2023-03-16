@@ -31,7 +31,7 @@ public class TeacherService {
         this.lessonRepository = lessonRepository;
     }
 
-    public List<WeeklyLessonsDetail> getWeeklyLessonsDetailsByTeacherId(String id, String localDate) {
+    public List<WeeklyLessonsDetail> getWeeklyLessonsDetailsByTeacherId(int id, String localDate) {
         String singleResult = entityManager.createQuery("select weekly_lessons(:id,:monday)", String.class)
                 .setParameter("id", id)
                 .setParameter("monday", localDate).getSingleResult();
