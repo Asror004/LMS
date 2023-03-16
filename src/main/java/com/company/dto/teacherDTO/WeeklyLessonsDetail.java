@@ -20,5 +20,5 @@ public class WeeklyLessonsDetail {
     private String room_name;
     private String group_name;
     private String course;
-    private String completed;
+    private boolean completed;
 }
