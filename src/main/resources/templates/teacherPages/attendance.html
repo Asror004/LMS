@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Teacher Menu</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+        <tr>
+            <td>/</td>
+            <td th:text="${#messages.msg('monday')}"></td>
+            <td th:text="${#messages.msg('tuesday')}"></td>
+            <td th:text="${#messages.msg('thursday')}"></td>
+            <td th:text="${#messages.msg('wednesday')}"></td>
+            <td th:text="${#messages.msg('friday')}"></td>
+            <td th:text="${#messages.msg('saturday')}"></td>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr class="align-middle">
+            <td>1</td>
+            <td>
+                <div th:each="lesson : ${lessons}"
+                     th:if="${lesson.getPara().equals('1')&& lesson.getDayofweek().equals('1')}"></div>
+            </td>
+            <td>
+
+            </td>
+            <td>
+                <div th:each="lesson : ${lessons}"
+                     th:if="${lesson.getPara().equals('1')&& lesson.getDayofweek().equals('3')}"
+                     th:text="${lesson.getSubject_name()}"></div>
+            </td>
+            <td>
+                <div th:each="lesson : ${lessons}"
+                     th:if="${lesson.getPara().equals('1')&& lesson.getDayofweek().equals('4')}"
+                     th:text="${lesson.getSubject_name()}"></div>
+            </td>
+            <td>
+                <div th:each="lesson : ${lessons}"
+                     th:if="${lesson.getPara().equals('1')&& lesson.getDayofweek().equals('5')}"
+                     th:text="${lesson.getSubject_name()}"></div>
+            </td>
+            <td>
+                <form method="post" action="/teacher/complete-lesson">
+                    <div th:each="lesson : ${lessons}"
+                         th:if="${lesson.getPara().equals('1')&& lesson.getDayofweek().equals('6')}">
+                        <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <div style="text-align: center"><span
+                                            th:text="${#messages.msg('teacher.subject')}"> </span> : <span
+                                            th:text="${lesson.getSubject_name()}"></span></div>
+                                </tr>
+                                <tr>
+                                    <div style="text-align: center"><span
+                                            th:text="${#messages.msg('teacher.group')}"></span> : <span
+                                            th:text="${lesson.getGroup_name()}"></span> , <span
+                                            th:text="${lesson.getCourse()}"></span> - <span
+                                            th:text="${#messages.msg('teacher.course')}"/></div>
+                                </tr>
+                                <tr>
+                                    <div style=" text-align: center"><span
+                                            th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                            th:text="${lesson.getRoom_name()}"></span></div>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div th:if="${!lesson.isCompleted()}" style="align-content: center">
+                                <div style="align-content: center">
+                                    <button type="submit" class="btn btn-success">
+                                        Complete
+                                    </button>
+                                    <div style="text-align: end"> <span
+                                            th:text="${monday_date}"></span></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input name="lesson_id" th:value="${lesson.getId()}" hidden="hidden">
+                            <input name="monday_date" th:value="${monday_date}" hidden="hidden">
+                            <input name="day_off_week" th:value="${lesson.getDayofweek()}" hidden="hidden">
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+</div>
+
+<section th:replace="fragments :: js_links"></section>
+</body>
+</html>
