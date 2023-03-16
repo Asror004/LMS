@@ -19,19 +19,19 @@
         <tr>
             <th scope="col" th:text="#{name.id}"/>
             <th scope="col" th:text="#{name.name}"/>
-            <th scope="col" th:text="#{name.isDeleted}"/>
+            <th scope="col" th:text="#{name.status}"/>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="faculty : ${faculties}">
+        <tr th:each="faculty1 : ${faculties}">
             <th scope="row" th:text="${faculty.id}"></th>
-            <td th:text="${faculty.name}"></td>
-            <td th:text="${faculty.deleted}"></td>
+            <td th:text="${faculty1.name}"></td>
+            <td th:text="${faculty1.deleted}"></td>
             <td>
                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropUpdate"
-                        th:faculty-id="${faculty.id}"
-                        th:faculty-name="${faculty.name}"
+                        th:faculty-id="${faculty1.id}"
+                        th:faculty-name="${faculty1.name}"
                         onclick="getIdOnClick(this)" th:text="#{name.edit}">
                 </button>
 
@@ -39,8 +39,8 @@
             <td>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropDelete"
-                        th:faculty-id="${faculty.id}"
-                        th:faculty-name="${faculty.name}"
+                        th:faculty-id="${faculty1.id}"
+                        th:faculty-name="${faculty1.name}"
                         onclick="getIdOnClick(this)" th:text="#{name.delete}">
                 </button>
             </td>
@@ -92,12 +92,7 @@
                         </div>
                         <div>
                             <input type="text" id="facultyIdInputUpdateName" name="facultyIdInputUpdateName" th:field="*{name}">
-<!--                            <span th:if="${#fields.hasErrors('name')}">-->
-<!--                            <li th:each="er : ${#fields.errors('name')}"-->
-<!--                                th:text="${#messages.msg(er,'${name.name}')}"-->
-<!--                                class="alert alert-danger">-->
-<!--                            </li>-->
-<!--                        </span>-->
+<!--
                         </div>
                     </div>
                     <div class="modal-footer">

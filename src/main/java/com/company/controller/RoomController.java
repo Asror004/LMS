@@ -9,10 +9,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.Comparator;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,11 +38,28 @@ public class RoomController {
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_ROOM_PERMISSION)")
-    public String createPost(@Valid @ModelAttribute("room") CreateRoomDTO room, BindingResult errors) {
-        if (errors.hasErrors()) {
+    public String createPost(@RequestParam String name, @RequestParam Integer count,Model model) {
+        if (name.isBlank()) {
+            model.addAttribute("field","field.blank");
             return "crud/room/create";
         }
-        roomService.create(room);
+        if (name.length()>10) {
+            model.addAttribute("field","Must be max 10");
+            return "crud/room/create";
+        }
+        if (count<1) {
+            model.addAttribute("count","must.positive");
+            return "crud/room/create";
+        }
+//        TODO: CHECK IS ALREADY EXISTS
+//        Room byName = roomService.findByName(name.toUpperCase() + "-" + count);
+//        System.out.println(byName);
+//        if (byName != null) {
+//            model.addAttribute("field","room.exists");
+//        }
+
+
+        roomService.create(name,count);
         return "redirect:/admin/room";
     }
 
@@ -55,7 +72,7 @@ public class RoomController {
 
     @PostMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public String updatePost(@Valid @ModelAttribute("room") UpdateRoomDTO roomDTO, BindingResult errors) {
+    public String updatePost(@Valid @ModelAttribute("room") DeleteRoomDTO roomDTO, BindingResult errors) {
         if (errors.hasErrors()) {
             return "crud/room/main";
         }
