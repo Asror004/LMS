@@ -7,22 +7,33 @@
 </head>
 <body>
 <div th:replace="fragments :: nav"></div>
+<div th:replace="fragments :: student-sub-nav"></div>
 
-<div class="w-75 mx-auto">
-    <h1 class="text-center mt-3">Student Page</h1>
-    <div class="mt-5">
-        <a class="btn btn-primary me-4" href="/student/news">Dashboard</a>
-        <a class="btn btn-primary me-4" href="/student/subject">Fan tanlovi</a>
-        <a class="btn btn-primary me-4" href="/student/my-courses">Mening fanlarim</a>
-        <a class="btn btn-primary me-4" href="/student/schedule">Dars jadvali</a>
-        <a class="btn btn-primary me-4" href="/student/retake">Qayta o'qish</a>
-        <a class="btn btn-primary me-4" href="/student/finals">Yakuniy</a>
-        <a class="btn btn-primary me-4" href="/student/study-plan">Individua shaxsiy reja</a>
-        <a class="btn btn-primary me-4" href="/student/info">Ma'lumot</a>
-        <a class="btn btn-primary me-4" href="/student/survey">So'rovnoma</a>
-        <a class="btn btn-primary me-4" href="/student/certificate">Ma'lumotnoma olish</a>
-        <a class="btn btn-primary me-4" href="/student/diploma-work">Diplom ishi</a>
-    </div>
+<div class="w-auto col-md-4" style="margin: 50px 25px;">
+    <table class="table table-striped" >
+        <thead>
+        <tr>
+            <th th:text="Fan">Name</th>
+            <th th:text="Patok">Patok</th>
+            <th th:text="Sana">Date</th>
+            <th th:text="Boshlanish vaqti">Start time</th>
+            <th th:text="Xona">Room</th>
+            <th th:text="Ball">Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="" th:each="course: ${myCourses}">
+            malumot Yo'q
+<!--            <td th:text="${course.name}">Oranges</td>-->
+            <!--<td th:text="${course.professor}">0.99</td>
+            <td th:text="${course.attendance}">0.99</td>
+            <td th:text="${course.deadline}">0.99</td>
+            <td th:text="Assalom">0.99</td>-->
+        </tr>
+        </tbody>
+
+    </table>
 </div>
+
 </body>
 </html>
