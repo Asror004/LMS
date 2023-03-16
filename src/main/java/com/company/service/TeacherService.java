@@ -33,7 +33,7 @@ public class TeacherService {
 
     public List<WeeklyLessonsDetail> getWeeklyLessonsDetailsByTeacherId(int id, String localDate) {
         String singleResult = entityManager.createQuery("select weekly_lessons(:id,:monday)", String.class)
-                .setParameter("id", id)
+                .setParameter("id",String.valueOf(id))
                 .setParameter("monday", localDate).getSingleResult();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
