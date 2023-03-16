@@ -21,7 +21,7 @@ public class Lesson extends Auditable {
     private Teacher teacher;
     @ManyToOne(cascade = CascadeType.ALL)
     private Group group;
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(value = EnumType.ORDINAL)
     @Column(nullable = false)
     private DayOfWeek dayOfWeek;
     @Column(nullable = false, columnDefinition = "smallint")

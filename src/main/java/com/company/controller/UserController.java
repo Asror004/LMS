@@ -8,15 +8,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
+
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,15 +49,5 @@ public class UserController {
         return "adminPages/registerStudent";
     }
 
-    @GetMapping("/list")
-    public String list(Model model){
-        Page<User> students = service.getStudents();
-        model.addAttribute("students", students.getContent());
-        model.addAttribute("pages", students.getTotalPages());
-        model.addAttribute("hasNext", students.hasNext());
-        model.addAttribute("hasPrevious", students.hasPrevious());
-
-        return "adminPages/studentList";
-    }
 
 }

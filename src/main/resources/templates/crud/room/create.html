@@ -2,27 +2,30 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
-    <title th:text="#{create.name(#{name.faculty})}"></title>
+    <title th:text="#{create.name(#{name.room})}"></title>
     <link rel="stylesheet" href="">
 </head>
 <body>
 <div th:replace="fragments :: nav"></div>
 
 <div class="w-75 mx-auto">
-    <h1 class="text-center mt-3" th:text="#{create.name(#{name.faculty})}"></h1>
-    <form th:action="@{/admin/faculty/create}" method="post" class="mt-5" th:object="${faculty}">
+    <h1 class="text-center mt-3" th:text="#{create.name(#{name.room})}"></h1>
+    <form th:action="@{/admin/room/create}" method="post" class="mt-5" th:object="${room}">
         <div class="mb-3">
             <label for="name" class="form-label" th:text="#{name.name}"></label>
-            <input type="text" class="form-control" id="name" name="name" th:placeholder="#{enter.smth(#{name.name})}" th:field="*{name}">
-            <span th:if="${#fields.hasErrors('name')}">
-                            <li th:each="er : ${#fields.errors('name')}"
-                                th:text="${#messages.msg(er,'${name.name}')}"
-                                class="alert alert-danger">
-                            </li>
-                        </span>
+            <input type="text" class="form-control" id="name" name="name" th:placeholder="#{enter.smth(#{name.name})}">
+            <span th:if="${field != null}" th:text="#{${field}(#{name.name})}"></span>
+        </div>
+        <div class="mb-3">
+            <label for="count" class="form-label" th:text="#{name.count}"></label>
+            <input type="number" class="form-control" id="count" name="count" th:placeholder="#{enter.smth(#{name.count})}">
+            <span th:if="${count != null}" th:text="#{${count}(#{name.name})}"></span>
+<!--            todo check for - -->
+
         </div>
         <button type="submit" class="btn btn-primary" th:text="#{name.create}"></button>
     </form>
 </div>
+<section th:replace="fragments::js_links"/>
 </body>
 </html>

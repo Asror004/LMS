@@ -12,9 +12,6 @@ import com.company.repository.auth.AuthRoleRepository;
 import com.company.repository.auth.AuthUserRepository;
 import com.company.security.UserSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,10 +52,5 @@ public class UserService {
 
     public boolean hasPassport(String passport) {
         return repository.existsByPassport(passport);
-    }
-
-    public Page<User> getStudents() {
-        Pageable pageable = PageRequest.of(0, 5);
-        return repository.findAll(pageable);
     }
 }
