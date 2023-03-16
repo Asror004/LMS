@@ -6,6 +6,7 @@ import com.company.dto.teacherDTO.UserDetailForAttendanceDTO;
 import com.company.dto.teacherDTO.WeeklyLessonsDetail;
 import com.company.security.UserSession;
 import com.company.service.TeacherService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,15 +24,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/teacher")
 @ComponentScan("com.company")
+@RequiredArgsConstructor
 public class TeacherController {
 
     private final UserSession userSession;
     private final TeacherService teacherService;
-
-    public TeacherController(UserSession userSession, TeacherService teacherService) {
-        this.userSession = userSession;
-        this.teacherService = teacherService;
-    }
 
     @GetMapping("/home")
     @PreAuthorize("hasRole('TEACHER')")
