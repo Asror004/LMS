@@ -19,29 +19,28 @@
         <tr>
             <th scope="col" th:text="#{name.id}"/>
             <th scope="col" th:text="#{name.name}"/>
-            <th scope="col" th:text="#{name.isDeleted}"/>
+            <th scope="col" th:text="#{name.status}"/>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="rom : ${rooms}">
-            <th scope="row" th:text="${rom.id}"></th>
+        <tr th:each="rom, i : ${rooms}">
+            <th scope="row" th:text="${i.count}"></th>
             <td th:text="${rom.name}"></td>
-            <td th:text="${rom.name}"></td>
-            <td>
+            <td th:text="${rom.deleted}"></td>
+            <td th:if="${#bools.isTrue(rom.deleted)}">
                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropUpdate"
                         th:room-id="${rom.id}"
                         th:room-name="${rom.name}"
-                        onclick="getIdOnClick(this)" th:text="#{name.edit}">
+                        onclick="getIdOnClick(this)" th:text="#{name.activate}">
                 </button>
-
             </td>
-            <td>
+            <td th:if="${#bools.isFalse(rom.deleted)}">
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropDelete"
                         th:room-id="${rom.id}"
                         th:room-name="${rom.name}"
-                        onclick="getIdOnClick(this)" th:text="#{name.delete}">
+                        onclick="getIdOnClick(this)" th:text="#{name.deactivate}">
                 </button>
             </td>
         </tr>
@@ -62,13 +61,13 @@
                             <input type="hidden" id="roomIdInputDeleteId" th:field="*{id}">
                         </div>
                         <div style="color: black">
-                            You are going to delete <span id="roomIdInputDeleteName" style="color: orangered">
+                            You are going to Deactivate <span id="roomIdInputDeleteName" style="color: orangered">
                         </span> room!!!
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="close" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{name.close}"></button>
-                        <button type="submit" class="btn btn-danger " th:text="#{name.delete}"></button>
+                        <button type="submit" class="btn btn-danger " th:text="#{name.deactivate}"></button>
                     </div>
                 </form>
             </div>
@@ -87,22 +86,16 @@
                 <form method="post" th:action="@{/admin/room/update}" th:object="${room}">
                     <div class="modal-body">
                         <div>
-                            <!--/*@thymesVar id="name" type="images"*/-->
-                            <input type="hidden" id="roomIdInputUpdateId" name="roomIdInputUpdateId" th:field="*{id}">
+                            <input type="hidden" id="roomIdInputUpdateId" th:field="*{id}">
                         </div>
-                        <div>
-                            <input type="text" id="roomIdInputUpdateName" name="roomIdInputUpdateName" th:field="*{name}">
-                            <!--                            <span th:if="${#fields.hasErrors('name')}">-->
-                            <!--                            <li th:each="er : ${#fields.errors('name')}"-->
-                            <!--                                th:text="${#messages.msg(er,'${name.name}')}"-->
-                            <!--                                class="alert alert-danger">-->
-                            <!--                            </li>-->
-                            <!--                        </span>-->
+                        <div style="color: black">
+                            You are going to Activate <span id="roomIdInputUpdateName" style="color: blue">
+                        </span> room!!!
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="close" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{name.close}"></button>
-                        <button type="submit" class="btn btn-primary" th:text="#{name.update}"></button>
+                        <button type="submit" class="btn btn-danger " th:text="#{name.activate}"></button>
                     </div>
                 </form>
             </div>

@@ -1,4 +1,6 @@
 package com.company.dto.roomDTO;
 
-public record CreateRoomDTO(String name) {
+public record CreateRoomDTO(
+        String name
+) {
 }
