@@ -1,21 +1,22 @@
 package com.company.controller;
 
 import com.company.domain.basicsOfBasics.User;
-import com.company.dto.userDTO.CreateUserDTO;
+import com.company.dto.studentDTO.CreateStudentDTO;
 import com.company.security.UserSession;
 import com.company.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
+
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class UserController {
 
     @PostMapping("/register")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
-    public String register(@Valid @ModelAttribute("user") CreateUserDTO dto, BindingResult errors, Model model) {
+    public String register(@Valid @ModelAttribute("user") CreateStudentDTO dto, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             return "adminPages/registerStudent";
         }
@@ -47,4 +48,6 @@ public class UserController {
         model.addAttribute("save", true);
         return "adminPages/registerStudent";
     }
+
+
 }

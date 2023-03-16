@@ -13,6 +13,6 @@ public interface RoomMapper {
     Room fromCreateDTO(CreateRoomDTO dto);
     List<Room> fromCreateDTO(List<CreateRoomDTO> dtos);
     Room deleteRoom(DeleteRoomDTO dto);
-    Room updateRoom(UpdateRoomDTO dto);
+    Room updateRoom(DeleteRoomDTO dto);
 }
 

@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Diploma work</title>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Diploma Work</title>
+    <link rel="stylesheet" href="">
 </head>
 <body>
-<div th:replace="fragments :: student_nav"></div>
+<div th:replace="fragments :: nav"></div>
+<div class="w-75 mx-auto">
+    <h1 class="text-center mt-3">Student Page</h1>
+    <div class="mt-5">
+        <a class="btn btn-primary me-4" href="/student/news">Dashboard</a>
+        <a class="btn btn-primary me-4" href="/student/subject">Fan tanlovi</a>
+        <a class="btn btn-primary me-4" href="/student/my-courses">Mening fanlarim</a>
+        <a class="btn btn-primary me-4" href="/student/schedule">Dars jadvali</a>
+        <a class="btn btn-primary me-4" href="/student/subject">Qayta o'qish</a>
+        <a class="btn btn-primary me-4" href="/student/finals">Yakuniy</a>
+        <a class="btn btn-primary me-4" href="/student/study-plan">Individua shaxsiy reja</a>
+        <a class="btn btn-primary me-4" href="/student/info">Ma'lumot</a>
+        <a class="btn btn-primary me-4" href="/student/survey">So'rovnoma</a>
+        <a class="btn btn-primary me-4" href="/student/certificate">Ma'lumotnoma olish</a>
+        <a class="btn btn-primary me-4" href="/student/diploma-work">Diplom ishi</a>
+    </div>
+</div>
 </body>
 </html>
