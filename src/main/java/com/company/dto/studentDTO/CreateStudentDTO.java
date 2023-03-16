@@ -1,11 +1,10 @@
-package com.company.dto.userDTO;
+package com.company.dto.studentDTO;
 
 import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.LocalDate;
 
-public record CreateUserDTO(
+public record CreateStudentDTO(
         @NotBlank(message = "field.blank")
         String firstName,
         @NotBlank(message = "field.blank")

@@ -19,10 +19,10 @@ public class UserSession {
         return null;
     }
 
-    public Integer getId() {
+    public String getId() {
         AuthUser user = getUser();
         if (user != null)
-            return user.getId();
+            return String.valueOf(user.getId());
         return null;
     }
     public String getLanguage() {
