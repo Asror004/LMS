@@ -75,11 +75,6 @@ public class MvcConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public Pageable pageable(){
-        return Pageable.ofSize(3);
-    }
-
-    @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver("language");
         cookieLocaleResolver.setDefaultLocale(new Locale("uz"));
