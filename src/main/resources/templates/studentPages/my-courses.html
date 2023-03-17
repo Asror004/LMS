@@ -22,12 +22,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="course: ${myCourses}">
-            <td th:text="${course.name}">Oranges</td>
-            <td th:text="s">0.99</td>
-            <td th:text="s">0.99</td>
-            <td th:text="s">0.99</td>
-            <td th:text="Assalom">0.99</td>
+        <tr th:if="${lessons.size() == 0}">
+            <td colspan="5" th:text="You have no courses yet">You have no courses yet</td>
+        </tr>
+        <tr th:each="lesson: ${lessons}">
+            <td th:text="${lesson.getSubject().getName()}">Oranges</td>
+            <td th:text="${lesson.getTeacher().getUser().getFirstName()} + ' ' + ${lesson.getTeacher().getUser().getFirstName()}"></td>
+            <td th:text="Kelgan"></td>
+            <td th:text="Ertaga"></td>
+            <td th:text="Yoq"></td>
             <!--<td th:text="${course.professor}">0.99</td>
             <td th:text="${course.attendance}">0.99</td>
             <td th:text="${course.deadline}">0.99</td>

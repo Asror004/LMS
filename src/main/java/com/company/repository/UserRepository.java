@@ -11,4 +11,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByPassport(String passport);
 
     Page<User> findByDeletedFalseAndGroup_Id(Integer id, Pageable pageable);
+
+    //find GroupId by AuthUser
+    @Query("select u.group.id from User u where u.authUserId = ?1")
+    Integer findGroupIdByAuthUser(Integer id);
+
 }

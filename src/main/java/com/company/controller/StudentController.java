@@ -1,15 +1,20 @@
 package com.company.controller;
 
-import com.company.domain.basic.Subject;
+import com.company.domain.basic.Attendance;
+import com.company.domain.basic.Lesson;
+import com.company.dto.attendanceDTO.AttendanceByLessonIdDTO;
+import com.company.repository.AttendanceRepository;
+import com.company.repository.GroupRepository;
+import com.company.repository.LessonRepository;
 import com.company.repository.SubjectRepository;
 import com.company.security.UserSession;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,10 +23,19 @@ public class StudentController {
 
     private final UserSession session;
     private final SubjectRepository subjectRepository;
+    private final LessonRepository lessonRepository;
+    private final GroupRepository groupRepository;
+    private final AttendanceRepository attendanceRepository;
 
-    public StudentController(UserSession session, SubjectRepository subjectRepository) {
+    public StudentController(UserSession session, SubjectRepository subjectRepository,
+                             LessonRepository lessonRepository,
+                             GroupRepository groupRepository,
+                             AttendanceRepository attendanceRepository) {
         this.session = session;
         this.subjectRepository = subjectRepository;
+        this.lessonRepository = lessonRepository;
+        this.groupRepository = groupRepository;
+        this.attendanceRepository = attendanceRepository;
     }
 
     @GetMapping("/main")
@@ -36,19 +50,34 @@ public class StudentController {
         return "studentPages/news";
     }
 
+
     @GetMapping("/my-courses")
     @PreAuthorize("hasRole('STUDENT')")
     public String myCourses(Model model) {
-//        Object attribute = model.getAttribute("usersession.getuserId");
-//        System.out.println("attribute = " + attribute);
+        Integer id = session.getId(); // student id
 
-        Integer id = session.getId();
-        System.out.println("id = " + id);
+        List<Lesson> lessons = lessonRepository.findLessonsForStudentByUserIdUsingGroupId(id);// agar ishlamasa group ni id sini bervoriladi
+        List<String> attendancesStr = attendanceRepository.findAllAttendanceByLessonId(id);
+        List<AttendanceByLessonIdDTO> attendances = new ArrayList<>();
 
-        List<Subject> myCourses = subjectRepository.findAllSubjectsOfStudentByUserId(id);//forEach(System.out::println);
-        model.addAttribute("myCourses", myCourses);
+
+        for (String s : attendancesStr) {
+            int index = s.indexOf(",");
+            Integer lesson_id = Integer.valueOf(s.substring(0, index));
+            Integer count = Integer.valueOf(s.substring(index + 1));
+            attendances.add(new AttendanceByLessonIdDTO(lesson_id, count));
+        }
+
+        System.out.println("****************");
+        attendances.forEach(System.out::println);
+        System.out.println("****************");
+
+
+        model.addAttribute("attendances", attendances);
+        model.addAttribute("lessons", lessons);
         return "studentPages/my-courses";
     }
+
 
     @GetMapping("/schedule")
     @PreAuthorize("hasRole('STUDENT')")
@@ -109,7 +138,5 @@ public class StudentController {
     public String subject() {
         return "studentPages/subject";
     }
-
-//    usersession.getuserId
 
 }

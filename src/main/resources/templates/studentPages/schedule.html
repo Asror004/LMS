@@ -4,11 +4,97 @@
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Schedule</title>
     <link rel="stylesheet" href="">
+    <style>
+        .schedule {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td.time {
+            font-weight: bold;
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        td.class {
+            font-weight: bold;
+        }
+
+    </style>
 </head>
 <body>
 <div th:replace="fragments :: nav"></div>
 
 <div th:replace="fragments :: student-sub-nav"></div>
+
+<div class="schedule">
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="time">8:00 AM</td>
+            <td class="class">Class A</td>
+            <td class="class">Class B</td>
+            <td class="class">Class C</td>
+            <td class="class">Class D</td>
+            <td class="class">Class E</td>
+        </tr>
+        <tr>
+            <td class="time">10:00 AM</td>
+            <td class="class">Class F</td>
+            <td class="class">Class G</td>
+            <td class="class">Class H</td>
+            <td class="class">Class I</td>
+            <td class="class">Class J</td>
+        </tr>
+        <tr>
+            <td class="time">1:00 PM</td>
+            <td class="class">Class K</td>
+            <td class="class">Class L</td>
+            <td class="class">Class M</td>
+            <td class="class">Class N</td>
+            <td class="class">Class O</td>
+        </tr>
+        <tr>
+            <td class="time">3:00 PM</td>
+            <td class="class">Class P</td>
+            <td class="class">Class Q</td>
+            <td class="class">Class R</td>
+            <td class="class">Class S</td>
+            <td class="class">Class T</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 
 </body>
 </html>
