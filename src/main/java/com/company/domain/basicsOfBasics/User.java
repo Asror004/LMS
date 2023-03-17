@@ -51,4 +51,8 @@ public class User {
     private Document document;
     @Column(columnDefinition = "boolean default 'f'")
     private boolean deleted;
+
+    public User(int authUserId) {
+        this.authUserId = authUserId;
+    }
 }

@@ -70,11 +70,8 @@ public class TeacherController {
     @PostMapping("/complete-lesson-finish")
     @PreAuthorize("hasRole('TEACHER')")
     public ModelAndView completeLessonFinishPage(@Valid @ModelAttribute StudentsForAttendanceDTO studentsDTO) {
-        List<Integer> studentIdsInGroup = teacherService.getStudentIdsInGroup(studentsDTO.getGroup_id());
-
-        ModelAndView modelAndView = new ModelAndView("/teacherPages/attendance");
-        modelAndView.addObject("list");
-        return modelAndView;
+        boolean res = teacherService.completeLesson(studentsDTO);
+        return new ModelAndView("/teacherPages/attendance");
     }
 
 

@@ -70,8 +70,10 @@
         </div>
         </tbody>
     </table>
-    <input name="group_id" th:value="${list.getLesson().getGroup().getId()}">
-    <input name="date" th:value="${list.getDate()}">
+    <input name="group_id" th:value="${list.getLesson().getGroup().getId()}" hidden="hidden">
+    <input name="lesson_id" th:value="${list.getLesson().getId()}" hidden="hidden">
+    <input name="date" th:value="${list.getDate()}" hidden="hidden">
+    <button class="btn btn-success"  style="max-width: 50rem"></button>
 </form>
 <section th:replace="fragments :: js_links"></section>
 </body>

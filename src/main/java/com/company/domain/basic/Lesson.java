@@ -39,4 +39,8 @@ public class Lesson extends Auditable {
         this.para = para;
         this.room = room;
     }
+
+    public Lesson(Integer id) {
+        super(id);
+    }
 }

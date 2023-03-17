@@ -1,20 +1,28 @@
 package com.company.service;
 
 
+import com.company.domain.basic.Attendance;
 import com.company.domain.basic.Lesson;
+import com.company.domain.basicsOfBasics.User;
 import com.company.dto.studentDTO.StudentsForAttendanceDTO;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
 import com.company.dto.teacherDTO.UserDetailForAttendanceDTO;
 import com.company.dto.teacherDTO.WeeklyLessonsDetail;
+import com.company.repository.AttendanceRepository;
 import com.company.repository.LessonRepository;
 import com.company.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -24,13 +32,16 @@ public class TeacherService {
     private final EntityManager entityManager;
     private final LessonRepository lessonRepository;
     private final UserRepository userRepository;
+    private final AttendanceRepository attendanceRepository;
 
 
     public TeacherService(EntityManager entityManager,
-                          LessonRepository lessonRepository, UserRepository userRepository) {
+                          LessonRepository lessonRepository, UserRepository userRepository,
+                          AttendanceRepository attendanceRepository) {
         this.entityManager = entityManager;
         this.lessonRepository = lessonRepository;
         this.userRepository = userRepository;
+        this.attendanceRepository = attendanceRepository;
     }
 
     public List<WeeklyLessonsDetail> getWeeklyLessonsDetailsByTeacherId(int id, String localDate) {
@@ -58,9 +69,19 @@ public class TeacherService {
     }
     public boolean completeLesson(StudentsForAttendanceDTO studentsDto){
         List<Integer> ids = getStudentIdsInGroup(studentsDto.getGroup_id());
-        for (Integer id : ids) {
-
+        String[] studentIds = studentsDto.getStudent_id();
+        for (String studentId : studentIds) {
+            if (ids.contains(Integer.parseInt(studentId))) {
+                Attendance attendance = Attendance.childBuilder()
+                        .date(LocalDate.parse(studentsDto.getDate(), DateTimeFormatter.ISO_DATE))
+                        .attended(true)
+                        .lesson(new Lesson(studentsDto.getLesson_id()))
+                        .user(new User(Integer.parseInt(studentId)))
+                        .build();
+                attendanceRepository.save(attendance);
+            }
         }
+        return true;
     }
 
     public List<Integer> getStudentIdsInGroup(int groupId) {

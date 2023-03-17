@@ -13,6 +13,8 @@ public class StudentsForAttendanceDTO {
     @NotNull
     private Integer group_id;
     @NotNull
+    private Integer lesson_id;
+    @NotNull
     private String date;
     @NotNull
     @NotEmpty
