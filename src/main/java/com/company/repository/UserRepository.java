@@ -6,13 +6,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
-
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select (count(u) > 0) from User u where u.passport = ?1")
     boolean existsByPassport(String passport);
 
     Page<User> findByDeletedFalseAndGroup_Id(Integer id, Pageable pageable);
+
+    //find GroupId by AuthUser
+    @Query("select u.group.id from User u where u.authUserId = ?1")
+    Integer findGroupIdByAuthUser(Integer id);
+
 
     @Query("select u.authUserId from User u where u.group.id=?1")
     List<Integer> getUserIdsGroupId(int group_id);
