@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WeeklyLessonsDetail {
     private String dayofweek;
-    private String para;
+    private Integer para;
     private String id;
     private String group_id;
     private String room_id;
