@@ -17,9 +17,8 @@
 
 
 <div th:fragment="nav">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary w-75 mx-auto my-4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" th:text="${#authentication.name}"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -30,20 +29,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/home">Home</a>
                     </li>
-                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link active" aria-current="page" th:href="@{/admin}">Admin</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasRole('TEACHER')">
-                        <a class="nav-link active" aria-current="page" href="#">Teacher</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasRole('STUDENT')">
-                        <a class="nav-link active" aria-current="page" href="/student/main">Student</a>
-                    </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <div class="dropdown">
-                        <button  class="btn btn-light mt-1 me-5 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Language
+                        <button class="btn btn-light mt-1 me-5 dropdown-toggle"
+                                th:text="${#authentication.getPrincipal().getLanguage()}" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="?lang=uz">O'zbekcha</a></li>
@@ -51,9 +43,20 @@
                             <li><a class="dropdown-item" href="?lang=ru">Ruscha</a></li>
                         </ul>
                     </div>
-                    <li class="nav-item">
-                        <a class="nav-link text-white btn btn-danger" th:href="@{/auth/logout}" sec:authorize="isAuthenticated()">Logout</a>
-                    </li>
+                </ul>
+
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <div class="btn-group">
+                        <a class="btn btn-light" href="/user/profile" th:text="${#authentication.name}"></a>
+                        <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item bg-light" href="/user/profile">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item bg-danger text-white" href="/auth/logout">Logout</a></li>
+                        </ul>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -81,6 +84,26 @@
 
 <section th:fragment="js_links">
     <script src="/js/bootstrap.min.js"></script>
+    <script>
+
+        if (sessionStorage.getItem("refresh")){
+            sessionStorage.removeItem("refresh");
+            location.reload();
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let lang = urlParams.get('lang');
+        if (lang) {
+
+            sessionStorage.setItem("refresh", 'true');
+
+            fetch(`/language/${lang}`)
+                .then(response => console.log(response))
+                .catch(error => console.error(error));
+
+            window.history.back();
+        }
+    </script>
 </section>
 </body>
 </html>

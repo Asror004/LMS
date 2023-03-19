@@ -3,18 +3,22 @@
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Admin</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/css/register.css">
 </head>
 <body>
+
+<div id="added">
+</div>
+
 <div th:replace="fragments :: nav"></div>
 
 <div class="w-75 mx-auto">
     <h1>Add Student</h1>
-    <form method="post">
+    <form method="post" th:action="@{'/admin/searchStudent'}">
         <div class="input-group mt-5 mb-3">
             <input type="text" class="form-control" name="username" placeholder="Enter username"
-                   aria-describedby="button-addon2" th:value="${username}">
-            <input type="hidden" name="groupId" th:value="${groupId}">
+                   aria-describedby="button-addon2" id="my"
+                   onchange="sessionStorage.setItem('username', this.value)">
             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
         </div>
         <span th:if="${blank != null}" th:text="#{${blank}('Username')}" class=" mt-3 text-danger"></span>
@@ -27,7 +31,7 @@
             <ul class="pagination justify-content-center">
                 <li class="page-item">
                     <a class="page-link" th:if="${hasPrevious}"
-                       th:href="@{'?username=' + ${username} + '&pg='+${current - 1} + '&groupId=' + ${groupId}}"
+                       th:href="@{'?username=' + ${username} + '&pg='+${current - 1}}"
                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -35,11 +39,11 @@
                 <li th:each="i : ${#numbers.sequence(1, pages)}" class="page-item"
                     th:classappend="${current == i - 1} ? 'active' : ''">
                     <a class="page-link" th:text="${i}"
-                       th:href="@{'?username=' + ${username} + '&pg='+${i - 1} + '&groupId=' + ${groupId}}"></a>
+                       th:href="@{'?username=' + ${username} + '&pg='+${i - 1}}"></a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" th:if="${hasNext}"
-                       th:href="@{'?username=' + ${username} + '&pg='+${current + 1} + '&groupId=' + ${groupId}}"
+                       th:href="@{'?username=' + ${username} + '&pg='+${current + 1}}"
                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
@@ -62,10 +66,11 @@
             <td th:text="${i.count}"></td>
             <td th:text="${user.getUsername()}"></td>
             <td>
-                <a  th:href="${user.getId()}">Ma'lumotlar</a>
+                <a th:href="${user.getId()}">Ma'lumotlar</a>
             </td>
             <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" th:onclick="myFunction([[${user.getId()}]])" class="btn btn-primary"
+                        sc data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     +
                 </button>
             </td>
@@ -73,28 +78,76 @@
         </tbody>
     </table>
 
-
+    <a class="btn btn-warning text-white" id="back"
+       style="position: fixed; bottom: 65px">Back</a>
 </div>
 
 
+<span th:if="${save}">
+</span>
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Rostdan ham bu studentni guruhga qo'shmoqchimisiz?</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-danger">
-                Eslatma: Agar bu studentni boshqa guruhi bo'lsa u guruhidan chiqib ketadi va bu guruhga qo'shiladi!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
+            <form method="post" th:action="@{'/admin/addStudentGroup'}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Rostdan ham bu studentni guruhga
+                        qo'shmoqchimisiz?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-danger">
+                    Eslatma: Agar bu studentni boshqa guruhi bo'lsa u guruhidan chiqib ketadi va bu guruhga qo'shiladi!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick="addGroup()" class="btn btn-primary">Qo'shish</button>
+                    <input type="hidden" name="userId" id="id">
+                    <input type="hidden" name="groupId" id="groupId">
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<div th:if="${save}">
+    <a id="otherElement"></a>
+</div>
+
+<script>
+
+    if (sessionStorage.getItem("save")){
+        document.getElementById("added").innerHTML = `
+            <div class="sc">Successfully added</div>
+            <div class="bg"></div>
+        `;
+        sessionStorage.removeItem("save");
+    }
+    function myFunction(id) {
+        var elementById = document.getElementById('id');
+        elementById.value = id;
+    }
+
+    function addGroup() {
+        document.getElementById("groupId").value = sessionStorage.getItem("groupId");
+    }
+
+    let username = sessionStorage.getItem('username');
+
+    let element = document.getElementById("otherElement");
+
+    if (element) {
+        element.href = "/admin/searchStudent?username=" + sessionStorage.getItem("username") + "&pg=0";
+        sessionStorage.setItem("save", true);
+        element.click();
+    }
+
+    let my = document.getElementById('my');
+    my.value = username;
+
+    document.getElementById("back").href = "/admin/list?groupId=" + sessionStorage.getItem("groupId");
+</script>
 
 <section th:replace="fragments :: js_links"></section>
 </body>

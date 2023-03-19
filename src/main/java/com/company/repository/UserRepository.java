@@ -23,4 +23,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<Integer> getUserIdsGroupId(int group_id);
 
 
+
+    @Transactional
+    @Modifying
+    @Query("update User u set u.group = ?1 where u.authUserId = ?2")
+    int updateGroupByAuthUserId(Group group, int authUserId);
+
 }
