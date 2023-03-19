@@ -47,6 +47,11 @@ public class AdminService {
             pageable = PageRequest.of(pg, 5);
         }
 
-        return authUserRepository.findByDeletedFalseAndUsernameLikeIgnoreCase(username, pageable);
+        return authUserRepository.findByDeletedFalseAndUsernameLikeAndAuthRoles_Name(username, pageable);
+    }
+
+    public void addGroup(Integer userId, Integer groupId) {
+        Group group = groupRepository.findById(groupId).orElseThrow();
+        repository.updateGroupByAuthUserId(group, userId);
     }
 }

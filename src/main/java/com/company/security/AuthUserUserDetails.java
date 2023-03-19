@@ -43,7 +43,7 @@ public record AuthUserUserDetails(AuthUser authUser) implements UserDetails {
         return authUser.getUsername();
     }
     public String getLanguage(){
-        return authUser.getLanguage().getCode();
+        return authUser.getLanguage().getName();
     }
 
     @Override

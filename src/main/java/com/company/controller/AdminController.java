@@ -5,6 +5,8 @@ import com.company.domain.basic.Group;
 import com.company.domain.basicsOfBasics.User;
 import com.company.dto.studentDTO.AddStudentDTO;
 import com.company.service.AdminService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +21,7 @@ import java.util.Objects;
 @RequestMapping("/admin")
 public class AdminController {
     private final AdminService service;
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public String main(){
@@ -31,8 +34,8 @@ public class AdminController {
         Page<User> students = service.getStudents(pg, groupId);
 
         model.addAttribute("students", students.getContent());
-        model.addAttribute("groupId", groupId);
         model.addAttribute("pages", students.getTotalPages());
+        model.addAttribute("groupId", groupId);
         model.addAttribute("hasNext", students.hasNext());
         model.addAttribute("current", students.getNumber());
         model.addAttribute("hasPrevious", students.hasPrevious());
@@ -71,29 +74,36 @@ public class AdminController {
         return "adminPages/searchGroup";
     }
 
-    @GetMapping("/addStudentGroup")
-    public String searchStudentPage(@ModelAttribute AddStudentDTO dto, Model model){
-        model.addAttribute("groupId", dto.groupId());
-
+    @GetMapping("/searchStudent")
+    public String searchStudentPage(@RequestParam(required = false) Integer pg, @RequestParam(required = false) String username,
+                                    Model model){
         model.addAttribute("students", null);
 
-        if ( Objects.nonNull(dto.pg())) {
-            getStudents(model, dto.username(), dto.pg());
+        if ( Objects.nonNull(pg)) {
+            getStudents(model, username, pg);
         }
 
         return "adminPages/searchStudent";
     }
 
-    @PostMapping("/addStudentGroup")
-    public String searchStudent(@ModelAttribute AddStudentDTO dto, Model model){
-        if ( Objects.isNull(dto.username()) || dto.username().isBlank() ) {
+    @PostMapping("/searchStudent")
+    public String searchStudent(@RequestParam(required = false) Integer pg, @RequestParam(required = false) String username,
+                                Model model){
+        if ( Objects.isNull(username) || username.isBlank() ) {
             model.addAttribute("blank", "field.blank");
             return "adminPages/searchStudent";
         }
 
-        getStudents(model, dto.username(), dto.pg());
-        model.addAttribute("groupId", dto.groupId());
+        getStudents(model, username, pg);
 
+        return "adminPages/searchStudent";
+    }
+
+    @PostMapping("/addStudentGroup")
+    public String addStudent(@RequestParam(required = false) Integer userId,
+                             @RequestParam Integer groupId, Model model){
+        service.addGroup(userId, groupId);
+        model.addAttribute("save", true);
         return "adminPages/searchStudent";
     }
 

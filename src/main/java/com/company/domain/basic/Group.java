@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "groups")
 public class Group extends Auditable {

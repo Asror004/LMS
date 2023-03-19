@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 @Entity
 public class Faculty extends Auditable {
     @Column(nullable = false)
@@ -21,5 +20,12 @@ public class Faculty extends Auditable {
     public Faculty(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, boolean deleted, String name) {
         super(id, createdAt, updatedAt, deleted);
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

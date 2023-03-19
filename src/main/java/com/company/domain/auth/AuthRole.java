@@ -1,12 +1,13 @@
 package com.company.domain.auth;
 
 import com.company.domain.Auditable;
-import com.company.domain.basicsOfBasics.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -34,5 +35,13 @@ public class AuthRole extends Auditable {
         this.name = name;
         this.code = code;
         this.authPermissions = authPermissions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        AuthRole authRole = (AuthRole) o;
+        return getId() != null && Objects.equals(getId(), authRole.getId());
     }
 }

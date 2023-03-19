@@ -54,13 +54,22 @@
         </tbody>
     </table>
 
-    <div class="position-fixed" style="bottom: 80px">
-        <a class="btn btn-warning text-white" href="/admin/groupSearch">Back</a>
-        <a class="btn btn-primary position-fixed" th:href="@{'/admin/addStudentGroup?groupId='+${groupId}}" style="width: 55px; height: 47px;
+    <div class="position-fixed" style="bottom: 75px">
+        <a class="btn btn-warning text-white" id="back">Back</a>
+        <a class="btn btn-primary position-fixed" onclick="myRemove()" th:href="@{'/admin/searchStudent'}" style="width: 55px; height: 47px;
          border-radius: 47%; font-size: 22px; right: 190px; padding: 4px 6px">+</a>
     </div>
 </div>
 
 <section th:replace="fragments :: js_links"></section>
+
+<script>
+    function myRemove(){
+        sessionStorage.removeItem('username');
+    }
+
+    document.getElementById("back").href = "/admin/groupSearch?group="
+        + sessionStorage.getItem("group")+"&pg=0";
+</script>
 </body>
 </html>
