@@ -1,10 +1,13 @@
 package com.company.repository;
 
+import com.company.domain.basic.Group;
 import com.company.domain.basicsOfBasics.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +30,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying
     @Query("update User u set u.group = ?1 where u.authUserId = ?2")
-    int updateGroupByAuthUserId(Group group, int authUserId);
+    void updateGroupByAuthUserId(Group group, int authUserId);
 
 }
