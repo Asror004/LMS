@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/group")
 public class GroupController {
     private final GroupService groupService;
-    private FacultyService facultyService;
-    private TeacherService teacherService;
+    private final FacultyService facultyService;
+    private final TeacherService teacherService;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")

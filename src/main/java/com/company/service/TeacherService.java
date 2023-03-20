@@ -5,44 +5,35 @@ import com.company.domain.basic.Attendance;
 import com.company.domain.basic.Lesson;
 import com.company.domain.basicsOfBasics.User;
 import com.company.dto.studentDTO.StudentsForAttendanceDTO;
+import com.company.domain.basicsOfBasics.Teacher;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
 import com.company.dto.teacherDTO.UserDetailForAttendanceDTO;
 import com.company.dto.teacherDTO.WeeklyLessonsDetail;
 import com.company.repository.AttendanceRepository;
 import com.company.repository.LessonRepository;
+import com.company.repository.TeacherRepository;
 import com.company.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
-@ComponentScan("com.company")
-@EnableJpaRepositories
+@RequiredArgsConstructor
 public class TeacherService {
     private final EntityManager entityManager;
     private final LessonRepository lessonRepository;
+    private final TeacherRepository teacherRepository;
     private final UserRepository userRepository;
     private final AttendanceRepository attendanceRepository;
 
 
-    public TeacherService(EntityManager entityManager,
-                          LessonRepository lessonRepository, UserRepository userRepository,
-                          AttendanceRepository attendanceRepository) {
-        this.entityManager = entityManager;
-        this.lessonRepository = lessonRepository;
-        this.userRepository = userRepository;
-        this.attendanceRepository = attendanceRepository;
-    }
+
 
     public List<WeeklyLessonsDetail> getWeeklyLessonsDetailsByTeacherId(int id, String localDate) {
         String singleResult = entityManager.createQuery("select weekly_lessons(:id,:monday)", String.class)
@@ -82,6 +73,10 @@ public class TeacherService {
             }
         }
         return true;
+    }
+
+    public List<Teacher> findAll(){
+       return teacherRepository.findAll();
     }
 
     public List<Integer> getStudentIdsInGroup(int groupId) {

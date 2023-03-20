@@ -57,7 +57,7 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabelDelete" style="color: orangered">Be Careful You are Going to Delete</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" th:action="@{/admin/faculty/delete}" th:object="${faculty}">
+                <form method="post" th:action="@{/admin/group/delete}" th:object="${group}">
                     <div class="modal-body">
                         <div>
                             <input type="hidden" id="facultyIdInputDeleteId" th:field="*{id}">
@@ -85,7 +85,7 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabelUpdate">Update</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" th:action="@{/admin/faculty/update}" th:object="${faculty}">
+                <form method="post" th:action="@{/admin/group/update}" th:object="${group}">
                     <div class="modal-body">
                         <div>
                             <!--/*@thymesVar id="name" type="images"*/-->

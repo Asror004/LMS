@@ -3,6 +3,7 @@ package com.company.domain.basicsOfBasics;
 import com.company.domain.basic.Subject;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 @Getter
 @Setter
@@ -13,7 +14,8 @@ import lombok.*;
 @Entity
 public class Teacher {
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "authUserId")
+    @OneToOne(cascade = CascadeType.MERGE)
     private User user;
     @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
