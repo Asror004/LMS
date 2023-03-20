@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.domain.basic.Attendance;
 import com.company.domain.basic.Lesson;
+import com.company.dto.attendanceDTO.AttendanceAndClassesDTO;
 import com.company.dto.attendanceDTO.AttendanceByLessonIdDTO;
 import com.company.repository.AttendanceRepository;
 import com.company.repository.GroupRepository;
@@ -60,12 +61,17 @@ public class StudentController {
         List<String> attendancesStr = attendanceRepository.findAllAttendanceByLessonId(id);
         List<AttendanceByLessonIdDTO> attendances = new ArrayList<>();
 
+        List<AttendanceAndClassesDTO> combinations = new ArrayList<>();
 
         for (String s : attendancesStr) {
             int index = s.indexOf(",");
             Integer lesson_id = Integer.valueOf(s.substring(0, index));
             Integer count = Integer.valueOf(s.substring(index + 1));
             attendances.add(new AttendanceByLessonIdDTO(lesson_id, count));
+        }
+
+        for (int i = 0; i < lessons.size(); i++) {
+            combinations.add(new AttendanceAndClassesDTO(lessons.get(i), attendances.get(i)));
         }
 
         System.out.println("****************");
@@ -75,6 +81,7 @@ public class StudentController {
 
         model.addAttribute("attendances", attendances);
         model.addAttribute("lessons", lessons);
+        model.addAttribute("combinations", combinations);
         return "studentPages/my-courses";
     }
 
