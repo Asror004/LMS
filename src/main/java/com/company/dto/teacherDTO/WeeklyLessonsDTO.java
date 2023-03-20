@@ -14,5 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class WeeklyLessonsDTO {
     private LocalDate monday;
+    private int week;
     private List<DailyLessonsDetail> lessons;
 }

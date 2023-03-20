@@ -66,19 +66,27 @@ public class TeacherService {
     }
     public boolean completeLesson(StudentsForAttendanceDTO studentsDto){
         List<Integer> ids = getStudentIdsInGroup(studentsDto.getGroup_id());
-        Integer[] studentIds = studentsDto.getStudent_id();
+        List<Integer> studentIds = List.of(studentsDto.getStudent_id());
         Lesson lesson = lessonRepository.getLessonById(studentsDto.getLesson_id());
         if (lesson == null) {
             // handle case when lesson is not found
             return false;
         }
-        for (Integer studentId : studentIds) {
-            if (ids.contains(studentId)) {
+        for (Integer id : ids) {
+            if (studentIds.contains(id)) {
                 Attendance attendance = Attendance.childBuilder()
                         .date(LocalDate.parse(studentsDto.getDate(), DateTimeFormatter.ISO_DATE))
                         .attended(true)
                         .lesson(lesson)
-                        .user(new User(studentId))
+                        .user(new User(id))
+                        .build();
+                attendanceRepository.save(attendance);
+            }else {
+                Attendance attendance = Attendance.childBuilder()
+                        .date(LocalDate.parse(studentsDto.getDate(), DateTimeFormatter.ISO_DATE))
+                        .attended(false)
+                        .lesson(lesson)
+                        .user(new User(id))
                         .build();
                 attendanceRepository.save(attendance);
             }

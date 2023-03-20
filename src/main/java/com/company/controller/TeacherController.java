@@ -3,6 +3,7 @@ package com.company.controller;
 import com.company.dto.studentDTO.StudentsForAttendanceDTO;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
 import com.company.dto.teacherDTO.DailyLessonsDetail;
+import com.company.dto.teacherDTO.WeeklyLessonsDTO;
 import com.company.security.UserSession;
 import com.company.service.TeacherService;
 import com.company.utils.DateUtils;
@@ -17,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/teacher")
@@ -46,9 +49,12 @@ public class TeacherController {
             monday_date = LocalDate.parse(mondayDate, DateTimeFormatter.ISO_DATE);
         }
         List<DailyLessonsDetail> dailyLessonsDetailsByTeacherId = teacherService.getDailyLessonsDetailsByTeacherId(userSession.getId(), monday_date.toString());
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int weekNumber = monday_date.get(weekFields.weekOfWeekBasedYear());
+        WeeklyLessonsDTO weeklyLessonsDTO = new WeeklyLessonsDTO(monday_date,weekNumber, dailyLessonsDetailsByTeacherId);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/teacherPages/attendance");
-        modelAndView.addObject("lessons", dailyLessonsDetailsByTeacherId);
+        modelAndView.addObject("lessons", weeklyLessonsDTO);
         modelAndView.addObject("monday_date", monday_date);
         modelAndView.addObject("today", LocalDate.now());
         modelAndView.addObject("util", new DateUtils());
