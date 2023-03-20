@@ -29,7 +29,7 @@ public class TeacherController {
     private final UserSession userSession;
     private final TeacherService teacherService;
 
-    @GetMapping("/home")
+    @GetMapping
     @PreAuthorize("hasRole('TEACHER')")
     public String homePage() {
         return "teacherPages/main";
