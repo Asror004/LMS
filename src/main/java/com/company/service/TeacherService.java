@@ -2,6 +2,8 @@ package com.company.service;
 
 
 import com.company.domain.basic.Lesson;
+import com.company.domain.basicsOfBasics.Teacher;
+import com.company.repository.TeacherRepository;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
 import com.company.dto.teacherDTO.UserDetailForAttendanceDTO;
 import com.company.dto.teacherDTO.WeeklyLessonsDetail;
@@ -22,13 +24,16 @@ import java.util.List;
 public class TeacherService {
     private final EntityManager entityManager;
     private final LessonRepository lessonRepository;
+    private final TeacherRepository teacherRepository;
 
 
     public TeacherService(EntityManager entityManager,
                           UserRepository userRepository,
-                          LessonRepository lessonRepository) {
+                          LessonRepository lessonRepository,
+                          TeacherRepository teacherRepository) {
         this.entityManager = entityManager;
         this.lessonRepository = lessonRepository;
+        this.teacherRepository = teacherRepository;
     }
 
     public List<WeeklyLessonsDetail> getWeeklyLessonsDetailsByTeacherId(int id, String localDate) {
@@ -59,5 +64,9 @@ public class TeacherService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Teacher> findAll(){
+        return teacherRepository.findAll();
     }
 }
