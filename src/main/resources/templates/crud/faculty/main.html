@@ -23,8 +23,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="faculty1 : ${faculties}">
-            <th scope="row" th:text="${faculty.id}"></th>
+        <tr th:each="faculty1,i : ${faculties}">
+            <th scope="row" th:text="${i.count}"></th>
             <td th:text="${faculty1.name}"></td>
             <td th:text="${faculty1.deleted}"></td>
             <td>
@@ -92,7 +92,6 @@
                         </div>
                         <div>
                             <input type="text" id="facultyIdInputUpdateName" name="facultyIdInputUpdateName" th:field="*{name}">
-<!--
                         </div>
                     </div>
                     <div class="modal-footer">

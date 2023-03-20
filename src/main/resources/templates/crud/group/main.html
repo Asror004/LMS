@@ -24,15 +24,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="faculty : ${faculties}">
-            <th scope="row" th:text="${faculty.id}"></th>
-            <td th:text="${faculty.name}"></td>
-            <td th:text="${faculty.deleted}"></td>
+        <tr th:each="gr : ${groups}">
+            <th scope="row" th:text="${gr.id}"></th>
+            <td th:text="${gr.name}"></td>
+            <td th:text="${gr.deleted}"></td>
             <td>
                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropUpdate"
-                        th:faculty-id="${faculty.id}"
-                        th:faculty-name="${faculty.name}"
+                        th:gr-id="${gr.id}"
+                        th:gr-name="${gr.name}"
                         onclick="getIdOnClick(this)">Edit
                 </button>
 
@@ -40,8 +40,8 @@
             <td>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropDelete"
-                        th:faculty-id="${faculty.id}"
-                        th:faculty-name="${faculty.name}"
+                        th:gr-id="${gr.id}"
+                        th:gr-name="${gr.name}"
                         onclick="getIdOnClick(this)">Delete
                 </button>
             </td>
