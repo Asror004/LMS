@@ -13,5 +13,4 @@ public interface LessonRepository extends JpaRepository<Lesson, Integer> {
     List<Lesson> findLessonsForStudentByUserIdUsingGroupId(Integer id);
 
 
-
 }
