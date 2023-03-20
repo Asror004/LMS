@@ -2,13 +2,13 @@ package com.company.dto.studentDTO;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class StudentsForAttendanceDTO {
     @NotNull
     private Integer group_id;
@@ -18,5 +18,5 @@ public class StudentsForAttendanceDTO {
     private String date;
     @NotNull
     @NotEmpty
-    private String[] student_id;
+    private Integer[] student_id;
 }
