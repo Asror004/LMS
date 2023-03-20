@@ -6,6 +6,8 @@ import com.company.domain.basic.Lesson;
 import com.company.domain.basicsOfBasics.User;
 import com.company.dto.studentDTO.StudentsForAttendanceDTO;
 import com.company.domain.basicsOfBasics.Teacher;
+import com.company.domain.basicsOfBasics.Teacher;
+import com.company.repository.TeacherRepository;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
 import com.company.dto.teacherDTO.UserDetailForAttendanceDTO;
 import com.company.dto.teacherDTO.WeeklyLessonsDetail;
