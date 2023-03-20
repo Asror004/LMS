@@ -1,11 +1,7 @@
 package com.company.service;
 
 
-import com.company.domain.basic.Attendance;
 import com.company.domain.basic.Lesson;
-import com.company.domain.basicsOfBasics.User;
-import com.company.dto.studentDTO.StudentsForAttendanceDTO;
-import com.company.domain.basicsOfBasics.Teacher;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
 import com.company.dto.teacherDTO.UserDetailForAttendanceDTO;
 import com.company.dto.teacherDTO.WeeklyLessonsDetail;
@@ -24,13 +20,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@ComponentScan("com.company")
+@EnableJpaRepositories
 public class TeacherService {
     private final EntityManager entityManager;
     private final LessonRepository lessonRepository;
     private final TeacherRepository teacherRepository;
     private final UserRepository userRepository;
     private final AttendanceRepository attendanceRepository;
+    private final TeacherRepository teacherRepository;
 
 
 
@@ -75,11 +73,13 @@ public class TeacherService {
         return true;
     }
 
-    public List<Teacher> findAll(){
-       return teacherRepository.findAll();
-    }
+
 
     public List<Integer> getStudentIdsInGroup(int groupId) {
         return userRepository.getUserIdsGroupId(groupId);
+    }
+
+    public List<Teacher> findAll(){
+        return teacherRepository.findAll();
     }
 }
