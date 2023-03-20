@@ -16,25 +16,16 @@
             <th th:text="Fan">Name</th>
             <th th:text="Oqituvchi">Professor</th>
             <th th:text="Davomat">Attendance</th>
-            <th th:text="Amal">Deadline</th>
-            <th th:text="Reja">Plan</th>
-
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${lessons.size() == 0}">
+        <tr th:if="${combinations.size() == 0}">
             <td colspan="5" th:text="You have no courses yet">You have no courses yet</td>
         </tr>
-        <tr th:each="lesson: ${lessons}">
-            <td th:text="${lesson.getSubject().getName()}">Oranges</td>
-            <td th:text="${lesson.getTeacher().getUser().getFirstName()} + ' ' + ${lesson.getTeacher().getUser().getFirstName()}"></td>
-            <td th:text="Kelgan"></td>
-            <td th:text="Ertaga"></td>
-            <td th:text="Yoq"></td>
-            <!--<td th:text="${course.professor}">0.99</td>
-            <td th:text="${course.attendance}">0.99</td>
-            <td th:text="${course.deadline}">0.99</td>
-            <td th:text="Assalom">0.99</td>-->
+        <tr th:each="combination: ${combinations}">
+            <td th:text="${combination.getLesson().getSubject().getName()}">Fan Nomi</td>
+            <td th:text="${combination.getLesson().getTeacher().getUser().getFirstName()} + ' ' + ${combination.getLesson().getTeacher().getUser().getLastName()}">Ustoz Ismi</td>
+            <td th:text="${combination.getLesson().getId() == combination.getAttendance().getLesson_id() ? combination.getAttendance().getCount() : 'nan'} " />
         </tr>
         </tbody>
 

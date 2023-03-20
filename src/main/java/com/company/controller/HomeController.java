@@ -18,9 +18,12 @@ public class HomeController {
     public String homePage(){
 
         AuthRole admin = authRoleRepository.findByCode("ADMIN").orElseThrow();
+        AuthRole teacher = authRoleRepository.findByCode("TEACHER").orElseThrow();
 
         if ( session.getUser().getAuthRoles().contains(admin) ) {
             return "redirect: /admin";
+        } else if ( session.getUser().getAuthRoles().contains(teacher) ) {
+            return "redirect: /teacher";
         }
         return "home";
     }
