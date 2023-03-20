@@ -8,6 +8,9 @@ import com.company.dto.studentDTO.StudentsForAttendanceDTO;
 import com.company.domain.basicsOfBasics.Teacher;
 import com.company.domain.basicsOfBasics.Teacher;
 import com.company.repository.TeacherRepository;
+import com.company.domain.basicsOfBasics.Teacher;
+import com.company.domain.basicsOfBasics.User;
+import com.company.dto.studentDTO.StudentsForAttendanceDTO;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
 import com.company.dto.teacherDTO.UserDetailForAttendanceDTO;
 import com.company.dto.teacherDTO.WeeklyLessonsDetail;
@@ -19,6 +22,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
