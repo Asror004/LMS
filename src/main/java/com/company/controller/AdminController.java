@@ -3,10 +3,7 @@ package com.company.controller;
 import com.company.domain.auth.AuthUser;
 import com.company.domain.basic.Group;
 import com.company.domain.basicsOfBasics.User;
-import com.company.dto.studentDTO.AddStudentDTO;
 import com.company.service.AdminService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,7 +36,7 @@ public class AdminController {
         model.addAttribute("hasNext", students.hasNext());
         model.addAttribute("current", students.getNumber());
         model.addAttribute("hasPrevious", students.hasPrevious());
-        return "adminPages/studentList";
+        return "adminPages/student/studentList";
     }
 
     @GetMapping("/groupSearch")
@@ -49,7 +46,7 @@ public class AdminController {
         if ( Objects.nonNull(pg)) {
             getGroups(model, group, pg);
         }
-        return "adminPages/searchGroup";
+        return "adminPages/student/searchGroup";
     }
 
     private void getGroups(Model model, String group, String pg) {
@@ -66,12 +63,12 @@ public class AdminController {
     public String groupSearch(Model model, @RequestParam(required = false) String group){
         if (Objects.isNull(group) || group.isBlank()) {
             model.addAttribute("blank","field.blank");
-            return "adminPages/searchGroup";
+            return "adminPages/student/searchGroup";
         }
         getGroups(model, group, null);
 
         model.addAttribute("name", group);
-        return "adminPages/searchGroup";
+        return "adminPages/student/searchGroup";
     }
 
     @GetMapping("/searchStudent")
@@ -83,7 +80,7 @@ public class AdminController {
             getStudents(model, username, pg);
         }
 
-        return "adminPages/searchStudent";
+        return "adminPages/student/searchStudent";
     }
 
     @PostMapping("/searchStudent")
@@ -91,12 +88,12 @@ public class AdminController {
                                 Model model){
         if ( Objects.isNull(username) || username.isBlank() ) {
             model.addAttribute("blank", "field.blank");
-            return "adminPages/searchStudent";
+            return "adminPages/student/searchStudent";
         }
 
         getStudents(model, username, pg);
 
-        return "adminPages/searchStudent";
+        return "adminPages/student/searchStudent";
     }
 
     @PostMapping("/addStudentGroup")
@@ -104,7 +101,7 @@ public class AdminController {
                              @RequestParam Integer groupId, Model model){
         service.addGroup(userId, groupId);
         model.addAttribute("save", true);
-        return "adminPages/searchStudent";
+        return "adminPages/student/searchStudent";
     }
 
     private void getStudents(Model model, String username, Integer pg) {

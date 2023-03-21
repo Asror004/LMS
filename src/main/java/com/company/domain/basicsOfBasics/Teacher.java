@@ -13,8 +13,7 @@ import lombok.*;
 @Entity
 public class Teacher {
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
-    private User user;
+    private Integer user_id;
     @ManyToOne(cascade = CascadeType.ALL)
     private Subject subject;
 }

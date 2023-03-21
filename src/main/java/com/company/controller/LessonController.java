@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LessonController {
     @GetMapping("/create")
     public String createPage(){
-        return null;
+        return "adminPages/lesson/create";
     }
 }

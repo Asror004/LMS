@@ -41,7 +41,7 @@
     height: 100vh;
     position: absolute;
     animation-name: bg;
-    animation-duration: 3.5s;
+    animation-duration: 3s;
     z-index: -1;
 }
 
