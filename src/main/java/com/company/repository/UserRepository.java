@@ -32,4 +32,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("update User u set u.group = ?1 where u.authUserId = ?2")
     void updateGroupByAuthUserId(Group group, int authUserId);
 
+    @Transactional
+    @Query("select u from User u where u.authUserId = ?1")
+    User findId(Integer id);
 }

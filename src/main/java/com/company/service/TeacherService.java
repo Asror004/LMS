@@ -14,12 +14,15 @@ import com.company.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -77,23 +80,14 @@ public class TeacherService {
                 Attendance attendance = Attendance.childBuilder()
                         .date(LocalDate.parse(studentsDto.getDate(), DateTimeFormatter.ISO_DATE))
                         .attended(true)
-                        .lesson(lesson)
-                        .user(new User(id))
-                        .build();
-                attendanceRepository.save(attendance);
-            }else {
-                Attendance attendance = Attendance.childBuilder()
-                        .date(LocalDate.parse(studentsDto.getDate(), DateTimeFormatter.ISO_DATE))
-                        .attended(false)
-                        .lesson(lesson)
-                        .user(new User(id))
+                        .lesson(new Lesson(studentsDto.getLesson_id()))
+                        .user(new User(Integer.parseInt(studentId)))
                         .build();
                 attendanceRepository.save(attendance);
             }
         }
         return true;
     }
-
 
     public List<Integer> getStudentIdsInGroup(int groupId) {
         return userRepository.getUserIdsGroupId(groupId);
