@@ -16,20 +16,19 @@ import org.springframework.context.MessageSource;
         }
 )
 public record CreateGroupDTO(
-        @NotNull(message = "Course is required")
         @NotBlank(message = "Course is required")
-        @UniqueElements(message = "Group with this name already exists")
+//        @UniqueElements(message = "Group with this name already exists")
         Integer course,
 
-        @NotNull(message = "Name is required")
+//        @NotNull(message = "Name is required")
         @NotBlank(message = "Name is required")
         String name,
 
-        @NotNull(message = "Faculty is required")
+//        @NotNull(message = "Faculty is required")
         @NotBlank(message = "Faculty is required")
         Integer facultyId,
 
-        @NotNull(message = "Teacher is required")
+//        @NotNull(message = "Teacher is required")
         @NotBlank(message = "Teacher is required")
         Integer teacherId
 
