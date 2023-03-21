@@ -1,18 +1,27 @@
 package com.company.controller;
 
 import com.company.domain.basic.Group;
+import com.company.domain.basicsOfBasics.Teacher;
+import com.company.domain.basicsOfBasics.User;
 import com.company.dto.groupDTO.CreateGroupDTO;
 import com.company.dto.groupDTO.*;
+import com.company.dto.teacherDTO.AllTeachersWithNamesDTO;
+import com.company.repository.TeacherRepository;
 import com.company.service.FacultyService;
 import com.company.service.GroupService;
 import com.company.service.TeacherService;
+import com.company.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +30,7 @@ public class GroupController {
     private final GroupService groupService;
     private final FacultyService facultyService;
     private final TeacherService teacherService;
+    private final UserService userService;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -36,7 +46,13 @@ public class GroupController {
     public String create(Model model) {
         model.addAttribute("group", new Group());
         model.addAttribute("faculties", facultyService.findAll());
-        model.addAttribute("teachers", teacherService.findAll());
+        List<AllTeachersWithNamesDTO> teachers = new ArrayList<>();
+        for (Teacher teacher : teacherService.findAll()) {
+            User user = userService.findById(teacher.getUser_id());
+            teachers.add(new AllTeachersWithNamesDTO(teacher.getUser_id(), user.getFirstName(),user.getLastName()));
+        }
+        System.out.println("teachers = " + teachers);
+        model.addAttribute("teachers", teachers);
         return "crud/group/create";
     }
 

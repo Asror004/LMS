@@ -53,4 +53,8 @@ public class UserService {
     public boolean hasPassport(String passport) {
         return repository.existsByPassport(passport);
     }
+
+    public User findById(Integer id){
+        return repository.findId(id);
+    }
 }
