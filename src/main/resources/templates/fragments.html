@@ -30,9 +30,97 @@
                         <a class="nav-link" href="/home">Home</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="'Student'" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/user/register">Student qo'shish</a> </li>
+                            <li><a class="dropdown-item" href="/admin/groupSearch">Studentlar</a> </li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="'Lesson'" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/lesson/create">Lesson qo'shish</a> </li>
+                            <li><a class="dropdown-item" href="/admin/groupSearch">Studentlar</a> </li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="'Faculty'" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/admin/faculty">FACULTY</a> </li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="'Room'" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/admin/room">ROOM</a> </li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="'Subject'" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/admin/subject">SUBJECT</a> </li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="'Group'" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/admin/group">GROUP</a> </li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="'Teacher'" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/admin/teacher">TEACHER</a> </li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul style="height: 25px;
+                border-right: 1px solid #9b9b9b; margin-right: 10px; margin-left: -30px; margin-bottom: -6.5px"></ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <div class="dropdown">
-                        <button class="btn btn-light mt-1 me-5 dropdown-toggle"
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
                                 th:text="${#authentication.getPrincipal().getLanguage()}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
 
