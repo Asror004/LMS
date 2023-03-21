@@ -17,6 +17,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,6 +34,8 @@ public class TeacherService {
     private final TeacherRepository teacherRepository;
     private final UserRepository userRepository;
     private final AttendanceRepository attendanceRepository;
+
+
 
 
     public List<WeeklyLessonsDetail> getWeeklyLessonsDetailsByTeacherId(int id, String localDate) {
@@ -73,6 +78,8 @@ public class TeacherService {
         }
         return true;
     }
+
+
 
     public List<Teacher> findAll() {
         return teacherRepository.findAll();
