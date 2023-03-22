@@ -3,6 +3,8 @@ package com.company.repository;
 import com.company.domain.auth.AuthUser;
 import com.company.domain.basic.Faculty;
 import com.company.dto.facultyDTO.UpdateFacultyDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +22,9 @@ public interface FacultyRepository extends JpaRepository<Faculty, Integer> {
     @Modifying
     @Query("update Faculty f set f.deleted = true, f.updatedAt = ?2 where f.id = ?1")
     void delete(Integer id,LocalDateTime updatedAt);
+
+    @Query("select f from Faculty f where f.deleted = false")
+    Page<Faculty> findByDeletedFalse(Pageable pageable);
+
 
 }

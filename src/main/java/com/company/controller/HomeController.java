@@ -14,16 +14,16 @@ public class HomeController {
     private final HomeService service;
     private final UserSession session;
     private final AuthRoleRepository authRoleRepository;
-    @GetMapping("/home")
+    @GetMapping({"/", "/home"})
     public String homePage(){
 
         AuthRole admin = authRoleRepository.findByCode("ADMIN").orElseThrow();
         AuthRole teacher = authRoleRepository.findByCode("TEACHER").orElseThrow();
 
         if ( session.getUser().getAuthRoles().contains(admin) ) {
-            return "redirect:/admin";
+            return "redirect: /admin";
         } else if ( session.getUser().getAuthRoles().contains(teacher) ) {
-            return "redirect:/teacher/home";
+            return "redirect: /teacher/home";
         }
         return "home";
     }
