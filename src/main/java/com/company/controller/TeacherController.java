@@ -19,8 +19,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +53,7 @@ public class TeacherController {
         if(!res){
             throw new LessonsNotFoundException("lessons.not.found");
         }
-        LocalDate monday_date;
-        if (mondayDate == null) {
-            monday_date = LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() - 1);
-        } else {
-            monday_date = LocalDate.parse(mondayDate, DateTimeFormatter.ISO_DATE);
-            if (!(monday_date.minusWeeks(16).getYear()==LocalDate.now().getYear() && monday_date.getYear()==LocalDate.now().getYear())) {
-                monday_date = LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() - 1);
-            }
-        }
+        LocalDate monday_date = resolveMondayDate(mondayDate);
         List<DailyLessonsDetail> dailyLessonsDetailsByTeacherId = teacherService.getDailyLessonsDetailsByTeacherId(userSession.getId(), monday_date.toString());
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         int weekNumber = monday_date.get(weekFields.weekOfWeekBasedYear());
@@ -103,6 +97,26 @@ public class TeacherController {
         return "redirect:/teacher/attendance";
     }
 
+
+    private LocalDate resolveMondayDate(String mondayDate) {
+        LocalDate monday_date;
+        if (mondayDate == null) {
+            monday_date = LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() - 1);
+        } else {
+            monday_date = LocalDate.parse(mondayDate, DateTimeFormatter.ISO_DATE);
+            LocalDate firstMondayInYear = LocalDate.now().with(TemporalAdjusters.firstDayOfYear());
+            while (firstMondayInYear.getDayOfWeek()!=DayOfWeek.MONDAY){
+                firstMondayInYear = firstMondayInYear.plusDays(1);
+            }
+            while (monday_date.getDayOfWeek() != DayOfWeek.MONDAY) {
+                monday_date = monday_date.minusDays(1);
+            }
+            if (monday_date.isBefore(firstMondayInYear) || monday_date.isAfter(firstMondayInYear.plusWeeks(15))) {
+                monday_date = LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() - 1);
+            }
+        }
+        return monday_date;
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ModelAndView illegalArgumentException(Exception e) {
