@@ -29,23 +29,23 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
     public String registerPage(Model model) {
         model.addAttribute("user", new User());
-        return "adminPages/registerStudent";
+        return "adminPages/student/registerStudent";
     }
 
     @PostMapping("/register")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
     public String register(@Valid @ModelAttribute("user") CreateStudentDTO dto, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
-            return "adminPages/registerStudent";
+            return "adminPages/student/registerStudent";
         }
 
         if (service.hasPassport(dto.passport())) {
             errors.rejectValue("passport", "", "field.exist");
-            return "adminPages/registerStudent";
+            return "adminPages/student/registerStudent";
         }
         service.save(dto);
         model.addAttribute("save", true);
-        return "adminPages/registerStudent";
+        return "adminPages/student/registerStudent";
     }
 
 

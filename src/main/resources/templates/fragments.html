@@ -30,89 +30,94 @@
                         <a class="nav-link" href="/home">Home</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav" sec:authorize="hasAnyRole('TEACHER')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/teacher/attendance}" th:text="${#messages.msg('teacher.myattendance')}"></a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Student'" type="button"
+                                th:text="#{name.student}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
 
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/user/register">Student qo'shish</a> </li>
-                            <li><a class="dropdown-item" href="/admin/groupSearch">Studentlar</a> </li>
+                            <li><a class="dropdown-item" href="/user/register" th:text="#{create.name(#{name.student})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/groupSearch" th:text="#{name.student}"></a> </li>
                         </ul>
                     </div>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Lesson'" type="button"
+                                th:text="#{name.lesson}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
 
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/lesson/create">Lesson qo'shish</a> </li>
-                            <li><a class="dropdown-item" href="/admin/groupSearch">Studentlar</a> </li>
+                            <li><a class="dropdown-item" href="/lesson/create" th:text="#{create.name(#{name.lesson})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/groupSearch" th:text="#{name.lesson}"></a> </li>
                         </ul>
                     </div>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Faculty'" type="button"
+                                th:text="#{name.faculty}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/faculty">FACULTY</a> </li>
+                            <li><a class="dropdown-item" href="/admin/faculty/create" th:text="#{create.name(#{name.faculty})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/faculty" th:text="#{name.faculty}"></a> </li>
                         </ul>
                     </div>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Room'" type="button"
+                                th:text="#{name.room}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/room">ROOM</a> </li>
+                            <li><a class="dropdown-item" href="/admin/room/create" th:text="#{create.name(#{name.room})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/room" th:text="#{name.room}"></a> </li>
                         </ul>
                     </div>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Subject'" type="button"
+                                th:text="#{name.subject}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/subject">SUBJECT</a> </li>
+                            <li><a class="dropdown-item" href="/admin/subject/create" th:text="#{create.name(#{name.subject})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/subject" th:text="#{name.subject}"></a> </li>
                         </ul>
                     </div>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Group'" type="button"
+                                th:text="#{name.group}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/group">GROUP</a> </li>
+                            <li><a class="dropdown-item" href="/admin/group/create" th:text="#{create.name(#{name.group})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/group" th:text="#{name.group}"></a> </li>
                         </ul>
                     </div>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Teacher'" type="button"
+                                th:text="#{name.teacher}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/teacher">TEACHER</a> </li>
+                            <li><a class="dropdown-item" href="/admin/teacher/create" th:text="#{create.name(#{name.teacher})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/teacher" th:text="#{name.teacher}"></a> </li>
                         </ul>
                     </div>
                 </ul>
@@ -120,15 +125,15 @@
                 border-right: 1px solid #9b9b9b; margin-right: 10px; margin-left: -30px; margin-bottom: -6.5px"></ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <div class="dropdown">
+
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
                                 th:text="${#authentication.getPrincipal().getLanguage()}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="?lang=uz">O'zbekcha</a></li>
-                            <li><a class="dropdown-item" href="?lang=en">Inglizcha</a></li>
-                            <li><a class="dropdown-item" href="?lang=ru">Ruscha</a></li>
+                            <li><a class="dropdown-item" href="?lang=uz" th:text="#{name.lang.uz}"></a></li>
+                            <li><a class="dropdown-item" href="?lang=en" th:text="#{name.lang.en}"></a></li>
+                            <li><a class="dropdown-item" href="?lang=ru" th:text="#{name.lang.ru}"></a></li>
                         </ul>
                     </div>
                 </ul>

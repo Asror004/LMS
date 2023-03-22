@@ -8,7 +8,23 @@
     <link rel="stylesheet" href="">
 </head>
 <body>
+<section th:replace="~{fragments :: nav}"></section>
 <div class="ps-3 pe-3 pt-5">
+    <h1 style="text-align: center" th:text="${lessons.getMonday().toString()+' - '+lessons.getMonday().plusDays(6).toString()}"></h1>
+    <div class="d-flex bd-highlight mb-3">
+        <div class="p-2 bd-highlight">
+            <form th:if="${lessons.getWeek()!=1}">
+                <input name="monday_date" th:value="${lessons.getMonday().minusDays(7).toString()}" hidden="hidden">
+                <button type="submit" class="btn btn-info" th:text="${#messages.msg('prev.week')}"></button>
+            </form>
+        </div>
+        <div class="ms-auto p-2 bd-highlight">
+            <form th:if="${lessons.getWeek()!=15}">
+                <input name="monday_date" th:value="${lessons.getMonday().plusDays(7).toString()}" hidden="hidden">
+                <button style="alignment: right" type="submit" class="btn btn-info" th:text="${#messages.msg('next.week')}"></button>
+            </form>
+        </div>
+    </div>
     <div class="card border-success mb-3">
         <table class="table align-middle">
             <thead>
@@ -34,7 +50,7 @@
                     <td th:text="${i}"></td>
                     <td>
                         <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons}"
+                            <div th:each="lesson : ${lessons.getLessons()}"
                                  th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('1')}">
                                 <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
                                     <table>
@@ -59,8 +75,7 @@
                                         </tbody>
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.isAfter(today)}">
-                                        <button type="submit" class="btn btn-success" style="align-content: center">
-                                            Complete
+                                        <button type="submit" class="btn btn-success" style="align-content: center" th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -73,7 +88,7 @@
                     </td>
                     <td>
                         <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons}"
+                            <div th:each="lesson : ${lessons.getLessons()}"
                                  th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('2')}">
                                 <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
                                     <table>
@@ -99,8 +114,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(1).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -114,7 +128,7 @@
                     </td>
                     <td>
                         <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons}"
+                            <div th:each="lesson : ${lessons.getLessons()}"
                                  th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('3')}">
                                 <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
                                     <table>
@@ -140,8 +154,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(2).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -155,7 +168,7 @@
                     </td>
                     <td>
                         <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons}"
+                            <div th:each="lesson : ${lessons.getLessons()}"
                                  th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('4')}">
                                 <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
                                     <table>
@@ -181,8 +194,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(3).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -196,7 +208,7 @@
                     </td>
                     <td>
                         <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons}"
+                            <div th:each="lesson : ${lessons.getLessons()}"
                                  th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('5')}">
                                 <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
                                     <table>
@@ -222,8 +234,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(4).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success" th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -237,7 +248,7 @@
                     </td>
                     <td>
                         <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons}"
+                            <div th:each="lesson : ${lessons.getLessons()}"
                                  th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('6')}">
                                 <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
                                     <table>
@@ -263,8 +274,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(5).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success" th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
