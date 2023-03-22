@@ -53,7 +53,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabelDelete" style="color: orangered">Be Careful You are Going to Delete</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabelDelete" style="color: orangered" th:text="#{message.carefull}"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" th:action="@{/admin/faculty/delete}" th:object="${faculty}">
@@ -67,8 +67,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{name.close}"></button>
+                        <button type="submit" class="btn btn-danger" th:text="#{name.delete}"></button>
                     </div>
                 </form>
             </div>
@@ -81,7 +81,7 @@
         <div class="modal-dialog">
             <div class="modal-content" style="background-color: #daf332">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabelUpdate">Update</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabelUpdate" th:text="#{name.update}"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" th:action="@{/admin/faculty/update}" th:object="${faculty}">
@@ -95,8 +95,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{name.close}"></button>
+                        <button type="submit" class="btn btn-primary" th:text="#{name.update}"></button>
                     </div>
                 </form>
             </div>
@@ -110,10 +110,10 @@
     function getIdOnClick(button) {
         const facultyId = button.getAttribute("faculty-id"); // Get the faculty ID
         const facultyName = button.getAttribute("faculty-name"); // Get the faculty ID
-        const facultyIdInputDeleteId = document.getElementById("facultyIdInputDeleteId"); // Get the input element
-        const facultyIdInputDeleteName = document.getElementById("facultyIdInputDeleteName"); // Get the input element
-        const facultyIdInputUpdateId = document.getElementById("facultyIdInputUpdateId"); // Get the input element
-        const facultyIdInputUpdateName = document.getElementById("facultyIdInputUpdateName"); // Get the input element
+        const facultyIdInputDeleteId = document.getElementById("facultyIdInputDeleteId");
+        const facultyIdInputDeleteName = document.getElementById("facultyIdInputDeleteName");
+        const facultyIdInputUpdateId = document.getElementById("facultyIdInputUpdateId");
+        const facultyIdInputUpdateName = document.getElementById("facultyIdInputUpdateName");
         facultyIdInputDeleteId.value = facultyId;
         facultyIdInputDeleteName.innerText = facultyName;
         facultyIdInputUpdateId.value = facultyId;
