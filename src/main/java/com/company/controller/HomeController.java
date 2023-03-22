@@ -21,9 +21,9 @@ public class HomeController {
         AuthRole teacher = authRoleRepository.findByCode("TEACHER").orElseThrow();
 
         if ( session.getUser().getAuthRoles().contains(admin) ) {
-            return "redirect: /admin";
+            return "redirect:/admin";
         } else if ( session.getUser().getAuthRoles().contains(teacher) ) {
-            return "redirect: /teacher/home";
+            return "redirect:/teacher/home";
         }
         return "home";
     }
