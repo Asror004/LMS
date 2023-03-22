@@ -16,4 +16,8 @@ public class LessonService {
     public List<Faculty> getFaculties(){
         return facultyRepository.findAll();
     }
+
+    public boolean hasLesson(Integer id) {
+        return repository.hasGroup(id);
+    }
 }
