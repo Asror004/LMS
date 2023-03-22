@@ -32,7 +32,7 @@
                 </ul>
                 <ul class="navbar-nav" sec:authorize="hasAnyRole('TEACHER')">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/teacher/attendance}">My Lessons</a>
+                        <a class="nav-link" th:href="@{/teacher/attendance}" th:text="${#messages.msg('teacher.myattendance')}"></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
