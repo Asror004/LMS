@@ -95,12 +95,12 @@
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="#{name.subject}" type="button"
+                                th:text="#{name.group}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/subject/create" th:text="#{create.name(#{name.subject})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/subject/main" th:text="#{name.subject}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/group/create" th:text="#{create.name(#{name.group})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/group/main" th:text="#{name.group}"></a> </li>
                         </ul>
                     </div>
                 </ul>
