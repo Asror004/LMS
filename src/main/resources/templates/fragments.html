@@ -69,7 +69,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/admin/faculty/create" th:text="#{create.name(#{name.faculty})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/faculty/main" th:text="#{name.faculty}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/faculty" th:text="#{name.faculty}"></a> </li>
                         </ul>
                     </div>
                 </ul>
@@ -125,10 +125,9 @@
                 border-right: 1px solid #9b9b9b; margin-right: 10px; margin-left: -30px; margin-bottom: -6.5px"></ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <div class="dropdown">
-                        <!--                                th:text="${#authentication.getPrincipal().getLanguage()}" type="button"-->
 
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="#{name.lang}" type="button"
+                                th:text="${#authentication.getPrincipal().getLanguage()}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
