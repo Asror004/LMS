@@ -2,23 +2,30 @@ package com.company.controller;
 
 import com.company.domain.basic.Attendance;
 import com.company.domain.basic.Lesson;
+import com.company.domain.basic.News;
 import com.company.dto.attendanceDTO.AttendanceAndClassesDTO;
 import com.company.dto.attendanceDTO.AttendanceByLessonIdDTO;
-import com.company.repository.AttendanceRepository;
-import com.company.repository.GroupRepository;
-import com.company.repository.LessonRepository;
-import com.company.repository.SubjectRepository;
+import com.company.repository.*;
 import com.company.security.UserSession;
+import com.company.domain.basicsOfBasics.Address;
+import com.company.dto.studentDTO.UserUpdateDTO;
+import com.company.repository.UserRepository;
+import com.company.security.UserSession;
+import com.company.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/student")
 public class StudentController {
 
@@ -27,17 +34,12 @@ public class StudentController {
     private final LessonRepository lessonRepository;
     private final GroupRepository groupRepository;
     private final AttendanceRepository attendanceRepository;
+    private final NewsRepository newsRepository;
 
-    public StudentController(UserSession session, SubjectRepository subjectRepository,
-                             LessonRepository lessonRepository,
-                             GroupRepository groupRepository,
-                             AttendanceRepository attendanceRepository) {
-        this.session = session;
-        this.subjectRepository = subjectRepository;
-        this.lessonRepository = lessonRepository;
-        this.groupRepository = groupRepository;
-        this.attendanceRepository = attendanceRepository;
-    }
+    private final UserService userService;
+    private final UserSession userSession;
+    private final UserRepository userRepository;
+
 
     @GetMapping("/main")
     @PreAuthorize("hasRole('STUDENT')")
@@ -47,7 +49,10 @@ public class StudentController {
 
     @GetMapping("/news")
     @PreAuthorize("hasRole('STUDENT')")
-    public String news() {
+    public String news(Model model) {
+
+        List<News> news = newsRepository.findAll();
+        model.addAttribute("news", news);
         return "studentPages/news";
     }
 
@@ -112,9 +117,9 @@ public class StudentController {
 
     @GetMapping("/info")
     @PreAuthorize("hasRole('STUDENT')")
-    public String info() {
-        return "studentPages/info";
-    }
+    public String info(Model model) {
+        model.addAttribute("user", userService.findById().get());
+        return "studentPages/info";}
 
     @GetMapping("/survey")
     @PreAuthorize("hasRole('STUDENT')")
@@ -124,26 +129,53 @@ public class StudentController {
 
     @GetMapping("/certificate")
     @PreAuthorize("hasRole('STUDENT')")
-    public String certificate() {
+    public String certificate(){
         return "studentPages/certificate";
     }
 
     @GetMapping("/olympiad")
     @PreAuthorize("hasRole('STUDENT')")
-    public String olympiad() {
+    public String olympiad(){
         return "studentPages/olympiad";
     }
 
     @GetMapping("/diploma-work")
     @PreAuthorize("hasRole('STUDENT')")
-    public String diplomaWork() {
+    public String diplomaWork(){
         return "studentPages/diploma-work";
     }
 
     @GetMapping("/subject")
     @PreAuthorize("hasRole('STUDENT')")
-    public String subject() {
+    public String subject(){
         return "studentPages/subject";
     }
+
+    @PostMapping("/editAddress")
+    @PreAuthorize("hasRole('STUDENT')")
+    public String editAddress(@RequestParam String country,
+                              @RequestParam String region,
+                              @RequestParam String city,
+                              @RequestParam String street ){
+        Address address = Address.childBuilder()
+                .city(city)
+                .country(country)
+                .street(street)
+                .region(region)
+                .build();
+        Integer id = userSession.getId();
+        userService.updateAddress(id, address);
+    return "studentPages/main";
+    }
+    @PostMapping("/editUsername")
+    @PreAuthorize("hasRole('STUDENT')")
+    public String editUsername(@RequestParam String username ){
+        Integer id = userSession.getId();
+        userService.updateUsername(id, username);
+    return "studentPages/main";
+    }
+
+
+//    usersession.getuserId
 
 }

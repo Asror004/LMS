@@ -1,16 +1,189 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Info</title>
     <link rel="stylesheet" href="">
-</head>
-<body>
-<div th:replace="fragments :: nav"></div>
 
+
+    <title>LMS</title>
+
+    <link href="https://lms.tuit.uz/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body class="page-sidebar-fixed page-header-fixed">
+<div th:replace="fragments :: nav"></div>
 <div th:replace="fragments :: student-sub-nav"></div>
 
 
-<section th:replace="fragments :: js_links"></section>
+<!-- Page Container -->
+<div class="page-container">
+
+
+    <!-- Page Content -->
+    <div class="page-content">
+        <div class="page-inner">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="breadcrumb-header">Ma'lumot</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card relative">
+
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+                                <i class="fa fa-edit"></i> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                            </svg>
+                                <h4>Edit Adress</h4>
+                            </button>
+                            <br>
+
+                            <p class="text-center m-b-md" style="margin-top: -10px">
+                                <img src="https://lms.tuit.uz/assets/images/no-picture.jpg" alt="photo"
+                                     style="width: 150px;">
+                            </p>
+                            <p class="m-b-xs">
+                                <strong class="m-r-xxs">First Name</strong> <span
+                                    th:text="${user.getFirstName()}"></span>
+                            </p>
+
+                            <p class="m-b-xs">
+                                <strong class="m-r-xxs">Lastname:</strong> <span th:text="${user.getLastName()}"></span>
+                            </p>
+                            <p class="m-b-xs">
+                                <strong class="m-r-xxs">Birthdate:</strong> <span
+                                    th:text="${user.getBirthDate()}"></span>
+                            </p>
+                            <p class="m-b-xs">
+                                <strong class="m-r-xxs">Gender</strong> <span th:text="${user.getGender()}"></span>
+                            </p>
+
+                            <p class="m-b-xs">
+                                <strong class="m-r-xxs">Username</strong> <span th:text="${#authentication.getName()}"></span>
+                            </p>
+                            <p class="m-b-xs">
+                                <strong class="m-r-xxs">Address:</strong> <span th:text="${user.getAddress().country+' '+user.getAddress().region+' '+user.getAddress().city+' '+user.getAddress().street}"></span>
+                            </p>
+                            <p class="m-b-xs">
+                                <strong class="m-r-xxs">Group:</strong> <span th:text="${user.getGroup()}"></span>
+                            </p>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#editModal2">
+                                <i class="fa fa-edit"></i> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                            </svg>
+                                <h4>Edit Username</h4>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="editModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Tahrirlash</h4>
+
+
+                        </div>
+                        <form action="/student/editAddress" id="form" method="POST">
+                            <input type="hidden">
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="country">Country</label>
+                                            <input class="form-control" required name="country" type="text"
+                                                   id="country" th:value="${country}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group" >
+                                            <label for="region">Region</label>
+                                            <input class="form-control" required name="region" type="text"
+                                                   id="region" th:value="${region}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="city">City</label>
+                                            <input class="form-control" required name="city" type="text"
+                                                   id="city" th:value="${city} ">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="street">Street</label>
+                                            <input class="form-control" required name="street" type="text"
+                                                   id="street" th:value="${street}">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Bekor
+                                    qilish
+                                </button>
+                                <button type="submit" class="btn btn-primary">Tahrirlash</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editModal2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel2">Tahrirlash</h4>
+
+
+                        </div>
+                        <form action="/student/editUsername" id="form2" method="POST">
+                            <input type="hidden">
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input class="form-control" required name="username" type="text"
+                                                   id="username" th:value="${username}" th:placeholder="${#authentication.getName()}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Bekor
+                                    qilish
+                                </button>
+                                <button type="submit" class="btn btn-primary">Tahrirlash</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script src="https://lms.tuit.uz/assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+
+<script src="https://lms.tuit.uz/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
