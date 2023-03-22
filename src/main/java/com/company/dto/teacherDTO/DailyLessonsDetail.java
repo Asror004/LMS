@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeeklyLessonsDetail {
+public class DailyLessonsDetail {
     private String dayofweek;
     private Integer para;
     private String id;

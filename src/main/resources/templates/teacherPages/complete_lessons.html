@@ -46,7 +46,7 @@
            style="text-align: center"></p>
     </div>
 </div>
-<form method="post" action="/teacher/complete-lesson-finish">
+<form method="post" action="/teacher/complete-lesson-finish" >
     <table class="table table-bordered border-success" style="max-width: 50rem; alignment: center">
         <thead>
         <tr>
@@ -63,7 +63,7 @@
                 <td th:text="${student.getLastName()+' '+student.getFirstName()}"></td>
                 <td>
                     <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" name="student_id" th:value="${student.getId()}" checked>
+                        <input name="student_id" th:value="${student.getId()}" checked class="form-check-input mt-0" type="checkbox">
                     </div>
                 </td>
             </tr>
@@ -71,9 +71,9 @@
         </tbody>
     </table>
     <input name="group_id" th:value="${list.getLesson().getGroup().getId()}" hidden="hidden">
-    <input name="lesson_id" th:value="${list.getLesson().getId()}" hidden="hidden">
-    <input name="date" th:value="${list.getDate()}" hidden="hidden">
-    <button class="btn btn-success"  style="max-width: 50rem"></button>
+    <input name="lesson_id" th:value="${list.getLesson().getId()}" type="hidden">
+    <input name="date" th:value="${list.getDate().toString()}" type="hidden">
+    <button class="btn btn-success"  style="width: 50rem">Complete</button>
 </form>
 <section th:replace="fragments :: js_links"></section>
 </body>
