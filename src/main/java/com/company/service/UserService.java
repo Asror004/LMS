@@ -35,6 +35,8 @@ public class UserService {
     private final AuthRoleRepository authRoleRepository;
     private final AuthUserRepository authUserRepository;
     private final UserSession session;
+    private final UserRepository userRepository;
+    private final AddressRepository addressRepository;
 
     public void save(CreateStudentDTO dto) {
         User user = mapper.fromCreateDTO(dto);

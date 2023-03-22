@@ -43,17 +43,19 @@ public class StudentController {
     private final GroupRepository groupRepository;
     private final AttendanceRepository attendanceRepository;
     private final UserService userService;
+    private final NewsRepository newsRepository;
 
     public StudentController(UserSession session, SubjectRepository subjectRepository,
                              LessonRepository lessonRepository,
                              GroupRepository groupRepository,
-                             AttendanceRepository attendanceRepository, UserService userService) {
+                             AttendanceRepository attendanceRepository, UserService userService, NewsRepository newsRepository) {
         this.session = session;
         this.subjectRepository = subjectRepository;
         this.lessonRepository = lessonRepository;
         this.groupRepository = groupRepository;
         this.attendanceRepository = attendanceRepository;
         this.userService = userService;
+        this.newsRepository = newsRepository;
     }
 
     @GetMapping("/main")
@@ -181,14 +183,14 @@ public class StudentController {
                 .street(street)
                 .region(region)
                 .build();
-        Integer id = userSession.getId();
+        Integer id = session.getId();
         userService.updateAddress(id, address);
     return "studentPages/main";
     }
     @PostMapping("/editUsername")
     @PreAuthorize("hasRole('STUDENT')")
     public String editUsername(@RequestParam String username ){
-        Integer id = userSession.getId();
+        Integer id = session.getId();
         userService.updateUsername(id, username);
     return "studentPages/main";
     }
