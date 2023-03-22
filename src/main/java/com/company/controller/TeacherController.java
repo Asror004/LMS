@@ -48,7 +48,7 @@ public class TeacherController {
     @PreAuthorize("hasRole('TEACHER')")
     public ModelAndView attendance(@RequestParam(name = "monday_date", required = false) String mondayDate) throws LessonsNotFoundException {
         boolean res = lessonService.hasLesson(userSession.getId());
-        if(res){
+        if(!res){
             throw new LessonsNotFoundException("lessons.not.found");
         }
         LocalDate monday_date;
@@ -132,8 +132,8 @@ public class TeacherController {
         modelAndView.setViewName("/errorPages/generalErrorPage");
         return modelAndView;
     }
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ModelAndView lessonsNotFoundException(MethodArgumentNotValidException e) {
+    @ExceptionHandler(LessonsNotFoundException.class)
+    public ModelAndView lessonsNotFoundException(LessonsNotFoundException e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("cause", e.getMessage());
         modelAndView.addObject("prev", "/teacher/home");
