@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Schedule</title>
+    <link rel="stylesheet" href="">
 </head>
 <body>
 <div th:replace="fragments :: nav"></div>
@@ -13,18 +15,12 @@
             <thead>
             <tr>
                 <td>#</td>
-                <td style="text-align: center"><span th:text="${#messages.msg('monday')}"></span> / <span
-                        th:text="${util.plusDays(monday_date,0)}"></span></td>
-                <td style="text-align: center"><span th:text="${#messages.msg('tuesday')}"></span> / <span
-                        th:text="${util.plusDays(monday_date,1)}"></span></td>
-                <td style="text-align: center"><span th:text="${#messages.msg('wednesday')}"></span> / <span
-                        th:text="${util.plusDays(monday_date,2)}"></span></td>
-                <td style="text-align: center"><span th:text="${#messages.msg('thursday')}"></span> / <span
-                        th:text="${util.plusDays(monday_date,3)}"></span></td>
-                <td style="text-align: center"><span th:text="${#messages.msg('friday')}"></span> / <span
-                        th:text="${util.plusDays(monday_date,4)}"></span></td>
-                <td style="text-align: center"><span th:text="${#messages.msg('saturday')}"></span> / <span
-                        th:text="${util.plusDays(monday_date,5)}"></span></td>
+                <td style="text-align: center" th:text="${#messages.msg('monday')}"></td>
+                <td style="text-align: center" th:text="${#messages.msg('tuesday')}"></td>
+                <td style="text-align: center" th:text="${#messages.msg('wednesday')}">></td>
+                <td style="text-align: center" th:text="${#messages.msg('thursday')}"></td>
+                <td style="text-align: center" th:text="${#messages.msg('friday')}"></td>
+                <td style="text-align: center" th:text="${#messages.msg('saturday')}"></td>
             </tr>
             </thead>
             <tbody>
@@ -32,232 +28,160 @@
                 <tr class="align-middle" th:height="120px">
                     <td th:text="${i}"></td>
                     <td>
-                            <div th:each="lesson : ${lessons.getLessons()}"
-                                 th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('1')}">
-                                <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.subject')}"> </span> : <span
-                                                    th:text="${lesson.getSubject_name()}"></span></div>
-                                        </tr>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.group')}"></span> : <span
-                                                    th:text="${lesson.getGroup_name()}"></span> , <span
-                                                    th:text="${lesson.getCourse()}"></span> - <span
-                                                    th:text="${#messages.msg('teacher.course')}"/></div>
-                                        </tr>
-                                        <tr>
-                                            <div style=" text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.room')}"></span> : <span
-                                                    th:text="${lesson.getRoom_name()}"></span></div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==1}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')}"> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
                     </td>
                     <td>
-                        <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons.getLessons()}"
-                                 th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('2')}">
-                                <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.subject')}"> </span> : <span
-                                                    th:text="${lesson.getSubject_name()}"></span></div>
-                                        </tr>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.group')}"></span> : <span
-                                                    th:text="${lesson.getGroup_name()}"></span> , <span
-                                                    th:text="${lesson.getCourse()}"></span> - <span
-                                                    th:text="${#messages.msg('teacher.course')}"/></div>
-                                        </tr>
-                                        <tr>
-                                            <div style=" text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.room')}"></span> : <span
-                                                    th:text="${lesson.getRoom_name()}"></span></div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(1).isAfter(today)}"
-                                         style="align-content: center">
-                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
-                                        </button>
-                                    </div>
-                                </div>
-                                <div>
-                                    <input name="lesson_id" th:value="${lesson.getId()}" hidden="hidden">
-                                    <input name="today" th:value="${monday_date.plusDays(1).toString()}"
-                                           hidden="hidden">
-                                </div>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==2}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                        </div>
                     </td>
                     <td>
-                        <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons.getLessons()}"
-                                 th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('3')}">
-                                <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.subject')}"> </span> : <span
-                                                    th:text="${lesson.getSubject_name()}"></span></div>
-                                        </tr>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.group')}"></span> : <span
-                                                    th:text="${lesson.getGroup_name()}"></span> , <span
-                                                    th:text="${lesson.getCourse()}"></span> - <span
-                                                    th:text="${#messages.msg('teacher.course')}"/></div>
-                                        </tr>
-                                        <tr>
-                                            <div style=" text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.room')}"></span> : <span
-                                                    th:text="${lesson.getRoom_name()}"></span></div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(2).isAfter(today)}"
-                                         style="align-content: center">
-                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
-                                        </button>
-                                    </div>
-                                </div>
-                                <div>
-                                    <input name="lesson_id" th:value="${lesson.getId()}" hidden="hidden">
-                                    <input name="today" th:value="${monday_date.plusDays(1).toString()}"
-                                           hidden="hidden">
-                                </div>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==3}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                        </div>
                     </td>
                     <td>
-                        <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons.getLessons()}"
-                                 th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('4')}">
-                                <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.subject')}"> </span> : <span
-                                                    th:text="${lesson.getSubject_name()}"></span></div>
-                                        </tr>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.group')}"></span> : <span
-                                                    th:text="${lesson.getGroup_name()}"></span> , <span
-                                                    th:text="${lesson.getCourse()}"></span> - <span
-                                                    th:text="${#messages.msg('teacher.course')}"/></div>
-                                        </tr>
-                                        <tr>
-                                            <div style=" text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.room')}"></span> : <span
-                                                    th:text="${lesson.getRoom_name()}"></span></div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(3).isAfter(today)}"
-                                         style="align-content: center">
-                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
-                                        </button>
-                                    </div>
-                                </div>
-                                <div>
-                                    <input name="lesson_id" th:value="${lesson.getId()}" hidden="hidden">
-                                    <input name="today" th:value="${monday_date.plusDays(3).toString()}"
-                                           hidden="hidden">
-                                </div>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==4}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                        </div>
                     </td>
                     <td>
-                        <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons.getLessons()}"
-                                 th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('5')}">
-                                <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.subject')}"> </span> : <span
-                                                    th:text="${lesson.getSubject_name()}"></span></div>
-                                        </tr>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.group')}"></span> : <span
-                                                    th:text="${lesson.getGroup_name()}"></span> , <span
-                                                    th:text="${lesson.getCourse()}"></span> - <span
-                                                    th:text="${#messages.msg('teacher.course')}"/></div>
-                                        </tr>
-                                        <tr>
-                                            <div style=" text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.room')}"></span> : <span
-                                                    th:text="${lesson.getRoom_name()}"></span></div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(4).isAfter(today)}"
-                                         style="align-content: center">
-                                        <button type="submit" class="btn btn-success" th:text="${#messages.msg('teacher.complete')}">
-                                        </button>
-                                    </div>
-                                </div>
-                                <div>
-                                    <input name="lesson_id" th:value="${lesson.getId()}" hidden="hidden">
-                                    <input name="today" th:value="${monday_date.plusDays(4).toString()}"
-                                           hidden="hidden">
-                                </div>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==5}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                        </div>
                     </td>
                     <td>
-                        <form method="post" action="/teacher/complete-lesson">
-                            <div th:each="lesson : ${lessons.getLessons()}"
-                                 th:if="${lesson.getPara().equals(i)&& lesson.getDayofweek().equals('6')}">
-                                <div th:style="${lesson.isCompleted()} ? 'background-color : #84ff68' : 'background-color : #ff7763'">
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.subject')}"> </span> : <span
-                                                    th:text="${lesson.getSubject_name()}"></span></div>
-                                        </tr>
-                                        <tr>
-                                            <div style="text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.group')}"></span> : <span
-                                                    th:text="${lesson.getGroup_name()}"></span> , <span
-                                                    th:text="${lesson.getCourse()}"></span> - <span
-                                                    th:text="${#messages.msg('teacher.course')}"/></div>
-                                        </tr>
-                                        <tr>
-                                            <div style=" text-align: center"><span
-                                                    th:text="${#messages.msg('teacher.room')}"></span> : <span
-                                                    th:text="${lesson.getRoom_name()}"></span></div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(5).isAfter(today)}"
-                                         style="align-content: center">
-                                        <button type="submit" class="btn btn-success" th:text="${#messages.msg('teacher.complete')}">
-                                        </button>
-                                    </div>
-                                </div>
-                                <div>
-                                    <input name="lesson_id" th:value="${lesson.getId()}" hidden="hidden">
-                                    <input name="today" th:value="${monday_date.plusDays(5).toString()}"
-                                           hidden="hidden">
-                                </div>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==6}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                        </div>
                     </td>
                 </tr>
             </th:block>

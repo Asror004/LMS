@@ -48,7 +48,7 @@ public class TeacherController {
 
     @GetMapping("/attendance")
     @PreAuthorize("hasRole('TEACHER')")
-    public ModelAndView attendance(@RequestParam(name = "monday_date", required = false) String mondayDate) throws LessonsNotFoundException {
+    public ModelAndView attendance(@RequestParam(name = "monday_date", required = false) String mondayDate) throws LessonsNotFoundException, JsonProcessingException {
         boolean res = lessonService.hasLesson(userSession.getId());
         if(!res){
             throw new LessonsNotFoundException("lessons.not.found");
