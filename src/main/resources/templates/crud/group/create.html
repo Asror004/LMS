@@ -23,19 +23,8 @@
                         </span>
         </div>
         <div class="mb-3">
-            <label for="course" class="form-label" th:text="#{name.course}"></label>
-            <input type="text" class="form-control" id="course" name="course" th:placeholder="#{enter.smth(#{name.course})}" th:field="*{course}">
-            <span th:if="${#fields.hasErrors('course')}">
-                            <li th:each="er : ${#fields.errors('course')}"
-                                th:text="#{${er}(#{name.course})}"
-
-                                class="alert alert-danger">
-                            </li>
-                        </span>
-        </div>
-        <div class="mb-3">
-            <label for="faculty" class="form-label" th:text="#{name.faculty}"></label>
-            <select class="form-select" id="faculty" name="faculty" th:field="*{faculty}">
+            <label for="facultyId" class="form-label" th:text="#{name.faculty}"></label>
+            <select class="form-select" id="facultyId" name="facultyId" th:field="*{faculty}">
                 <option value="" th:text="#{select.smth(#{name.faculty})}"></option>
                 <option th:each="f : ${faculties}"
                         th:value="${f.id}"
@@ -51,8 +40,19 @@
                         </span>
         </div>
         <div class="mb-3">
-            <label for="teacher" class="form-label" th:text="#{name.teacher}"></label>
-            <select class="form-select" id="teacher" name="teacher" th:field="*{owner}">
+            <label for="course" class="form-label" th:text="#{name.course}"></label>
+            <input type="text" class="form-control" id="course" name="course" th:placeholder="#{enter.smth(#{name.course})}" th:field="*{course}">
+            <span th:if="${#fields.hasErrors('course')}">
+                            <li th:each="er : ${#fields.errors('course')}"
+                                th:text="#{${er}(#{name.course})}"
+
+                                class="alert alert-danger">
+                            </li>
+                        </span>
+        </div>
+        <div class="mb-3">
+            <label for="teacherId" class="form-label" th:text="#{name.teacher}"></label>
+            <select class="form-select" id="teacherId" name="teacherId" th:field="*{owner}">
                 <option value="" th:text="#{select.smth(#{name.teacher})}"></option>
                 <option th:each="t : ${teachers}"
                         th:value="${t.id}"

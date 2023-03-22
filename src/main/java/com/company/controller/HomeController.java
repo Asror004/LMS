@@ -14,7 +14,7 @@ public class HomeController {
     private final HomeService service;
     private final UserSession session;
     private final AuthRoleRepository authRoleRepository;
-    @GetMapping("/home")
+    @GetMapping({"/", "/home"})
     public String homePage(){
 
         AuthRole admin = authRoleRepository.findByCode("ADMIN").orElseThrow();

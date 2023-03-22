@@ -69,7 +69,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/admin/faculty/create" th:text="#{create.name(#{name.faculty})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/faculty/main" th:text="#{name.faculty}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/faculty" th:text="#{name.faculty}"></a> </li>
                         </ul>
                     </div>
                 </ul>
@@ -81,7 +81,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/admin/room/create" th:text="#{create.name(#{name.room})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/room/main" th:text="#{name.room}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/room" th:text="#{name.room}"></a> </li>
                         </ul>
                     </div>
                 </ul>
@@ -93,7 +93,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/admin/subject/create" th:text="#{create.name(#{name.subject})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/subject/main" th:text="#{name.subject}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/subject" th:text="#{name.subject}"></a> </li>
                         </ul>
                     </div>
                 </ul>
@@ -105,7 +105,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/admin/group/create" th:text="#{create.name(#{name.group})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/group/main" th:text="#{name.group}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/group" th:text="#{name.group}"></a> </li>
                         </ul>
                     </div>
                 </ul>
@@ -117,7 +117,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/admin/teacher/create" th:text="#{create.name(#{name.teacher})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/teacher/main" th:text="#{name.teacher}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/teacher" th:text="#{name.teacher}"></a> </li>
                         </ul>
                     </div>
                 </ul>
@@ -125,10 +125,9 @@
                 border-right: 1px solid #9b9b9b; margin-right: 10px; margin-left: -30px; margin-bottom: -6.5px"></ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <div class="dropdown">
-                        <!--                                th:text="${#authentication.getPrincipal().getLanguage()}" type="button"-->
 
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="#{name.lang}" type="button"
+                                th:text="${#authentication.getPrincipal().getLanguage()}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
