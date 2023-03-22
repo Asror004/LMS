@@ -9,6 +9,6 @@
 </head>
 <body>
 <section th:replace="~{fragments :: nav}"></section>
-<h1 style="text-align: center" th:text="|Welcome Teacher,  ${#authentication.name}!|"></h1>
+<h1 style="text-align: center" th:text="${#messages.msg('teacher.welcome')}"></h1>
 </body>
 </html>
