@@ -4,7 +4,9 @@ import com.company.domain.auth.AuthUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -14,4 +16,8 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Integer> {
 
     @Query("select a from AuthUser a where a.deleted = false and a.username ilike '%'||?1||'%'")
     Page<AuthUser> findByDeletedFalseAndUsernameLikeIgnoreCase(String username, Pageable pageable);
+
+    @Query("update AuthUser a set a.username = ?2 where a.id = ?1")
+    boolean updateUsername(Integer id, String username);
+
 }
