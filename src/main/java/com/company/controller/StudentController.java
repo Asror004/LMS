@@ -1,19 +1,23 @@
 package com.company.controller;
 
-import com.company.domain.basic.Attendance;
 import com.company.domain.basic.Lesson;
 import com.company.dto.attendanceDTO.AttendanceAndClassesDTO;
 import com.company.dto.attendanceDTO.AttendanceByLessonIdDTO;
+import com.company.dto.teacherDTO.UserLessonsDTO;
 import com.company.repository.AttendanceRepository;
 import com.company.repository.GroupRepository;
 import com.company.repository.LessonRepository;
 import com.company.repository.SubjectRepository;
 import com.company.security.UserSession;
+import com.company.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +31,18 @@ public class StudentController {
     private final LessonRepository lessonRepository;
     private final GroupRepository groupRepository;
     private final AttendanceRepository attendanceRepository;
+    private final UserService userService;
 
     public StudentController(UserSession session, SubjectRepository subjectRepository,
                              LessonRepository lessonRepository,
                              GroupRepository groupRepository,
-                             AttendanceRepository attendanceRepository) {
+                             AttendanceRepository attendanceRepository, UserService userService) {
         this.session = session;
         this.subjectRepository = subjectRepository;
         this.lessonRepository = lessonRepository;
         this.groupRepository = groupRepository;
         this.attendanceRepository = attendanceRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/main")
@@ -88,8 +94,11 @@ public class StudentController {
 
     @GetMapping("/schedule")
     @PreAuthorize("hasRole('STUDENT')")
-    public String schedule() {
-        return "studentPages/schedule";
+    public ModelAndView schedule(Model model) throws JsonProcessingException {
+        List<UserLessonsDTO> userLessons = userService.getUserLessons(session.getId());
+        ModelAndView modelAndView = new ModelAndView("studentPages/schedule");
+        modelAndView.addObject("lessons", userLessons);
+        return modelAndView;
     }
 
     @GetMapping("/retake")
@@ -146,4 +155,13 @@ public class StudentController {
         return "studentPages/subject";
     }
 
+    @ExceptionHandler(JsonProcessingException.class)
+    public ModelAndView jsonProcessingException() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("cause", "not.correct.data");
+        modelAndView.addObject("prev", "/home");
+        modelAndView.addObject("error_code", "error_code_400");
+        modelAndView.setViewName("/errorPages/generalErrorPage");
+        return modelAndView;
+    }
 }

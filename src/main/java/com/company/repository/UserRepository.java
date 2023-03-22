@@ -1,7 +1,9 @@
 package com.company.repository;
 
 import com.company.domain.basic.Group;
+import com.company.domain.basic.Subject;
 import com.company.domain.basicsOfBasics.User;
+import com.company.dto.teacherDTO.UserLessonsDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,4 +37,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Query("select u from User u where u.authUserId = ?1")
     User findId(Integer id);
+
+    @Query("select weekly_lessons_for_student(?1)")
+    String getUserLessonsDetail(Integer groupId);
+
 }
