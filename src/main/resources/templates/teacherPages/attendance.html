@@ -75,8 +75,7 @@
                                         </tbody>
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.isAfter(today)}">
-                                        <button type="submit" class="btn btn-success" style="align-content: center">
-                                            Complete
+                                        <button type="submit" class="btn btn-success" style="align-content: center" th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -115,8 +114,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(1).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -156,8 +154,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(2).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -197,8 +194,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(3).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success"  th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -238,8 +234,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(4).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success" th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
@@ -279,8 +274,7 @@
                                     </table>
                                     <div th:if="${!lesson.isCompleted() && !monday_date.plusDays(5).isAfter(today)}"
                                          style="align-content: center">
-                                        <button type="submit" class="btn btn-success">
-                                            Complete
+                                        <button type="submit" class="btn btn-success" th:text="${#messages.msg('teacher.complete')}">
                                         </button>
                                     </div>
                                 </div>
