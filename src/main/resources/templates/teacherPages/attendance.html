@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="">
 </head>
 <body>
+<section th:replace="~{fragments :: nav}"></section>
 <div class="ps-3 pe-3 pt-5">
     <h1 style="text-align: center" th:text="${lessons.getMonday().toString()+' - '+lessons.getMonday().plusDays(6).toString()}"></h1>
     <div class="d-flex bd-highlight mb-3">
         <div class="p-2 bd-highlight">
             <form th:if="${lessons.getWeek()!=1}">
                 <input name="monday_date" th:value="${lessons.getMonday().minusDays(7).toString()}" hidden="hidden">
-                <button type="submit" class="btn btn-info" th:text="${#messages.msg('next.week')}"></button>
+                <button type="submit" class="btn btn-info" th:text="${#messages.msg('prev.week')}"></button>
             </form>
         </div>
         <div class="ms-auto p-2 bd-highlight">

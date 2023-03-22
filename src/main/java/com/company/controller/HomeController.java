@@ -23,7 +23,7 @@ public class HomeController {
         if ( session.getUser().getAuthRoles().contains(admin) ) {
             return "redirect: /admin";
         } else if ( session.getUser().getAuthRoles().contains(teacher) ) {
-            return "redirect: /teacher";
+            return "redirect: /teacher/home";
         }
         return "home";
     }
