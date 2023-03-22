@@ -8,36 +8,7 @@
     <link rel="stylesheet" href="">
 </head>
 <body>
-<div>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/teacher}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/teacher/attendance}">Attendance</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/teacher/mylessons}">My Lessons</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/login}" sec:authorize="isAnonymous()">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/register}" sec:authorize="isAnonymous()">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/logout}" sec:authorize="isAuthenticated()">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
+<section th:replace="~{fragments :: nav}"></section>
 <h1 style="text-align: center" th:text="|Welcome Teacher,  ${#authentication.name}!|"></h1>
 </body>
 </html>

@@ -30,6 +30,11 @@
                         <a class="nav-link" href="/home">Home</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav" sec:authorize="hasAnyRole('TEACHER')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/teacher/attendance}">My Lessons</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
