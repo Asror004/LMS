@@ -16,28 +16,22 @@
             <th th:text="Fan">Name</th>
             <th th:text="Oqituvchi">Professor</th>
             <th th:text="Davomat">Attendance</th>
-            <th th:text="Amal">Deadline</th>
-            <th th:text="Reja">Plan</th>
-
         </tr>
         </thead>
         <tbody>
-        <tr th:each="course: ${myCourses}">
-            <td th:text="${course.name}">Oranges</td>
-            <td th:text="s">0.99</td>
-            <td th:text="s">0.99</td>
-            <td th:text="s">0.99</td>
-            <td th:text="Assalom">0.99</td>
-            <!--<td th:text="${course.professor}">0.99</td>
-            <td th:text="${course.attendance}">0.99</td>
-            <td th:text="${course.deadline}">0.99</td>
-            <td th:text="Assalom">0.99</td>-->
+        <tr th:if="${combinations.size() == 0}">
+            <td colspan="5" th:text="You have no courses yet">You have no courses yet</td>
+        </tr>
+        <tr th:each="combination: ${combinations}">
+            <td th:text="${combination.getLesson().getSubject().getName()}">Fan Nomi</td>
+            <td th:text="${combination.getLesson().getTeacher().getUser().getFirstName()} + ' ' + ${combination.getLesson().getTeacher().getUser().getLastName()}">Ustoz Ismi</td>
+            <td th:text="${combination.getLesson().getId() == combination.getAttendance().getLesson_id() ? combination.getAttendance().getCount() : 'nan'} " />
         </tr>
         </tbody>
 
     </table>
 </div>
 
-
+<section th:replace="fragments :: js_links"></section>
 </body>
 </html>

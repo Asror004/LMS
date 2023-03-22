@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeeklyLessonsDetail {
+public class DailyLessonsDetail {
     private String dayofweek;
-    private String para;
+    private Integer para;
     private String id;
     private String group_id;
     private String room_id;

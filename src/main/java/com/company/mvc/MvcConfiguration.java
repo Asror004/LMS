@@ -1,5 +1,6 @@
 package com.company.mvc;
 
+import com.company.domain.basicsOfBasics.Language;
 import com.company.security.UserSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -91,7 +92,13 @@ public class MvcConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/*")
                 .addResourceLocations("classpath:static/css/");
+        registry.addResourceHandler("/css/lesson/*")
+                .addResourceLocations("classpath:static/css/lesson/");
         registry.addResourceHandler("/js/*")
                 .addResourceLocations("classpath:static/js/");
+        registry.addResourceHandler("/js/lesson/*")
+                .addResourceLocations("classpath:static/js/lesson/");
+        registry.addResourceHandler("/img/*")
+                .addResourceLocations("classpath:static/img/");
     }
 }

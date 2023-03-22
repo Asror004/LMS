@@ -24,4 +24,8 @@ public class Auditable {
     private LocalDateTime updatedAt;
     @Column(columnDefinition = "boolean default 'f'")
     private boolean deleted;
+
+    public Auditable(Integer id) {
+        this.id = id;
+    }
 }

@@ -13,8 +13,8 @@
     <form method="post" th:action="@{'/admin/groupSearch'}">
         <div class="input-group mt-5 mb-3">
             <input type="text" class="form-control" name="group" placeholder="Enter group name"
-                   aria-describedby="button-addon2" th:value="${name}">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                   aria-describedby="button-addon2" id="name" th:value="${name}">
+            <button class="btn btn-outline-secondary" onclick="saveName()" type="submit" id="button-addon2">Search</button>
         </div>
         <span th:if="${blank != null}" th:text="#{${blank}('Group')}" class=" mt-3 text-danger"></span>
     </form>
@@ -60,11 +60,20 @@
             <td th:text="${group.getCourse()}"></td>
             <td th:text="${group.getFaculty().getName()}"></td>
             <td th:text="${group.getOwner().getFirstName()}"></td>
-            <td><a class="btn btn-primary" th:href="@{'/admin/list?groupId='+${group.getId()}}">Kirish</a></td>
+            <td><a class="btn btn-primary" th:href="@{'/admin/list?groupId='+${group.getId()}}"
+                   th:onclick="sessionStorage.setItem('groupId', [[${group.getId()}]])">Kirish</a>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
+
+<script>
+    function saveName(){
+        let value = document.getElementById("name").value;
+        sessionStorage.setItem("group", value);
+    }
+</script>
 
 <section th:replace="fragments :: js_links"></section>
 </body>

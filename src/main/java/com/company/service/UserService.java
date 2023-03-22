@@ -58,6 +58,10 @@ public class UserService {
         return repository.existsByPassport(passport);
     }
 
+    public User findById(Integer id){
+        return repository.findId(id);
+    }
+
     public Optional<User> findById() {
         return repository.findById(session.getId());
     }

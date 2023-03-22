@@ -18,14 +18,16 @@ public record AuthUserUserDetails(AuthUser authUser) implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         var authRoles = Objects.requireNonNullElse(authUser.getAuthRoles(), Collections.<AuthRole>emptySet());
+        var authPermissions = Objects.requireNonNullElse(authUser.getAuthPermissions(), Collections.<AuthPermission>emptySet());
         var authorities = new ArrayList<SimpleGrantedAuthority>();
         authRoles.forEach(authRole -> {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + authRole.getCode()));
-            Collection<AuthPermission> authPermissions = Objects.requireNonNullElse(authRole.getAuthPermissions(), Collections.<AuthPermission>emptySet());
-            authPermissions.forEach(authPermission -> {
-                authorities.add(new SimpleGrantedAuthority(authPermission.getCode()));
-            });
         });
+
+        authPermissions.forEach(authPermission -> {
+            authorities.add(new SimpleGrantedAuthority(authPermission.getCode()));
+        });
+
         return authorities;
     }
 
@@ -43,7 +45,7 @@ public record AuthUserUserDetails(AuthUser authUser) implements UserDetails {
         return authUser.getUsername();
     }
     public String getLanguage(){
-        return authUser.getLanguage().getCode();
+        return authUser.getLanguage().getName();
     }
 
     @Override

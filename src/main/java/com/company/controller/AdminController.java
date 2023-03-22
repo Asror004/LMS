@@ -3,7 +3,6 @@ package com.company.controller;
 import com.company.domain.auth.AuthUser;
 import com.company.domain.basic.Group;
 import com.company.domain.basicsOfBasics.User;
-import com.company.dto.studentDTO.AddStudentDTO;
 import com.company.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +18,7 @@ import java.util.Objects;
 @RequestMapping("/admin")
 public class AdminController {
     private final AdminService service;
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public String main(){
@@ -31,12 +31,12 @@ public class AdminController {
         Page<User> students = service.getStudents(pg, groupId);
 
         model.addAttribute("students", students.getContent());
-        model.addAttribute("groupId", groupId);
         model.addAttribute("pages", students.getTotalPages());
+        model.addAttribute("groupId", groupId);
         model.addAttribute("hasNext", students.hasNext());
         model.addAttribute("current", students.getNumber());
         model.addAttribute("hasPrevious", students.hasPrevious());
-        return "adminPages/studentList";
+        return "adminPages/student/studentList";
     }
 
     @GetMapping("/groupSearch")
@@ -46,7 +46,7 @@ public class AdminController {
         if ( Objects.nonNull(pg)) {
             getGroups(model, group, pg);
         }
-        return "adminPages/searchGroup";
+        return "adminPages/student/searchGroup";
     }
 
     private void getGroups(Model model, String group, String pg) {
@@ -63,38 +63,45 @@ public class AdminController {
     public String groupSearch(Model model, @RequestParam(required = false) String group){
         if (Objects.isNull(group) || group.isBlank()) {
             model.addAttribute("blank","field.blank");
-            return "adminPages/searchGroup";
+            return "adminPages/student/searchGroup";
         }
         getGroups(model, group, null);
 
         model.addAttribute("name", group);
-        return "adminPages/searchGroup";
+        return "adminPages/student/searchGroup";
     }
 
-    @GetMapping("/addStudentGroup")
-    public String searchStudentPage(@ModelAttribute AddStudentDTO dto, Model model){
-        model.addAttribute("groupId", dto.groupId());
-
+    @GetMapping("/searchStudent")
+    public String searchStudentPage(@RequestParam(required = false) Integer pg, @RequestParam(required = false) String username,
+                                    Model model){
         model.addAttribute("students", null);
 
-        if ( Objects.nonNull(dto.pg())) {
-            getStudents(model, dto.username(), dto.pg());
+        if ( Objects.nonNull(pg)) {
+            getStudents(model, username, pg);
         }
 
-        return "adminPages/searchStudent";
+        return "adminPages/student/searchStudent";
+    }
+
+    @PostMapping("/searchStudent")
+    public String searchStudent(@RequestParam(required = false) Integer pg, @RequestParam(required = false) String username,
+                                Model model){
+        if ( Objects.isNull(username) || username.isBlank() ) {
+            model.addAttribute("blank", "field.blank");
+            return "adminPages/student/searchStudent";
+        }
+
+        getStudents(model, username, pg);
+
+        return "adminPages/student/searchStudent";
     }
 
     @PostMapping("/addStudentGroup")
-    public String searchStudent(@ModelAttribute AddStudentDTO dto, Model model){
-        if ( Objects.isNull(dto.username()) || dto.username().isBlank() ) {
-            model.addAttribute("blank", "field.blank");
-            return "adminPages/searchStudent";
-        }
-
-        getStudents(model, dto.username(), dto.pg());
-        model.addAttribute("groupId", dto.groupId());
-
-        return "adminPages/searchStudent";
+    public String addStudent(@RequestParam(required = false) Integer userId,
+                             @RequestParam Integer groupId, Model model){
+        service.addGroup(userId, groupId);
+        model.addAttribute("save", true);
+        return "adminPages/student/searchStudent";
     }
 
     private void getStudents(Model model, String username, Integer pg) {

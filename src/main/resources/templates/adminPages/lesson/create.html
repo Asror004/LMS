@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="/css/lesson/create.css">
+</head>
+<body>
+
+<div th:replace="fragments :: nav"></div>
+
+<div class="w-75 mx-auto mt-3" id="facultyDiv">
+    <button class="btn btn-primary w-100" onclick="facultyList()" id="btn">Faculty tanlash</button>
+</div>
+
+<table class="w-75 mx-auto table table-striped mt-5" id="table"></table>
+
+<nav aria-label="Page navigation example" class="mt-5">
+    <ul class="pagination justify-content-center" id="nav">
+    </ul>
+</nav>
+
+<script src="/js/lesson/create.js">
+</script>
+
+<section th:replace="fragments :: js_links"></section>
+
+</body>
+</html>

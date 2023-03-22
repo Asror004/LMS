@@ -8,5 +8,23 @@
 <body>
 <div th:replace="fragments :: nav"></div>
 <div th:replace="fragments :: student-sub-nav"></div>
+
+
+
+<div class="row">
+    <div class="card" style="width: 30.5rem; margin: 5px 10px ;" th:each="newsObj: ${news}">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${newsObj.getTitle()}">Card Title</h5>
+            <h6 class="card-subtitle mb-2 text-muted" th:text="${newsObj.getTitle()}">Card subtitle</h6>
+            <p class="card-text" th:text="${newsObj.getContent().substring(0,newsObj.getContent().length()/3.5).concat('...')}">Some quick example text to build on the card title and make up the bulk of the
+                card's content.</p>
+            <p class="text-silver no-m" style="color: silver" th:text="${newsObj.getCreatedAt().toLocalDate()}"></p>
+            <a href="" th:href="@{student/news/detailed/${newsObj.getId()}}" class="card-link">Batafsil</a>
+        </div>
+    </div>
+</div>
+
+
+<section th:replace="fragments :: js_links">Orqaga</section>
 </body>
 </html>

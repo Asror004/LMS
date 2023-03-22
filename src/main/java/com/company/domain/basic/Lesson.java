@@ -15,18 +15,18 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 public class Lesson extends Auditable {
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Subject subject;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Teacher teacher;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Group group;
     @Enumerated(value = EnumType.ORDINAL)
     @Column(nullable = false)
     private DayOfWeek dayOfWeek;
     @Column(nullable = false, columnDefinition = "smallint")
     private Byte para;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Room room;
 
     @Builder(builderMethodName = "childBuilder")
@@ -38,5 +38,9 @@ public class Lesson extends Auditable {
         this.dayOfWeek = dayOfWeek;
         this.para = para;
         this.room = room;
+    }
+
+    public Lesson(Integer id) {
+        super(id);
     }
 }
