@@ -3,9 +3,8 @@ package com.company.controller;
 import com.company.domain.basic.Faculty;
 import com.company.service.LessonService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,7 +14,8 @@ public class LessonControllerRest {
     private final LessonService service;
     @GetMapping("/getFacultyList")
     @ResponseBody
-    public List<Faculty> getFaculties() {
-        return service.getFaculties();
+    public Page<Faculty> getFaculties(@RequestParam Integer pg) {
+        Page<Faculty> faculties = service.getFaculties(pg);
+        return faculties;
     }
 }
