@@ -2,12 +2,10 @@ package com.company.controller;
 
 import com.company.domain.basic.Attendance;
 import com.company.domain.basic.Lesson;
+import com.company.domain.basic.News;
 import com.company.dto.attendanceDTO.AttendanceAndClassesDTO;
 import com.company.dto.attendanceDTO.AttendanceByLessonIdDTO;
-import com.company.repository.AttendanceRepository;
-import com.company.repository.GroupRepository;
-import com.company.repository.LessonRepository;
-import com.company.repository.SubjectRepository;
+import com.company.repository.*;
 import com.company.security.UserSession;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -27,16 +25,19 @@ public class StudentController {
     private final LessonRepository lessonRepository;
     private final GroupRepository groupRepository;
     private final AttendanceRepository attendanceRepository;
+    private final NewsRepository newsRepository;
 
     public StudentController(UserSession session, SubjectRepository subjectRepository,
                              LessonRepository lessonRepository,
                              GroupRepository groupRepository,
-                             AttendanceRepository attendanceRepository) {
+                             AttendanceRepository attendanceRepository,
+                             NewsRepository newsRepository) {
         this.session = session;
         this.subjectRepository = subjectRepository;
         this.lessonRepository = lessonRepository;
         this.groupRepository = groupRepository;
         this.attendanceRepository = attendanceRepository;
+        this.newsRepository = newsRepository;
     }
 
     @GetMapping("/main")
@@ -47,7 +48,10 @@ public class StudentController {
 
     @GetMapping("/news")
     @PreAuthorize("hasRole('STUDENT')")
-    public String news() {
+    public String news(Model model) {
+
+        List<News> news = newsRepository.findAll();
+        model.addAttribute("news", news);
         return "studentPages/news";
     }
 
