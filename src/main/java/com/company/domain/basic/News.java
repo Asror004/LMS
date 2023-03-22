@@ -16,7 +16,7 @@ public class News extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "type text")
     private String title;
     @Column(nullable = false)
     private String content;
