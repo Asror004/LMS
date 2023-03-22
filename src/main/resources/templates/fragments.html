@@ -33,26 +33,26 @@
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Student'" type="button"
+                                th:text="#{name.student}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
 
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/user/register">Student qo'shish</a> </li>
-                            <li><a class="dropdown-item" href="/admin/groupSearch">Studentlar</a> </li>
+                            <li><a class="dropdown-item" href="/user/register" th:text="#{create.name(#{name.student})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/groupSearch" th:text="#{name.student}"></a> </li>
                         </ul>
                     </div>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="'Lesson'" type="button"
+                                th:text="#{name.lesson}" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
 
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/lesson/create">Lesson qo'shish</a> </li>
-                            <li><a class="dropdown-item" href="/admin/groupSearch">Studentlar</a> </li>
+                            <li><a class="dropdown-item" href="/lesson/create" th:text="#{create.name(#{name.lesson})}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/groupSearch" th:text="#{name.lesson}"></a> </li>
                         </ul>
                     </div>
                 </ul>
