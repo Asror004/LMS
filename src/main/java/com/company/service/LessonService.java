@@ -20,4 +20,8 @@ public class LessonService {
         Pageable pageable = PageRequest.of(pg, 2);
         return facultyRepository.findByDeletedFalse(pageable);
     }
+
+    public boolean hasLesson(Integer id) {
+        return repository.hasGroup(id);
+    }
 }

@@ -4,7 +4,10 @@ import com.company.dto.studentDTO.StudentsForAttendanceDTO;
 import com.company.dto.teacherDTO.StudentsInLessonsDTO;
 import com.company.dto.teacherDTO.DailyLessonsDetail;
 import com.company.dto.teacherDTO.WeeklyLessonsDTO;
+import com.company.exceptions.LessonsNotFoundException;
+import com.company.repository.LessonRepository;
 import com.company.security.UserSession;
+import com.company.service.LessonService;
 import com.company.service.TeacherService;
 import com.company.utils.DateUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,6 +34,8 @@ public class TeacherController {
 
     private final UserSession userSession;
     private final TeacherService teacherService;
+    private final LessonRepository lessonRepository;
+    private final LessonService lessonService;
 
     @GetMapping("/home")
     @PreAuthorize("hasRole('TEACHER')")
@@ -41,12 +46,19 @@ public class TeacherController {
 
     @GetMapping("/attendance")
     @PreAuthorize("hasRole('TEACHER')")
-    public ModelAndView attendance(@RequestParam(name = "monday_date", required = false) String mondayDate) {
+    public ModelAndView attendance(@RequestParam(name = "monday_date", required = false) String mondayDate) throws LessonsNotFoundException {
+        boolean res = lessonService.hasLesson(userSession.getId());
+        if(res){
+            throw new LessonsNotFoundException("lessons.not.found");
+        }
         LocalDate monday_date;
         if (mondayDate == null) {
             monday_date = LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() - 1);
         } else {
             monday_date = LocalDate.parse(mondayDate, DateTimeFormatter.ISO_DATE);
+            if (!(monday_date.minusWeeks(16).getYear()==LocalDate.now().getYear() && monday_date.getYear()==LocalDate.now().getYear())) {
+                monday_date = LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue() - 1);
+            }
         }
         List<DailyLessonsDetail> dailyLessonsDetailsByTeacherId = teacherService.getDailyLessonsDetailsByTeacherId(userSession.getId(), monday_date.toString());
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
@@ -116,6 +128,15 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("cause", "not.correct.data");
         modelAndView.addObject("prev", "/teacher/complete-lesson");
+        modelAndView.addObject("error_code", "error_code_400");
+        modelAndView.setViewName("/errorPages/generalErrorPage");
+        return modelAndView;
+    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ModelAndView lessonsNotFoundException(MethodArgumentNotValidException e) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("cause", e.getMessage());
+        modelAndView.addObject("prev", "/teacher/home");
         modelAndView.addObject("error_code", "error_code_400");
         modelAndView.setViewName("/errorPages/generalErrorPage");
         return modelAndView;
