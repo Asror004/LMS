@@ -59,7 +59,7 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabelDelete" style="color: orangered">Be Careful You are Going to Delete</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" th:action="@{/admin/group/delete}" th:object="${group}">
+                <form method="post" th:action="@{/admin/group/delete}" th:object="${group_d}">
                     <div class="modal-body">
                         <div>
                             <input type="hidden" id="group_id_d" name="group_id_d" th:field="*{id}">
@@ -87,7 +87,7 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabelUpdate">Update</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" th:action="@{/admin/group/update}" th:object="${group}">
+                <form method="post" th:action="@{/admin/group/update}" th:object="${group_u}">
                     <div class="modal-body">
                         <div>
                             <input type="hidden" id="group_id_u" name="group_id_u" th:field="*{id}">
@@ -96,13 +96,13 @@
                             <input type="text" id="group_name_u" name="group_name_u" th:field="*{name}">
                         </div>
                         <div>
-                            <input type="text" id="f_id_u" name="f_id_u" th:field="*{facultyId}">
+                            <input type="text" id="f_id_u" name="f_id_u" th:field="*{faculty}">
                         </div>
                         <div>
                             <input type="text" id="course_u" name="course_u" th:field="*{course}">
                         </div>
                         <div>
-                            <input type="text" id="teacher_id_u" name="teacher_id_u" th:field="*{teacherId}">
+                            <input type="text" id="teacher_id_u" name="teacher_id_u" th:field="*{teacher}">
                         </div>
                     </div>
                     <div class="modal-footer">

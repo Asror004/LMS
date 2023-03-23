@@ -14,7 +14,7 @@
     <div class="d-flex bd-highlight mb-3">
         <div class="p-2 bd-highlight">
             <form th:if="${lessons.getWeek()!=1}">
-                <input name="monday_date" th:value="${lessons.getMonday().minusDays(7).toString()}" hidden="hidden">
+                <input name="monday_date" th:value="${lessons.getMonday().minusDays(7).toString()}" hidden="hidden" >
                 <button type="submit" class="btn btn-info" th:text="${#messages.msg('prev.week')}"></button>
             </form>
         </div>

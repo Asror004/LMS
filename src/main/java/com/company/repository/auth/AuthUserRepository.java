@@ -24,4 +24,7 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Integer> {
     @Query("update AuthUser a set a.language = ?1 where a.id = ?2")
     int updateLanguageById(Language language, Integer id);
 
+    @Transactional
+    @Query("select a from AuthUser a where a.username = ?1")
+    AuthUser findByUsername(String name);
 }

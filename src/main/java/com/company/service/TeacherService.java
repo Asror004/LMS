@@ -49,18 +49,14 @@ public class TeacherService {
         this.teacherRepository = teacherRepository;
     }
 
-    public List<DailyLessonsDetail> getDailyLessonsDetailsByTeacherId(int id, String localDate) {
+    public List<DailyLessonsDetail> getDailyLessonsDetailsByTeacherId(int id, String localDate) throws JsonProcessingException {
         String singleResult = entityManager.createQuery("select weekly_lessons(:id,:monday)", String.class)
                 .setParameter("id", String.valueOf(id))
                 .setParameter("monday", localDate).getSingleResult();
         ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            List<DailyLessonsDetail> myObjects = objectMapper
-                    .readValue(singleResult, objectMapper.getTypeFactory().constructCollectionType(List.class, DailyLessonsDetail.class));
-            return myObjects;
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        List<DailyLessonsDetail> myObjects = objectMapper
+                .readValue(singleResult, objectMapper.getTypeFactory().constructCollectionType(List.class, DailyLessonsDetail.class));
+        return myObjects;
     }
 
     public StudentsInLessonsDTO getUsersByLessonId(String lessonId) throws JsonProcessingException, IllegalArgumentException {
@@ -72,7 +68,8 @@ public class TeacherService {
         Lesson lesson = lessonRepository.getLessonById(Integer.valueOf(lessonId));
         return StudentsInLessonsDTO.builder().lesson(lesson).users(users).build();
     }
-    public boolean completeLesson(StudentsForAttendanceDTO studentsDto){
+
+    public boolean completeLesson(StudentsForAttendanceDTO studentsDto) {
         List<Integer> ids = getStudentIdsInGroup(studentsDto.getGroup_id());
         List<Integer> studentIds = List.of(studentsDto.getStudent_id());
         Lesson lesson = lessonRepository.getLessonById(studentsDto.getLesson_id());
@@ -89,7 +86,7 @@ public class TeacherService {
                         .user(new User(id))
                         .build();
                 attendanceRepository.save(attendance);
-            }else {
+            } else {
                 Attendance attendance = Attendance.childBuilder()
                         .date(LocalDate.parse(studentsDto.getDate(), DateTimeFormatter.ISO_DATE))
                         .attended(false)

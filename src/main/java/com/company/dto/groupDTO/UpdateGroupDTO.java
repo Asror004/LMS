@@ -12,7 +12,7 @@ public record UpdateGroupDTO(
         @NotNull(message = "Course is required")
         @NotBlank(message = "Course is required")
         @UniqueElements(message = "Group with this name already exists")
-        Integer course,
+        Byte course,
 
         @NotNull(message = "Name is required")
         @NotBlank(message = "Name is required")
@@ -20,10 +20,10 @@ public record UpdateGroupDTO(
 
         @NotNull(message = "Faculty is required")
         @NotBlank(message = "Faculty is required")
-        Integer facultyId,
+        Integer faculty,
 
         @NotNull(message = "Teacher is required")
         @NotBlank(message = "Teacher is required")
-        Integer teacherId
+        Integer teacher
 ) {
 }
