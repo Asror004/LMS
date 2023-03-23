@@ -62,6 +62,22 @@
                     </span>
                 </div>
                 <div class="mb-3">
+                    <label for="group" class="form-label" th:text="#{name.group}"></label>
+                    <select class="form-select" id="group" name="group" th:field="*{group}">
+                        <option value="" th:text="#{select.smth(#{name.group})}"></option>
+                        <option th:each="g : ${groups}"
+                                th:value="${g.id}"
+                                th:text="${g.name}">
+                        </option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('group')}">
+                            <li th:each="er : ${#fields.errors('group')}"
+                                th:text="#{${er}(#{name.group})}"
+                                class="alert alert-danger">
+                            </li>
+                        </span>
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Gender</label>
 
                     <div class="form-check">
@@ -81,20 +97,6 @@
 
                     <span th:if="${#fields.hasErrors('gender')}">
                         <span th:each="er : ${#fields.errors('gender')}" th:text="${#messages.msg(er, 'Gender')}"
-                              class="text-danger"></span>
-                    </span>
-                </div>
-                <div class="mb-3" id="myDiv" style="display: none">
-                    <label for="group" class="form-label" th:text="#{name.group}"></label>
-                    <select class="form-select" id="group" name="group" th:field="*{group}">
-                        <option value="" th:text="#{select.smth(#{name.group})}"></option>
-                        <option th:each="g : ${groups}"
-                                th:value="${g}"
-                                th:text="${g.name}">
-                        </option>
-                    </select>
-                    <span th:if="${#fields.hasErrors('group')}">
-                        <span th:each="er : ${#fields.errors('group')}" th:text="${#messages.msg(er, 'group')}"
                               class="text-danger"></span>
                     </span>
                 </div>
