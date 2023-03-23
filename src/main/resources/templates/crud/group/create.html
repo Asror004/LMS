@@ -23,8 +23,8 @@
                         </span>
         </div>
         <div class="mb-3">
-            <label for="facultyId" class="form-label" th:text="#{name.faculty}"></label>
-            <select class="form-select" id="facultyId" name="facultyId" th:field="*{faculty}">
+            <label for="faculty" class="form-label" th:text="#{name.faculty}"></label>
+            <select class="form-select" id="faculty" name="faculty" th:field="*{faculty}">
                 <option value="" th:text="#{select.smth(#{name.faculty})}"></option>
                 <option th:each="f : ${faculties}"
                         th:value="${f.id}"
@@ -34,7 +34,6 @@
             <span th:if="${#fields.hasErrors('faculty')}">
                             <li th:each="er : ${#fields.errors('faculty')}"
                                 th:text="#{${er}(#{name.faculty})}"
-
                                 class="alert alert-danger">
                             </li>
                         </span>
@@ -55,7 +54,7 @@
             <select class="form-select" id="teacherId" name="teacherId" th:field="*{owner}">
                 <option value="" th:text="#{select.smth(#{name.teacher})}"></option>
                 <option th:each="t : ${teachers}"
-                        th:value="${t.id}"
+                        th:value="${t.id()}"
                         th:text="${t.firstName + ' ' + t.lastName}">
                 </option>
             </select>

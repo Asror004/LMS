@@ -1,18 +1,14 @@
 package com.company.controller;
 
 import com.company.domain.auth.AuthRole;
-import com.company.domain.auth.AuthUser;
-import com.company.domain.basic.Faculty;
-import com.company.dto.facultyDTO.CreateFacultyDTO;
-import com.company.dto.facultyDTO.DeleteFacultyDTO;
-import com.company.dto.facultyDTO.UpdateFacultyDTO;
+import com.company.domain.basic.Subject;
+import com.company.dto.subjectDTO.CreateSubjectDTO;
+import com.company.dto.subjectDTO.DeleteSubjectDTO;
+import com.company.dto.subjectDTO.UpdateSubjectDTO;
 import com.company.exceptions.PermissionDeniedException;
-import com.company.repository.GroupRepository;
-import com.company.repository.UserRepository;
 import com.company.repository.auth.AuthRoleRepository;
-import com.company.repository.auth.AuthUserRepository;
 import com.company.security.UserSession;
-import com.company.service.FacultyService;
+import com.company.service.SubjectService;
 import com.company.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +25,9 @@ import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin/faculty")
-public class FacultyController {
-    private final FacultyService facultyService;
+@RequestMapping("/admin/subject")
+public class SubjectController {
+    private final SubjectService subjectService;
     private final UserService authUserService;
     private final AuthRoleRepository authRoleRepository;
     private final UserSession session;
@@ -46,9 +42,9 @@ public class FacultyController {
         AuthRole teacher = authRoleRepository.findByCode("TEACHER").orElseThrow();
 
         if ( session.getUser().getAuthRoles().contains(admin) ) {
-            model.addAttribute("faculty", new Faculty());
-            model.addAttribute("faculties", facultyService.findAll());
-            return "crud/faculty/main";
+            model.addAttribute("subject", new Subject());
+            model.addAttribute("subjects", subjectService.findAll());
+            return "crud/subject/main";
         }
         throw new PermissionDeniedException("You don't have permission to access this page");
 
@@ -58,35 +54,35 @@ public class FacultyController {
     @GetMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_FACULTY_PERMISSION)")
     public String create(Model model) {
-        model.addAttribute("faculty", new Faculty());
-        return "crud/faculty/create";
+        model.addAttribute("subject", new Subject());
+        return "crud/subject/create";
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_FACULTY_PERMISSION)")
-    public String createPost(@Valid @ModelAttribute("faculty") CreateFacultyDTO faculty, BindingResult errors) {
+    public String createPost(@Valid @ModelAttribute("subject") CreateSubjectDTO subject, BindingResult errors) {
         if (errors.hasErrors()) {
-            return "crud/faculty/create";
+            return "crud/subject/create";
         }
-        facultyService.create(faculty);
-        return "redirect:/admin/faculty";
+        subjectService.create(subject);
+        return "redirect:/admin/subject";
     }
 
 
     @GetMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
     public String update() {
-        return "crud/faculty/main";
+        return "crud/subject/main";
     }
 
     @PostMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public String updatePost(@Valid @ModelAttribute("faculty") UpdateFacultyDTO facultyDTO, BindingResult errors) {
+    public String updatePost(@Valid @ModelAttribute("subject") UpdateSubjectDTO subjectDTO, BindingResult errors) {
         if (errors.hasErrors()) {
-            return "crud/faculty/main";
+            return "crud/subject/main";
         }
-        facultyService.update(facultyDTO);
-        return "redirect:/admin/faculty";
+        subjectService.update(subjectDTO);
+        return "redirect:/admin/subject";
 
     }
 
@@ -94,17 +90,17 @@ public class FacultyController {
     @GetMapping("/delete")
     @PreAuthorize("hasRole('ADMIN')")
     public String delete() {
-        return "redirect:/admin/faculty";
+        return "redirect:/admin/subject";
 
     }
 
     @PostMapping("/delete")
     @PreAuthorize("hasRole('ADMIN')")
-    public String deletePost(@Valid @ModelAttribute("faculty") DeleteFacultyDTO facultyDTO, BindingResult errors) {
+    public String deletePost(@Valid @ModelAttribute("subject") DeleteSubjectDTO subjectDTO, BindingResult errors) {
         if (errors.hasErrors()) {
-            return "crud/faculty/main";
+            return "crud/subject/main";
         }
-        facultyService.delete(facultyDTO);
-        return "redirect:/admin/faculty";
+        subjectService.delete(subjectDTO);
+        return "redirect:/admin/subject";
     }
 }

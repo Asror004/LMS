@@ -14,4 +14,11 @@ public interface LessonRepository extends JpaRepository<Lesson, Integer> {
 
     @Query("select exists (select l from Lesson l where l.teacher.user_id=?1)")
     boolean hasGroup(Integer id);
+
+    @Query("select l from Lesson l where l.subject.deleted = false and l.group.name = ?1")
+    List<Lesson> findLessons(String groupName);
+
+
+
+
 }

@@ -1,98 +1,193 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Schedule</title>
     <link rel="stylesheet" href="">
-    <style>
-        .schedule {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            color: #333;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        td.time {
-            font-weight: bold;
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-
-        td.class {
-            font-weight: bold;
-        }
-
-    </style>
 </head>
 <body>
 <div th:replace="fragments :: nav"></div>
 
-<div th:replace="fragments :: student-sub-nav"></div>
-
-<div class="schedule">
-    <table>
-        <thead>
-        <tr>
-            <th></th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="time">8:00 AM</td>
-            <td class="class">Class A</td>
-            <td class="class">Class B</td>
-            <td class="class">Class C</td>
-            <td class="class">Class D</td>
-            <td class="class">Class E</td>
-        </tr>
-        <tr>
-            <td class="time">10:00 AM</td>
-            <td class="class">Class F</td>
-            <td class="class">Class G</td>
-            <td class="class">Class H</td>
-            <td class="class">Class I</td>
-            <td class="class">Class J</td>
-        </tr>
-        <tr>
-            <td class="time">1:00 PM</td>
-            <td class="class">Class K</td>
-            <td class="class">Class L</td>
-            <td class="class">Class M</td>
-            <td class="class">Class N</td>
-            <td class="class">Class O</td>
-        </tr>
-        <tr>
-            <td class="time">3:00 PM</td>
-            <td class="class">Class P</td>
-            <td class="class">Class Q</td>
-            <td class="class">Class R</td>
-            <td class="class">Class S</td>
-            <td class="class">Class T</td>
-        </tr>
-        </tbody>
-    </table>
+<div class="ps-3 pe-3 pt-5">
+    <div class="card border-success mb-3">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <td>#</td>
+                <td style="text-align: center" th:text="${#messages.msg('monday')}"></td>
+                <td style="text-align: center" th:text="${#messages.msg('tuesday')}"></td>
+                <td style="text-align: center" th:text="${#messages.msg('wednesday')}">></td>
+                <td style="text-align: center" th:text="${#messages.msg('thursday')}"></td>
+                <td style="text-align: center" th:text="${#messages.msg('friday')}"></td>
+                <td style="text-align: center" th:text="${#messages.msg('saturday')}"></td>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="i : ${#numbers.sequence(1, 6)}">
+                <tr class="align-middle" th:height="120px">
+                    <td th:text="${i}"></td>
+                    <td>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==1}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')}"> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==2}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==3}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==4}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==5}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="lesson : ${lessons}"
+                             th:if="${lesson.getPara()==i && lesson.getDayOfWeek()==6}">
+                            <div style="background-color : #84ff68">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.subject')} "> </span> : <span
+                                                th:text="${lesson.getSubjectName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('teacher.room')}"></span> : <span
+                                                th:text="${lesson.getRoomName()}"></span></div>
+                                    </tr>
+                                    <tr>
+                                        <div style="text-align: center"><span
+                                                th:text="${#messages.msg('student.teacher')}"></span> : <span
+                                                th:text="${lesson.getTeacher()}"></span></div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <section th:replace="fragments :: js_links"></section>

@@ -3,6 +3,7 @@ package com.company.domain.basic;
 import com.company.domain.Auditable;
 import com.company.domain.basicsOfBasics.Teacher;
 import com.company.domain.basicsOfBasics.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Lesson extends Auditable {
     private Group group;
     @Enumerated(value = EnumType.ORDINAL)
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT, pattern = "d")
     private DayOfWeek dayOfWeek;
     @Column(nullable = false, columnDefinition = "smallint")
     private Byte para;

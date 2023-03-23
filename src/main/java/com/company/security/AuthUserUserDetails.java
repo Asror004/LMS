@@ -45,7 +45,11 @@ public record AuthUserUserDetails(AuthUser authUser) implements UserDetails {
         return authUser.getUsername();
     }
     public String getLanguage(){
-        return authUser.getLanguage().getName();
+        Language language = authUser.getLanguage();
+        if (language == null) {
+            return "O'zbekcha";
+        }
+        return language.getName();
     }
 
     @Override
