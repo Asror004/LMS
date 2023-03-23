@@ -35,7 +35,8 @@ public class GroupController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public String main(Model model) {
-        model.addAttribute("group", new Group());
+        model.addAttribute("group_d", new Group());
+        model.addAttribute("group_u", new Group());
         model.addAttribute("groups", groupService.findAll());
         return "crud/group/main";
     }
@@ -44,7 +45,7 @@ public class GroupController {
     @GetMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_GROUP_PERMISSION)")
     public String create(Model model) {
-        model.addAttribute("group", new Group());
+            model.addAttribute("group", new Group());
         model.addAttribute("faculties", facultyService.findAll());
         List<AllTeachersWithNamesDTO> teachers = new ArrayList<>();
         for (Teacher teacher : teacherService.findAll()) {
@@ -66,7 +67,6 @@ public class GroupController {
         return "redirect:/admin/group";
     }
 
-
     @GetMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
     public String update() {
@@ -75,7 +75,7 @@ public class GroupController {
 
     @PostMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public String updatePost(@Valid @ModelAttribute("group") UpdateGroupDTO groupDTO, BindingResult errors) {
+    public String updatePost(@Valid @ModelAttribute("group_u") UpdateGroupDTO groupDTO, BindingResult errors) {
         if (errors.hasErrors()) {
             return "crud/group/main";
         }
@@ -91,7 +91,7 @@ public class GroupController {
 
     @PostMapping("/delete")
     @PreAuthorize("hasRole('ADMIN')")
-    public String deletePost(@Valid @ModelAttribute("group") DeleteGroupDTO groupDTO, BindingResult errors) {
+    public String deletePost(@Valid @ModelAttribute("group_d") DeleteGroupDTO groupDTO, BindingResult errors) {
         if (errors.hasErrors()) {
             return "crud/group/main";
         }

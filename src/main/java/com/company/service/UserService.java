@@ -74,4 +74,8 @@ public class UserService {
     public boolean updateUsername(Integer id, String username) {
         return userRepository.updateUsername(id, username)==1;
     }
+
+    public AuthUser findByName(String name) {
+        return authUserRepository.findByUsername(name);
+    }
 }

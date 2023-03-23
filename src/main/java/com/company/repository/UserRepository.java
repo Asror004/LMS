@@ -12,7 +12,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,4 +55,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query("update AuthUser u set u.username=?2 where u.id=?1")
     int updateUsername(Integer id, String username);
+
+
 }
