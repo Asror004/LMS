@@ -1,25 +1,33 @@
 package com.company.controller;
 
-import com.company.domain.basic.Attendance;
 import com.company.domain.basic.Lesson;
 import com.company.domain.basic.News;
+import com.company.domain.basicsOfBasics.User;
 import com.company.dto.attendanceDTO.AttendanceAndClassesDTO;
 import com.company.dto.attendanceDTO.AttendanceByLessonIdDTO;
 import com.company.repository.*;
 import com.company.security.UserSession;
+import com.company.service.NewsService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
 
+    private final NewsService newsService;
     private final UserSession session;
     private final SubjectRepository subjectRepository;
     private final LessonRepository lessonRepository;
@@ -27,11 +35,12 @@ public class StudentController {
     private final AttendanceRepository attendanceRepository;
     private final NewsRepository newsRepository;
 
-    public StudentController(UserSession session, SubjectRepository subjectRepository,
+    public StudentController(NewsService newsService, UserSession session, SubjectRepository subjectRepository,
                              LessonRepository lessonRepository,
                              GroupRepository groupRepository,
                              AttendanceRepository attendanceRepository,
                              NewsRepository newsRepository) {
+        this.newsService = newsService;
         this.session = session;
         this.subjectRepository = subjectRepository;
         this.lessonRepository = lessonRepository;
@@ -39,6 +48,16 @@ public class StudentController {
         this.attendanceRepository = attendanceRepository;
         this.newsRepository = newsRepository;
     }
+
+//    public Page<News> getNews(String pg) {
+//        Pageable pageable = Pageable.ofSize(8);
+//
+//        if ( Objects.nonNull(pg) ) {
+//            pageable = PageRequest.of(Integer.parseInt(pg), 8);
+//        }
+//
+//        return newsRepository.findAllByDeletedFalseInDescendingOrder2(pageable);
+//    }
 
     @GetMapping("/main")
     @PreAuthorize("hasRole('STUDENT')")
@@ -50,9 +69,16 @@ public class StudentController {
     @PreAuthorize("hasRole('STUDENT')")
     public String news(Model model) {
 
-        List<News> news = newsRepository.findAll();
+        List<News> news = newsRepository.findAllByDeletedFalseInDescendingOrder();
         model.addAttribute("news", news);
+        Object id = model.getAttribute("id");
         return "studentPages/news";
+    }
+
+    @RequestMapping(value = "/newspaging/{pageNumber}/{pageSize}", method = RequestMethod.GET)
+    public Page<News> newsPaging(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
+        return newsService.getNewsPagination(pageNumber, pageSize, null);
+
     }
 
 
