@@ -16,11 +16,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 offset-1">
-            <h1 class="mt-2 text-center">Student qo'shish uchun to'ldiring</h1>
-            <div action="/admin/teacher/create" method="post" th:object="${user}">
+            <h1 class="mt-2 text-center" th:text="#{create.name(#{name.teacher})}"></h1>
+            <form action="/admin/teacher/create" method="post" th:object="${user}">
                 <!--                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">-->
                 <div class="mb-3">
-                    <label for="firstName" class="form-label">FirstName</label>
+                    <label for="firstName" class="form-label" th:text="#{name.firstname}"></label>
                     <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}">
                     <span th:if="${#fields.hasErrors('firstName')}">
                         <span th:each="er : ${#fields.errors('firstName')}" th:text="${#messages.msg(er, 'FirstName')}"
@@ -28,7 +28,7 @@
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="lastName" class="form-label">LastName</label>
+                    <label for="lastName" class="form-label" th:text="#{name.lastname}"></label>
                     <input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}">
                     <span th:if="${#fields.hasErrors('lastName')}">
                         <span th:each="er : ${#fields.errors('lastName')}" th:text="${#messages.msg(er, 'LastName')}"
@@ -36,7 +36,7 @@
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="middleName" class="form-label">MiddleName</label>
+                    <label for="middleName" class="form-label" th:text="#{name.middlename}"></label>
                     <input type="text" class="form-control" id="middleName" name="middleName"
                            th:field="*{middleName}">
                     <span th:if="${#fields.hasErrors('middleName')}">
@@ -46,7 +46,7 @@
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="birthDate" class="form-label">Birth Date</label>
+                    <label for="birthDate" class="form-label" th:text="#{name.bday}"></label>
                     <input type="date" class="form-control" id="birthDate" name="birthDate" th:field="*{birthDate}">
                     <span th:if="${#fields.hasErrors('birthDate')}">
                         <span th:each="er : ${#fields.errors('birthDate')}" th:text="${#messages.msg(er, 'Birth Date')}"
@@ -54,7 +54,7 @@
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="passport" class="form-label">Passport</label>
+                    <label for="passport" class="form-label" th:text="#{name.passport}"></label>
                     <input type="text" class="form-control" id="passport" name="passport" th:field="*{passport}">
                     <span th:if="${#fields.hasErrors('passport')}">
                         <span th:each="er : ${#fields.errors('passport')}" th:text="${#messages.msg(er, 'Passport')}"
@@ -62,23 +62,23 @@
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="group" class="form-label" th:text="#{name.group}"></label>
-                    <select class="form-select" id="group" name="group" th:field="*{group}">
-                        <option value="" th:text="#{select.smth(#{name.group})}"></option>
-                        <option th:each="g : ${groups}"
+                    <label for="subject" class="form-label" th:text="#{name.subject}"></label>
+                    <select class="form-select" id="subject" name="subject">
+                        <option value="" th:text="#{select.smth(#{name.subject})}"></option>
+                        <option th:each="g : ${subjects}"
                                 th:value="${g.id}"
                                 th:text="${g.name}">
                         </option>
                     </select>
-                    <span th:if="${#fields.hasErrors('group')}">
-                            <li th:each="er : ${#fields.errors('group')}"
-                                th:text="#{${er}(#{name.group})}"
-                                class="alert alert-danger">
-                            </li>
-                        </span>
+<!--                    <span th:if="${#fields.hasErrors('subject')}">-->
+<!--                            <li th:each="er : ${#fields.errors('subject')}"-->
+<!--                                th:text="#{${er}(#{name.subject})}"-->
+<!--                                class="alert alert-danger">-->
+<!--                            </li>-->
+<!--                        </span>-->
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Gender</label>
+                    <label class="form-label" th:text="#{name.gender}"></label>
 
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" th:value="male"
@@ -100,12 +100,12 @@
                               class="text-danger"></span>
                     </span>
                 </div>
-                <button type="submit" class="btn btn-success mt-4">Qo'shish</button>
+                <button type="submit" class="btn btn-success mt-4" th:text="#{name.create}"></button>
                 </form>
-            </div>
+            </form>
         </div>
     </div>
-
+</div>
     <section th:replace="fragments :: js_links"></section>
 </body>
 </html>

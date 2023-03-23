@@ -12,27 +12,13 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.context.MessageSource;
 
-@Table(
-        name = "groups",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"name", "course", "faculty_id"})
-        }
-)
 public record CreateGroupDTO(
         @NotNull(message = "Course is required")
         Byte course,
 
 //        @NotNull(message = "Name is required")
         @Size(min = 1,max = 20,message = "Name is required")
-        String name,
-
-//        @NotNull(message = "Faculty is required")
-        @NotNull(message = "Faculty is required")
-        Integer faculty,
-
-//        @NotNull(message = "Teacher is required")
-        @NotNull(message = "Teacher is required")
-        Integer owner
+        String name
 
 ) {
 

@@ -2,10 +2,11 @@ package com.company.service;
 
 import com.company.domain.auth.AuthRole;
 import com.company.domain.auth.AuthUser;
+import com.company.domain.basic.Subject;
 import com.company.domain.basicsOfBasics.Address;
 import com.company.domain.basicsOfBasics.Teacher;
 import com.company.dto.teacherDTO.CreateTeacherDTO;
-import com.company.repository.AddressRepository;
+import com.company.repository.*;
 import com.company.domain.basicsOfBasics.Language;
 import com.company.domain.basicsOfBasics.User;
 import com.company.dto.studentDTO.CreateStudentDTO;
@@ -13,9 +14,6 @@ import com.company.dto.teacherDTO.DailyLessonsDetail;
 import com.company.dto.teacherDTO.UserLessonsDTO;
 import com.company.dto.studentDTO.UserUpdateDTO;
 import com.company.mappers.auth.UserMapper;
-import com.company.repository.LanguageRepository;
-import com.company.repository.TeacherRepository;
-import com.company.repository.UserRepository;
 import com.company.repository.auth.AuthRoleRepository;
 import com.company.repository.auth.AuthUserRepository;
 import com.company.security.UserSession;
@@ -42,6 +40,7 @@ public class UserService {
     private final UserSession session;
     private final UserRepository userRepository;
     private final AddressRepository addressRepository;
+    private final SubjectRepository subjectRepository;
 
     public void save(CreateStudentDTO dto) {
         User user = mapper.fromCreateDTO(dto);
@@ -88,18 +87,18 @@ public class UserService {
 
     public boolean updateAddress(Integer id, Address address) {
         Address savedAddress = addressRepository.save(address);
-        return userRepository.updateAddress(id, savedAddress)==1;
+        return userRepository.updateAddress(id, savedAddress) == 1;
     }
 
     public boolean updateUsername(Integer id, String username) {
-        return userRepository.updateUsername(id, username)==1;
+        return userRepository.updateUsername(id, username) == 1;
     }
 
     public AuthUser findByName(String name) {
         return authUserRepository.findByUsername(name);
     }
 
-    public void saveTeacher(CreateTeacherDTO dto) {
+    public void saveTeacher(CreateTeacherDTO dto,Integer subjectId) {
         CreateStudentDTO sdto = new CreateStudentDTO(
                 dto.firstName(),
                 dto.lastName(),
@@ -107,7 +106,7 @@ public class UserService {
                 dto.birthDate(),
                 dto.passport(),
                 dto.gender()
-                );
+        );
         User user = mapper.fromCreateDTO(sdto);
         Language language = languageRepository.findById(1).orElseThrow();
         AuthRole authRole = authRoleRepository.findById(3).orElseThrow();
@@ -125,8 +124,7 @@ public class UserService {
         user.setCreatedBy(session.getUser());
 
         repository.save(user);
-
-        if (dto.job().equals("teacher"))
-            teacherRepository.save(new Teacher(user.getAuthUserId(),dto.subject()));
+        Subject subject = subjectRepository.findById(subjectId).orElseThrow();
+        teacherRepository.save(new Teacher(user.getAuthUserId(), subject));
     }
 }
