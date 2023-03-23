@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Detailed</title>
+    <link rel="stylesheet" href="">
 </head>
 <body>
+<div th:replace="fragments :: nav"></div>
+<div th:replace="fragments :: student-sub-nav"></div>
+
+<div class="card" style="margin: 20px">
+    <div class="card-header" th:text="#{name.news}">
+
+    </div>
+    <div class="card-body">
+        <h5 class="card-title" th:text="${news.getTitle()}">Special title treatment</h5>
+        <p class="card-text" th:text="${news.getContent()}">With supporting text below as a natural lead-in to additional content.</p>
+        <p class="text-silver no-m" style="color: silver" th:text="'Published date '+${news.getCreatedAt().toLocalDate()}"></p>
+        <a href="/student/news" class="btn btn-primary">Ortga</a>
+    </div>
+</div>
+
+<section th:replace="fragments :: js_links"></section>
 
 </body>
 </html>

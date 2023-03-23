@@ -17,7 +17,7 @@
 
 
 <div th:fragment="nav">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary container my-4">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary w-75 mx-auto my-4">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -121,6 +121,62 @@
                         </ul>
                     </div>
                 </ul>
+
+                <a class="btn btn-light mt-1 me-2"
+                   th:text="#{name.myDashboard}" type="submit"
+                   href="/student/news" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
+                </a>
+
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('STUDENT')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="#{name.subjects}" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/student/subject" th:text="#{name.chooseSubject}"></a> </li>
+                            <li><a class="dropdown-item" href="/student/my-courses" th:text="#{name.mySubjects}"></a> </li>
+                            <li><a class="dropdown-item" href="/student/schedule" th:text="#{name.mySchedule}"></a> </li>
+                            <li><a class="dropdown-item" href="/student/retake" th:text="#{name.myRetake}"></a> </li>
+                        </ul>
+                    </div>
+                </ul>
+
+
+                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('STUDENT')">
+                    <div class="dropdown">
+                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                th:text="#{name.myInformation}" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/student/study-plan" th:text="#{name.myStudyPlan}"></a> </li>
+                            <li><a class="dropdown-item" href="/student/info" th:text="#{name.myInfo}"></a> </li>
+                            <li><a class="dropdown-item" href="/student/certificate" th:text="#{name.myCertificate}"></a> </li>
+                            <li><a class="dropdown-item" href="/student/retake" th:text="#{name.myRetake}"></a> </li>
+                        </ul>
+                    </div>
+                </ul>
+
+                <a class="btn btn-light mt-1 me-2"
+                   th:text="#{name.mySurvey}" type="submit"
+                   href="/student/survey" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
+                </a>
+
+                <a class="btn btn-light mt-1 me-2"
+                   th:text="#{name.myFinals}" type="submit"
+                   href="/student/finals" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
+                </a>
+
+                <a class="btn btn-light mt-1 me-2"
+                        th:text="#{name.myDiplomaWork}" type="submit"
+                        href="/student/diploma-work" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
+                </a>
+
+
+
+                <ul style="height: 25px;
+                border-right: 1px solid #9b9b9b; margin-right: 10px; margin-left: -30px; margin-bottom: -6.5px"></ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <span class="border-end"></span>
@@ -163,17 +219,17 @@
     <div class="w-100 mx-auto">
         <h1 class="text-center mt-1">Student Page</h1>
         <div class="mt-lg-5" style="margin: 0px 5px;">
-            <a class="btn btn-primary me-3" href="/student/news">Dashboard</a>
-            <a class="btn btn-primary me-3" href="/student/subject">Fan tanlovi</a>
-            <a class="btn btn-primary me-3" href="/student/my-courses">Mening fanlarim</a>
-            <a class="btn btn-primary me-3" href="/student/schedule">Dars jadvali</a>
-            <a class="btn btn-primary me-3" href="/student/retake">Qayta o'qish</a>
-            <a class="btn btn-primary me-3" href="/student/finals">Yakuniy</a>
-            <a class="btn btn-primary me-3" href="/student/study-plan">Individua shaxsiy reja</a>
-            <a class="btn btn-primary me-3" href="/student/info">Ma'lumot</a>
-            <a class="btn btn-primary me-3" href="/student/survey">So'rovnoma</a>
-            <a class="btn btn-primary me-3" href="/student/certificate">Ma'lumotnoma olish</a>
-            <a class="btn btn-primary me-3" href="/student/diploma-work">Diplom ishi</a>
+<!--            <a class="btn btn-primary me-3" href="/student/news">Dashboard</a>-->
+<!--            <a class="btn btn-primary me-3" href="/student/subject">Fan tanlovi</a>-->
+<!--            <a class="btn btn-primary me-3" href="/student/my-courses">Mening fanlarim</a>-->
+<!--            <a class="btn btn-primary me-3" href="/student/schedule">Dars jadvali</a>-->
+<!--            <a class="btn btn-primary me-3" href="/student/retake">Qayta o'qish</a>-->
+<!--            <a class="btn btn-primary me-3" href="/student/finals">Yakuniy</a> &lt;!&ndash;//2&ndash;&gt;-->
+<!--            <a class="btn btn-primary me-3" href="/student/study-plan">Individual shaxsiy reja</a> &lt;!&ndash;// 1&ndash;&gt;-->
+<!--            <a class="btn btn-primary me-3" href="/student/info">Ma'lumot</a> &lt;!&ndash;//1&ndash;&gt;-->
+<!--            <a class="btn btn-primary me-3" href="/student/survey">So'rovnoma</a>-->
+<!--            <a class="btn btn-primary me-3" href="/student/certificate">Ma'lumotnoma olish</a> &lt;!&ndash;//1&ndash;&gt;-->
+<!--            <a class="btn btn-primary me-3" href="/student/diploma-work">Diplom ishi</a> &lt;!&ndash;//2&ndash;&gt;-->
         </div>
     </div>
 </div>
