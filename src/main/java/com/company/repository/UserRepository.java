@@ -59,5 +59,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("update AuthUser u set u.username=?2 where u.id=?1")
     int updateUsername(Integer id, String username);
 
-
+    @Query("select u from User u where u.deleted = false and u.authUserId = ?1")
+    User findByDeletedFalseAndAuthUserId(int authUserId);
 }

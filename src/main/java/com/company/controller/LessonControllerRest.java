@@ -5,6 +5,7 @@ import com.company.domain.basic.Group;
 import com.company.domain.basic.Lesson;
 import com.company.domain.basicsOfBasics.Teacher;
 import com.company.responce.PageResponse;
+import com.company.responce.TeacherResponse;
 import com.company.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -42,8 +43,8 @@ public class LessonControllerRest {
     }
 
     @GetMapping("/getTeacherList")
-    public List<Teacher> getTeachers(@RequestParam(required = false) String username){
-        return service.getTeachers(username);
+    public PageResponse<TeacherResponse> getTeachers(@RequestParam(required = false) String username, @RequestParam Integer pg){
+        return service.getTeachers(pg, username);
     }
 }
 

@@ -224,17 +224,22 @@ function selectTime(day, para) {
     document.getElementById('teacherDiv').style.display = 'block';
 }
 
-function selectTeacher(){
+function selectTeacher(pg){
     document.getElementById("facultyDiv").style.display = 'none';
     document.getElementById("groupDiv").style.display = 'none';
     document.getElementById("dayDiv").style.display = 'none';
 
     let teacherDiv = document.getElementById("teacherDiv");
-    let teacherButton = document.getElementById("btn-t");
 
-    teacherButton.setAttribute('disabled', 'disabled');
+    let table = document.getElementById("table");
+    let nav = document.getElementById("nav");
+
+    table.innerHTML = '';
+    nav.innerHTML = '';
+    teacherDiv.innerHTML = '';
 
     teacherDiv.insertAdjacentHTML("beforeend", `
+        <button class="btn btn-primary w-100" disabled onclick="selectTeacher(0)" id="btn-t">O'qituvchi tanlash</button>
         <label for="teacherId"  class="form-label mt-4">Search teacher</label> 
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Search teacher" id="teacherId">  
@@ -242,42 +247,44 @@ function selectTeacher(){
         </div>         
     `);
 
-    fetch('/getTeacherList')
+    fetch('/getTeacherList?pg='+pg)
         .then(response => response.json())
         .then(data => {
 
-            console.log(data);
-            // if (data.content.length === 0) {
-            //     table.innerHTML = `<span>Bu fakultetda grupalar yo'q </span>`
-            // } else {
-            //     let thead = document.createElement('thead');
-            //     thead.innerHTML = `
-            //             <tr>
-            //                 <th>ID</th>
-            //                 <th>Name</th>
-            //                 <th>Tanlash</th>
-            //              </tr>
-            //         `
-            //     table.appendChild(thead);
-            //
-            //     let tbody = document.createElement('tbody');
-            //
-            //     data.content.forEach(group => {
-            //         let tr = document.createElement('tr');
-            //         tr.innerHTML = `
-            //                 <td> ${group.id} </td>
-            //                 <td> ${group.name} </td>
-            //                 <td>
-            //                 <button onclick="selectGroup('${group.name}')" class="btn btn-primary">
-            //                 Tanlash</button> </td>
-            //             `
-            //         tbody.appendChild(tr);
-            //     });
-            //
-            //     table.appendChild(tbody);
-            //
-            //     pagination(data, nav, "group");
-            // }
+            if (data.length === 0) {
+                table.innerHTML = `<span> Teacherlar yo'q </span>`
+            } else {
+                let thead = document.createElement('thead');
+                thead.innerHTML = `
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Subject</th>
+                            <th>Tanlash</th>
+                         </tr>
+                    `
+                table.appendChild(thead);
+
+                let tbody = document.createElement('tbody');
+                let i = 1;
+
+                data.content.forEach(teacher => {
+                    let tr = document.createElement('tr');
+                    tr.innerHTML = `
+                            <td> ${i++} </td>
+                            <td> ${teacher.firstName} </td>
+                            <td> ${teacher.subject} </td>
+                            <td>
+                            <button onclick="selectGroup('${teacher.firstName}')" class="btn btn-primary">
+                            Tanlash</button> </td>
+                        `
+                    tbody.appendChild(tr);
+                });
+
+                table.appendChild(tbody);
+
+                pagination(data, nav, "teacher");
+            }
         })
         .catch(error => console.error(error));
 }
@@ -345,6 +352,33 @@ function pagination(data, nav, functionName) {
         if (data.next) {
             nav.insertAdjacentHTML('beforeend', `
                             <li class="page-item" onclick="facultyList(${data.current + 1})" aria-label="Next">
+                                <a class="page-link" style="cursor: pointer">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                `);
+        }
+    } else {
+        if (data.prev) {
+            nav.innerHTML = `
+                        <li class="page-item" onclick="selectTeacher(${data.current - 1})">
+                                <a class="page-link" style="cursor: pointer">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                        </li>`;
+        }
+
+        for (let i = 0; i < data.pages; i++) {
+
+            nav.insertAdjacentHTML('beforeend', `<li class="page-item" onclick="selectTeacher(${i})">
+                                        <a class="page-link ${(i === data.current ? 'active' : '')}" style="cursor: pointer">${i + 1}</a>
+                                    </li>`);
+
+        }
+
+        if (data.next) {
+            nav.insertAdjacentHTML('beforeend', `
+                            <li class="page-item" onclick="selectTeacher(${data.current + 1})" aria-label="Next">
                                 <a class="page-link" style="cursor: pointer">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>

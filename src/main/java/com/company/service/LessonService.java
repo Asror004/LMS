@@ -5,12 +5,15 @@ import com.company.domain.basic.Group;
 import com.company.domain.basic.Lesson;
 import com.company.domain.basicsOfBasics.Teacher;
 import com.company.repository.*;
+import com.company.responce.PageResponse;
+import com.company.responce.TeacherResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,15 +43,20 @@ public class LessonService {
         return repository.findLessons(gr);
     }
 
-    public List<Teacher> getTeachers(String username) {
+    public PageResponse<TeacherResponse> getTeachers(Integer pg, String username) {
         if (Objects.nonNull(username)) {
             return null;
         } else {
-            List<Teacher> teachers = teacherRepository.getTeachers();
+            Page<Teacher> teachers = teacherRepository.getTeachers(PageRequest.of(pg, 1));
 
-//            teachers.stream().
+            List<TeacherResponse> response = new ArrayList<>();
 
-            return teachers;
+            teachers.getContent().forEach(teacher -> response.add(new TeacherResponse(userRepositor
+                    .findByDeletedFalseAndAuthUserId(teacher.getUser_id()).getFirstName(),
+                    teacher.getSubject().getName())));
+
+            return new PageResponse<>(response, teachers.hasPrevious(), teachers.hasNext(),
+                    (short) teachers.getNumber(), (short) teachers.getTotalPages());
         }
     }
 }
