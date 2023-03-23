@@ -20,8 +20,8 @@
                 example text to build on the card title and make up the bulk of the
                 card's content.</p>
             <p class="text-silver no-m" style="color: silver" th:text="${newsObj.getCreatedAt().toLocalDate()}"></p>
-            <p class="text-silver no-m" style="color: silver" th:text="${newsObj.getId()}"></p>
-            <p class="text-silver no-m" style="color: silver" th:text="${newsObj.getId()}"></p>
+<!--            <p class="text-silver no-m" style="color: silver" th:text="${newsObj.getId()}"></p>-->
+<!--            <p class="text-silver no-m" style="color: silver" th:text="${newsObj.getId()}"></p>-->
             <input type="hidden" id="NewsId" th:value="${newsObj.getId()}" name="NewsId"/>
             <a th:href="@{'/student/news/detailed?id='+${newsObj.getId()}}" class="card-link">Batafsil</a>
         </div>

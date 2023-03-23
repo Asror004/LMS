@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
-    @Query("select a.lesson.id, count(a.attended) from Attendance a where a.user.authUserId=?1 and a.attended=false group by a.lesson.id")
+    @Query("select a.lesson.id, count(a.attended) from Attendance a where a.user.authUserId = ?1 and a.attended = false group by a.lesson.id")
     List<String> findAllAttendanceByLessonId(Integer userId);
 }
 

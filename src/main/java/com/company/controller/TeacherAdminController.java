@@ -36,19 +36,19 @@ public class TeacherAdminController {
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
     private final UserSession userSession;
-    private final GroupRepository groupRepository;
+    private final SubjectRepository subjectRepository;
 
     @GetMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
     public String registerPage(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("groups", groupRepository.findAll());
+        model.addAttribute("subjects", subjectRepository.findAll());
         return "crud/teacher/registerTeacher";
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
-    public String register(@Valid @ModelAttribute("user") CreateTeacherDTO dto, BindingResult errors, Model model) {
+    public String register(@Valid @ModelAttribute("user") CreateTeacherDTO dto,@RequestParam("subject") Integer subject, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             return "crud/teacher/registerTeacher";
         }
@@ -57,7 +57,7 @@ public class TeacherAdminController {
             errors.rejectValue("passport", "", "field.exist");
             return "crud/teacher/registerTeacher";
         }
-        service.saveTeacher(dto);
+        service.saveTeacher(dto,subject);
         model.addAttribute("save", true);
         return "crud/teacher/registerTeacher";
     }

@@ -93,8 +93,8 @@ public class StudentController {
             combinations.add(new AttendanceAndClassesDTO(lessons.get(i), attendances.get(i)));
         }
 
-        model.addAttribute("attendances", attendances);
-        model.addAttribute("lessons", lessons);
+//        model.addAttribute("attendances", attendances);
+//        model.addAttribute("lessons", lessons);
         model.addAttribute("combinations", combinations);
         return "studentPages/my-courses";
     }

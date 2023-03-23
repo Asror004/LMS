@@ -32,7 +32,8 @@
                 </ul>
                 <ul class="navbar-nav" sec:authorize="hasAnyRole('TEACHER')">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/teacher/attendance}" th:text="${#messages.msg('teacher.myattendance')}"></a>
+                        <a class="nav-link" th:href="@{/teacher/attendance}"
+                           th:text="${#messages.msg('teacher.myattendance')}"></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('ADMIN')">
@@ -43,8 +44,9 @@
 
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/user/register" th:text="#{create.name(#{name.student})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/groupSearch" th:text="#{name.student}"></a> </li>
+                            <li><a class="dropdown-item" href="/user/register"
+                                   th:text="#{create.name(#{name.student})}"></a></li>
+                            <li><a class="dropdown-item" href="/admin/groupSearch" th:text="#{name.student}"></a></li>
                         </ul>
                     </div>
                 </ul>
@@ -56,8 +58,9 @@
 
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/lesson/create" th:text="#{create.name(#{name.lesson})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/groupSearch" th:text="#{name.lesson}"></a> </li>
+                            <li><a class="dropdown-item" href="/lesson/create"
+                                   th:text="#{create.name(#{name.lesson})}"></a></li>
+                            <li><a class="dropdown-item" href="/admin/groupSearch" th:text="#{name.lesson}"></a></li>
                         </ul>
                     </div>
                 </ul>
@@ -68,8 +71,9 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/faculty/create" th:text="#{create.name(#{name.faculty})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/faculty" th:text="#{name.faculty}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/faculty/create"
+                                   th:text="#{create.name(#{name.faculty})}"></a></li>
+                            <li><a class="dropdown-item" href="/admin/faculty" th:text="#{name.faculty}"></a></li>
                         </ul>
                     </div>
                 </ul>
@@ -80,8 +84,9 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/room/create" th:text="#{create.name(#{name.room})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/room" th:text="#{name.room}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/room/create"
+                                   th:text="#{create.name(#{name.room})}"></a></li>
+                            <li><a class="dropdown-item" href="/admin/room" th:text="#{name.room}"></a></li>
                         </ul>
                     </div>
                 </ul>
@@ -92,8 +97,9 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/subject/create" th:text="#{create.name(#{name.subject})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/subject" th:text="#{name.subject}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/subject/create"
+                                   th:text="#{create.name(#{name.subject})}"></a></li>
+                            <li><a class="dropdown-item" href="/admin/subject" th:text="#{name.subject}"></a></li>
                         </ul>
                     </div>
                 </ul>
@@ -104,8 +110,9 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/group/create" th:text="#{create.name(#{name.group})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/group" th:text="#{name.group}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/group/create"
+                                   th:text="#{create.name(#{name.group})}"></a></li>
+                            <li><a class="dropdown-item" href="/admin/group" th:text="#{name.group}"></a></li>
                         </ul>
                     </div>
                 </ul>
@@ -116,64 +123,75 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/admin/teacher/create" th:text="#{create.name(#{name.teacher})}"></a> </li>
-                            <li><a class="dropdown-item" href="/admin/teacher" th:text="#{name.teacher}"></a> </li>
+                            <li><a class="dropdown-item" href="/admin/teacher/create"
+                                   th:text="#{create.name(#{name.teacher})}"></a></li>
+                            <li><a class="dropdown-item" href="/admin/teacher" th:text="#{name.teacher}"></a></li>
                         </ul>
                     </div>
                 </ul>
+                <div sec:authorize="hasRole('STUDENT')">
+                    <a class="btn btn-light mt-1 me-2"
+                       th:text="#{name.myDashboard}" type="submit"
+                       href="/student/news" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
+                    </a>
+                </div>
 
-                <a class="btn btn-light mt-1 me-2"
-                   th:text="#{name.myDashboard}" type="submit"
-                   href="/student/news" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
-                </a>
-
-                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('STUDENT')">
-                    <div class="dropdown">
-                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="#{name.subjects}" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/student/subject" th:text="#{name.chooseSubject}"></a> </li>
-                            <li><a class="dropdown-item" href="/student/my-courses" th:text="#{name.mySubjects}"></a> </li>
-                            <li><a class="dropdown-item" href="/student/schedule" th:text="#{name.mySchedule}"></a> </li>
-                            <li><a class="dropdown-item" href="/student/retake" th:text="#{name.myRetake}"></a> </li>
-                        </ul>
-                    </div>
-                </ul>
-
-
-                <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('STUDENT')">
-                    <div class="dropdown">
-                        <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="#{name.myInformation}" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/student/study-plan" th:text="#{name.myStudyPlan}"></a> </li>
-                            <li><a class="dropdown-item" href="/student/info" th:text="#{name.myInfo}"></a> </li>
-                            <li><a class="dropdown-item" href="/student/certificate" th:text="#{name.myCertificate}"></a> </li>
-                            <li><a class="dropdown-item" href="/student/retake" th:text="#{name.myRetake}"></a> </li>
-                        </ul>
-                    </div>
-                </ul>
-
-                <a class="btn btn-light mt-1 me-2"
-                   th:text="#{name.mySurvey}" type="submit"
-                   href="/student/survey" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
-                </a>
-
-                <a class="btn btn-light mt-1 me-2"
-                   th:text="#{name.myFinals}" type="submit"
-                   href="/student/finals" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
-                </a>
-
-                <a class="btn btn-light mt-1 me-2"
-                        th:text="#{name.myDiplomaWork}" type="submit"
-                        href="/student/diploma-work" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
-                </a>
-
-
+                <div sec:authorize="hasRole('STUDENT')">
+                    <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('STUDENT')">
+                        <div class="dropdown">
+                            <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                    th:text="#{name.subjects}" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/student/subject"
+                                       th:text="#{name.chooseSubject}"></a></li>
+                                <li><a class="dropdown-item" href="/student/my-courses"
+                                       th:text="#{name.mySubjects}"></a></li>
+                                <li><a class="dropdown-item" href="/student/schedule" th:text="#{name.mySchedule}"></a>
+                                </li>
+                                <li><a class="dropdown-item" href="/student/retake" th:text="#{name.myRetake}"></a></li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+                <div sec:authorize="hasRole('STUDENT')">
+                    <ul class="navbar-nav mb-2 mb-lg-0" sec:authorize="hasRole('STUDENT')">
+                        <div class="dropdown">
+                            <button class="btn btn-light mt-1 me-2 dropdown-toggle"
+                                    th:text="#{name.myInformation}" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/student/study-plan"
+                                       th:text="#{name.myStudyPlan}"></a>
+                                </li>
+                                <li><a class="dropdown-item" href="/student/info" th:text="#{name.myInfo}"></a></li>
+                                <li><a class="dropdown-item" href="/student/certificate"
+                                       th:text="#{name.myCertificate}"></a></li>
+                                <li><a class="dropdown-item" href="/student/retake" th:text="#{name.myRetake}"></a></li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+                <div sec:authorize="hasRole('STUDENT')">
+                    <a class="btn btn-light mt-1 me-2"
+                       th:text="#{name.mySurvey}" type="submit"
+                       href="/student/survey" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
+                    </a>
+                </div>
+                <div sec:authorize="hasRole('STUDENT')">
+                    <a class="btn btn-light mt-1 me-2"
+                       th:text="#{name.myFinals}" type="submit"
+                       href="/student/finals" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
+                    </a>
+                </div>
+                <div sec:authorize="hasRole('STUDENT')">
+                    <a class="btn btn-light mt-1 me-2"
+                       th:text="#{name.myDiplomaWork}" type="submit"
+                       href="/student/diploma-work" aria-expanded="false" sec:authorize="hasRole('STUDENT')">
+                    </a>
+                </div>
 
                 <ul style="height: 25px;
                 border-right: 1px solid #9b9b9b; margin-right: 10px; margin-left: -30px; margin-bottom: -6.5px"></ul>
@@ -186,7 +204,8 @@
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
                                 type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false" th:text="${#authentication.getPrincipal().getLanguage()}">
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                th:text="${#authentication.getPrincipal().getLanguage()}">
 
                         </button>
                         <ul class="dropdown-menu">
@@ -200,12 +219,15 @@
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <div class="btn-group">
                         <a class="btn btn-light" href="/user/profile" th:text="${#authentication.name}"></a>
-                        <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                        <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
+                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
                             <span class="visually-hidden">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item bg-light" href="/user/profile">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item bg-danger text-white" href="/auth/logout">Logout</a></li>
                         </ul>
                     </div>
@@ -219,17 +241,17 @@
     <div class="w-100 mx-auto">
         <h1 class="text-center mt-1">Student Page</h1>
         <div class="mt-lg-5" style="margin: 0px 5px;">
-<!--            <a class="btn btn-primary me-3" href="/student/news">Dashboard</a>-->
-<!--            <a class="btn btn-primary me-3" href="/student/subject">Fan tanlovi</a>-->
-<!--            <a class="btn btn-primary me-3" href="/student/my-courses">Mening fanlarim</a>-->
-<!--            <a class="btn btn-primary me-3" href="/student/schedule">Dars jadvali</a>-->
-<!--            <a class="btn btn-primary me-3" href="/student/retake">Qayta o'qish</a>-->
-<!--            <a class="btn btn-primary me-3" href="/student/finals">Yakuniy</a> &lt;!&ndash;//2&ndash;&gt;-->
-<!--            <a class="btn btn-primary me-3" href="/student/study-plan">Individual shaxsiy reja</a> &lt;!&ndash;// 1&ndash;&gt;-->
-<!--            <a class="btn btn-primary me-3" href="/student/info">Ma'lumot</a> &lt;!&ndash;//1&ndash;&gt;-->
-<!--            <a class="btn btn-primary me-3" href="/student/survey">So'rovnoma</a>-->
-<!--            <a class="btn btn-primary me-3" href="/student/certificate">Ma'lumotnoma olish</a> &lt;!&ndash;//1&ndash;&gt;-->
-<!--            <a class="btn btn-primary me-3" href="/student/diploma-work">Diplom ishi</a> &lt;!&ndash;//2&ndash;&gt;-->
+            <!--            <a class="btn btn-primary me-3" href="/student/news">Dashboard</a>-->
+            <!--            <a class="btn btn-primary me-3" href="/student/subject">Fan tanlovi</a>-->
+            <!--            <a class="btn btn-primary me-3" href="/student/my-courses">Mening fanlarim</a>-->
+            <!--            <a class="btn btn-primary me-3" href="/student/schedule">Dars jadvali</a>-->
+            <!--            <a class="btn btn-primary me-3" href="/student/retake">Qayta o'qish</a>-->
+            <!--            <a class="btn btn-primary me-3" href="/student/finals">Yakuniy</a> &lt;!&ndash;//2&ndash;&gt;-->
+            <!--            <a class="btn btn-primary me-3" href="/student/study-plan">Individual shaxsiy reja</a> &lt;!&ndash;// 1&ndash;&gt;-->
+            <!--            <a class="btn btn-primary me-3" href="/student/info">Ma'lumot</a> &lt;!&ndash;//1&ndash;&gt;-->
+            <!--            <a class="btn btn-primary me-3" href="/student/survey">So'rovnoma</a>-->
+            <!--            <a class="btn btn-primary me-3" href="/student/certificate">Ma'lumotnoma olish</a> &lt;!&ndash;//1&ndash;&gt;-->
+            <!--            <a class="btn btn-primary me-3" href="/student/diploma-work">Diplom ishi</a> &lt;!&ndash;//2&ndash;&gt;-->
         </div>
     </div>
 </div>
@@ -238,7 +260,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script>
 
-        if (sessionStorage.getItem("refresh")){
+        if (sessionStorage.getItem("refresh")) {
             sessionStorage.removeItem("refresh");
             location.reload();
         }

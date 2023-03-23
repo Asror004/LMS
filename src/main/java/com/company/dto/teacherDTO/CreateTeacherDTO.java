@@ -21,15 +21,7 @@ public record CreateTeacherDTO(
         @Pattern(regexp = "^[A-Z]{2}\\d{7}?", message = "passport.not.correct")
         String passport,
         @NotBlank(message = "field.not.selected")
-        String gender,
-
-        @NotBlank(message = "field.not.selected")
-        String job,
-
-        @NotNull(message = "field.not.selected")
-        Subject subject
-
-
+        String gender
 ) {
 
 }
