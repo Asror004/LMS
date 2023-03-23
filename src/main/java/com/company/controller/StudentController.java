@@ -9,6 +9,7 @@ import com.company.dto.teacherDTO.UserLessonsDTO;
 import com.company.repository.*;
 import com.company.security.UserSession;
 import com.company.service.NewsService;
+import com.company.service.StudentService;
 import com.company.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,8 @@ public class StudentController {
     private final GroupRepository groupRepository;
     private final AttendanceRepository attendanceRepository;
     private final UserService userService;
+    private final StudentService studentService;
+
     private final NewsRepository newsRepository;
 
 
@@ -74,27 +77,7 @@ public class StudentController {
     @GetMapping("/my-courses")
     @PreAuthorize("hasRole('STUDENT')")
     public String myCourses(Model model) {
-        Integer id = session.getId(); // student id
-
-        List<Lesson> lessons = lessonRepository.findLessonsForStudentByUserIdUsingGroupId(id);// agar ishlamasa group ni id sini bervoriladi
-        List<String> attendancesStr = attendanceRepository.findAllAttendanceByLessonId(id);
-        List<AttendanceByLessonIdDTO> attendances = new ArrayList<>();
-
-        List<AttendanceAndClassesDTO> combinations = new ArrayList<>();
-
-        for (String s : attendancesStr) {
-            int index = s.indexOf(",");
-            Integer lesson_id = Integer.valueOf(s.substring(0, index));
-            Integer count = Integer.valueOf(s.substring(index + 1));
-            attendances.add(new AttendanceByLessonIdDTO(lesson_id, count));
-        }
-
-        for (int i = 0; i < lessons.size(); i++) {
-            combinations.add(new AttendanceAndClassesDTO(lessons.get(i), attendances.get(i)));
-        }
-
-        model.addAttribute("attendances", attendances);
-        model.addAttribute("lessons", lessons);
+        List<AttendanceAndClassesDTO> combinations = studentService.getStudentCourses(session.getId());
         model.addAttribute("combinations", combinations);
         return "studentPages/my-courses";
     }
