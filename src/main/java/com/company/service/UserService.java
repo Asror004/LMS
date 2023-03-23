@@ -7,6 +7,8 @@ import com.company.repository.AddressRepository;
 import com.company.domain.basicsOfBasics.Language;
 import com.company.domain.basicsOfBasics.User;
 import com.company.dto.studentDTO.CreateStudentDTO;
+import com.company.dto.teacherDTO.DailyLessonsDetail;
+import com.company.dto.teacherDTO.UserLessonsDTO;
 import com.company.dto.studentDTO.UserUpdateDTO;
 import com.company.mappers.auth.UserMapper;
 import com.company.repository.LanguageRepository;
@@ -14,6 +16,8 @@ import com.company.repository.UserRepository;
 import com.company.repository.auth.AuthRoleRepository;
 import com.company.repository.auth.AuthUserRepository;
 import com.company.security.UserSession;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,6 +52,8 @@ public class UserService {
 
         authUserRepository.save(authUser);
 
+//        AuthUser authUser = authUserRepository.findById(2).orElseThrow();
+
         user.setAuthUserId(authUser.getId());
         user.setCreatedBy(session.getUser());
 
@@ -58,8 +64,17 @@ public class UserService {
         return repository.existsByPassport(passport);
     }
 
-    public User findById(Integer id){
+    public User findById(Integer id) {
         return repository.findId(id);
+    }
+
+    public List<UserLessonsDTO> getUserLessons(Integer id) throws JsonProcessingException {
+        Integer groupId = findById(id).getGroup().getId();
+        String result = userRepository.getUserLessonsDetail(groupId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<UserLessonsDTO> myObjects = objectMapper
+                .readValue(result, objectMapper.getTypeFactory().constructCollectionType(List.class, UserLessonsDTO.class));
+        return myObjects;
     }
 
     public Optional<User> findById() {
