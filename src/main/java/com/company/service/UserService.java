@@ -121,8 +121,6 @@ public class UserService {
 
         authUserRepository.save(authUser);
 
-//        AuthUser authUser = authUserRepository.findById(2).orElseThrow();
-
         user.setAuthUserId(authUser.getId());
         user.setCreatedBy(session.getUser());
 

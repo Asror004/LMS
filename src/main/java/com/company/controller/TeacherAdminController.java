@@ -6,6 +6,7 @@ import com.company.domain.basicsOfBasics.Address;
 import com.company.domain.basicsOfBasics.User;
 import com.company.dto.attendanceDTO.AttendanceAndClassesDTO;
 import com.company.dto.attendanceDTO.AttendanceByLessonIdDTO;
+import com.company.dto.groupDTO.CreateGroupDTO;
 import com.company.dto.studentDTO.CreateStudentDTO;
 import com.company.dto.teacherDTO.CreateTeacherDTO;
 import com.company.dto.teacherDTO.UserLessonsDTO;
@@ -35,14 +36,17 @@ public class TeacherAdminController {
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
     private final UserSession userSession;
-    @GetMapping("/register")
+    private final GroupRepository groupRepository;
+
+    @GetMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
     public String registerPage(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("groups", groupRepository.findAll());
         return "crud/teacher/registerTeacher";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_ADD_STUDENT_PERMISSION)")
     public String register(@Valid @ModelAttribute("user") CreateTeacherDTO dto, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
