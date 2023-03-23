@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+
+<div th:if="${save}">
+    <div class="sc">Successfully register</div>
+    <div class="bg"></div>
+</div>
+
+<div th:replace="fragments :: nav"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <h1 class="mt-2 text-center">Student qo'shish uchun to'ldiring</h1>
+            <form method="post" th:object="${user}">
+                <!--                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">-->
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">FirstName</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}">
+                    <span th:if="${#fields.hasErrors('firstName')}">
+                        <span th:each="er : ${#fields.errors('firstName')}" th:text="${#messages.msg(er, 'FirstName')}"
+                              class="text-danger"></span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">LastName</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}">
+                    <span th:if="${#fields.hasErrors('lastName')}">
+                        <span th:each="er : ${#fields.errors('lastName')}" th:text="${#messages.msg(er, 'LastName')}"
+                              class="text-danger"></span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label for="middleName" class="form-label">MiddleName</label>
+                    <input type="text" class="form-control" id="middleName" name="middleName"
+                           th:field="*{middleName}">
+                    <span th:if="${#fields.hasErrors('middleName')}">
+                        <span th:each="er : ${#fields.errors('middleName')}"
+                              th:text="${#messages.msg(er, 'MiddleName')}"
+                              class="text-danger"></span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label for="birthDate" class="form-label">Birth Date</label>
+                    <input type="date" class="form-control" id="birthDate" name="birthDate" th:field="*{birthDate}">
+                    <span th:if="${#fields.hasErrors('birthDate')}">
+                        <span th:each="er : ${#fields.errors('birthDate')}" th:text="${#messages.msg(er, 'Birth Date')}"
+                              class="text-danger"></span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label for="passport" class="form-label">Passport</label>
+                    <input type="text" class="form-control" id="passport" name="passport" th:field="*{passport}">
+                    <span th:if="${#fields.hasErrors('passport')}">
+                        <span th:each="er : ${#fields.errors('passport')}" th:text="${#messages.msg(er, 'Passport')}"
+                              class="text-danger"></span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Gender</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" th:value="male" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                            Male
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios2"  th:value="female">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Female
+                        </label>
+                    </div>
+
+                    <span th:if="${#fields.hasErrors('gender')}">
+                        <span th:each="er : ${#fields.errors('gender')}" th:text="${#messages.msg(er, 'Gender')}"
+                              class="text-danger"></span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Job</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="job" id="exampleRadios3" th:value="teacher" checked>
+                        <label class="form-check-label" for="exampleRadios1">
+                            Teacher
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="job" id="exampleRadios4"  th:value="student">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Student
+                        </label>
+                    </div>
+
+                    <span th:if="${#fields.hasErrors('job')}">
+                        <span th:each="er : ${#fields.errors('job')}" th:text="${#messages.msg(er, 'Job')}"
+                              class="text-danger"></span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Subject</label>
+
+                </div>
+                <button type="submit" class="btn btn-success mt-4">Qo'shish</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section th:replace="fragments :: js_links"></section>
+
+</body>
+</html>

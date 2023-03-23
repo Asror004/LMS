@@ -3,6 +3,8 @@ package com.company.service;
 import com.company.domain.auth.AuthRole;
 import com.company.domain.auth.AuthUser;
 import com.company.domain.basicsOfBasics.Address;
+import com.company.domain.basicsOfBasics.Teacher;
+import com.company.dto.teacherDTO.CreateTeacherDTO;
 import com.company.repository.AddressRepository;
 import com.company.domain.basicsOfBasics.Language;
 import com.company.domain.basicsOfBasics.User;
@@ -12,6 +14,7 @@ import com.company.dto.teacherDTO.UserLessonsDTO;
 import com.company.dto.studentDTO.UserUpdateDTO;
 import com.company.mappers.auth.UserMapper;
 import com.company.repository.LanguageRepository;
+import com.company.repository.TeacherRepository;
 import com.company.repository.UserRepository;
 import com.company.repository.auth.AuthRoleRepository;
 import com.company.repository.auth.AuthUserRepository;
@@ -31,6 +34,8 @@ public class UserService {
     private final UserMapper mapper;
     private final PasswordEncoder encoder;
     private final UserRepository repository;
+
+    private final TeacherRepository teacherRepository;
     private final LanguageRepository languageRepository;
     private final AuthRoleRepository authRoleRepository;
     private final AuthUserRepository authUserRepository;
@@ -92,5 +97,38 @@ public class UserService {
 
     public AuthUser findByName(String name) {
         return authUserRepository.findByUsername(name);
+    }
+
+    public void saveTeacher(CreateTeacherDTO dto) {
+        CreateStudentDTO sdto = new CreateStudentDTO(
+                dto.firstName(),
+                dto.lastName(),
+                dto.middleName(),
+                dto.birthDate(),
+                dto.passport(),
+                dto.gender()
+                );
+        User user = mapper.fromCreateDTO(sdto);
+        Language language = languageRepository.findById(1).orElseThrow();
+        AuthRole authRole = authRoleRepository.findById(3).orElseThrow();
+
+        AuthUser authUser = AuthUser.childBuilder()
+                .username(user.getPassport())
+                .password(encoder.encode(user.getFirstName().toLowerCase()))
+                .language(language)
+                .status(AuthUser.Status.ACTIVE)
+                .authRoles(List.of(authRole)).build();
+
+        authUserRepository.save(authUser);
+
+//        AuthUser authUser = authUserRepository.findById(2).orElseThrow();
+
+        user.setAuthUserId(authUser.getId());
+        user.setCreatedBy(session.getUser());
+
+        repository.save(user);
+
+        if (dto.job().equals("teacher"))
+            teacherRepository.save(new Teacher(user.getAuthUserId(),dto.subject()));
     }
 }
