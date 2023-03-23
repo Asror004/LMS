@@ -1,12 +1,13 @@
 package com.company.service;
+import com.company.domain.basic.Faculty;
 import com.company.domain.basic.Group;
+import com.company.domain.basicsOfBasics.User;
 import com.company.dto.groupDTO.CreateGroupDTO;
 import com.company.dto.groupDTO.DeleteGroupDTO;
 import com.company.dto.groupDTO.UpdateGroupDTO;
 import com.company.mappers.group.GroupMapper;
-import com.company.repository.GroupRepository;
-import com.company.repository.LanguageRepository;
-import com.company.repository.RoomRepository;
+import com.company.repository.*;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,29 +18,42 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GroupService {
-    private final GroupMapper groupMapper;
-
     private final GroupRepository groupRepository;
+    private final FacultyRepository facultyRepository;
+    private final TeacherRepository teacherRepository;
+    private final UserRepository userRepository;
 
     public List<Group> findAll() {
         return groupRepository.findAll();
     }
 
     public void delete(DeleteGroupDTO groupDTO) {
-        Group group = groupMapper.deleteGroup(groupDTO);
-        group.setUpdatedAt(LocalDateTime.now());
+        Group group = Group.childBuilder().id(groupDTO.id()).build();
         groupRepository.delete(group);
     }
 
     public void update(UpdateGroupDTO groupDTO) {
 //        TODO: add update logic
-        Group group = groupMapper.updateGroup(groupDTO);
-        group.setUpdatedAt(LocalDateTime.now());
+        Group group = Group.childBuilder()
+                .id(groupDTO.id())
+                .name(groupDTO.name())
+                .faculty(facultyRepository.findById(groupDTO.faculty()).orElseThrow())
+                .course(groupDTO.course())
+                .owner(userRepository.findById(groupDTO.teacher()).orElseThrow())
+                .updatedAt(LocalDateTime.now())
+                .build();
         groupRepository.save(group);
     }
 
     public void create(CreateGroupDTO groupDTO) {
-        Group group = groupMapper.fromCreateDTO(groupDTO);
+        Faculty faculty = facultyRepository.findById(groupDTO.faculty()).orElseThrow();
+        User teacher = userRepository.findById(groupDTO.owner()).orElseThrow();
+        Group group = Group.childBuilder()
+                .name(groupDTO.name())
+                .course(groupDTO.course())
+                .faculty(faculty)
+                .owner(teacher)
+                .build();
         groupRepository.save(group);
     }
 }

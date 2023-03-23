@@ -121,13 +121,17 @@
                         </ul>
                     </div>
                 </ul>
-                <ul style="height: 25px;
-                border-right: 1px solid #9b9b9b; margin-right: 10px; margin-left: -30px; margin-bottom: -6.5px"></ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="border-end"></span>
+                    </li>
+                </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <div class="dropdown">
                         <button class="btn btn-light mt-1 me-2 dropdown-toggle"
-                                th:text="${#authentication.getPrincipal().getLanguage()}" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                                type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" th:text="${#authentication.getPrincipal().getLanguage()}">
+
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="?lang=uz" th:text="#{name.lang.uz}"></a></li>

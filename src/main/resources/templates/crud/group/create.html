@@ -13,7 +13,7 @@
     <form th:action="@{/admin/group/create}" method="post" class="mt-5" th:object="${group}">
         <div class="mb-3">
             <label for="name" class="form-label" th:text="#{name.name}"></label>
-            <input type="text" class="form-control" id="name" name="name" th:placeholder="#{enter.smth(#{name.name})}">
+            <input type="text" class="form-control" id="name" name="name" th:placeholder="#{enter.smth(#{name.name})}" th:field="*{name}">
             <span th:if="${#fields.hasErrors('name')}">
                             <li th:each="er : ${#fields.errors('name')}"
                                 th:text="#{${er}(#{name.name})}"
@@ -23,16 +23,16 @@
                         </span>
         </div>
         <div class="mb-3">
-            <label for="facultyId" class="form-label" th:text="#{name.faculty}"></label>
-            <select class="form-select" id="facultyId" name="facultyId">
+            <label for="faculty" class="form-label" th:text="#{name.faculty}"></label>
+            <select class="form-select" id="faculty" name="faculty" th:field="*{faculty}">
                 <option value="" th:text="#{select.smth(#{name.faculty})}"></option>
                 <option th:each="f : ${faculties}"
                         th:value="${f.id}"
                         th:text="${f.name}">
                 </option>
             </select>
-            <span th:if="${#fields.hasErrors('facultyId')}">
-                            <li th:each="er : ${#fields.errors('facultyId')}"
+            <span th:if="${#fields.hasErrors('faculty')}">
+                            <li th:each="er : ${#fields.errors('faculty')}"
                                 th:text="#{${er}(#{name.faculty})}"
                                 class="alert alert-danger">
                             </li>
@@ -40,7 +40,7 @@
         </div>
         <div class="mb-3">
             <label for="course" class="form-label" th:text="#{name.course}"></label>
-            <input type="number" class="form-control" id="course" name="course" th:placeholder="#{enter.smth(#{name.course})}">
+            <input type="text" class="form-control" id="course" name="course" th:placeholder="#{enter.smth(#{name.course})}" th:field="*{course}">
             <span th:if="${#fields.hasErrors('course')}">
                             <li th:each="er : ${#fields.errors('course')}"
                                 th:text="#{${er}(#{name.course})}"
@@ -51,15 +51,15 @@
         </div>
         <div class="mb-3">
             <label for="teacherId" class="form-label" th:text="#{name.teacher}"></label>
-            <select class="form-select" id="teacherId" name="teacherId">
+            <select class="form-select" id="teacherId" name="teacherId" th:field="*{owner}">
                 <option value="" th:text="#{select.smth(#{name.teacher})}"></option>
                 <option th:each="t : ${teachers}"
-                        th:value="${t.id}"
+                        th:value="${t.id()}"
                         th:text="${t.firstName + ' ' + t.lastName}">
                 </option>
             </select>
-            <span th:if="${#fields.hasErrors('teacherId')}">
-                            <li th:each="er : ${#fields.errors('teacherId')}"
+            <span th:if="${#fields.hasErrors('owner')}">
+                            <li th:each="er : ${#fields.errors('owner')}"
                                 th:text="#{${er}(#{name.teacher})}"
                                 class="alert alert-danger">
                             </li>
