@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PermissionDeniedException.class)
     public ModelAndView exception1() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("error",new ErrorMessage());
+        mav.addObject("error",new ErrorMessage("403","Permission Denied","You don't have permission to access this page."));
         mav.setViewName("errorPages/errorAll");
         return mav;
     }
@@ -41,7 +41,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ModelAndView exception6() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("errorPages/error403");
+        mav.addObject("error",new ErrorMessage("403","Access Denied","You don't have permission to access this page."));
+        mav.setViewName("errorPages/errorAll");
         return mav;
     }
 
