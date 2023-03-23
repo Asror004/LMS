@@ -1,4 +1,13 @@
 #nav {
     position: fixed;
-    bottom: 80px;
+    bottom: 70px;
+    left: 680px;
+}
+.week th{
+    text-align: center;
+}
+.week td{
+    padding: 28px 20px;
+    text-align: center;
+    font-size: 18px;
 }

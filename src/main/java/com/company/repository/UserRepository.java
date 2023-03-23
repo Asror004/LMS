@@ -49,11 +49,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("update User u set u.address=?2 where u.authUserId=?1")
     int updateAddress(Integer id, Address address);
 
-
-
-
     @Transactional
     @Modifying
     @Query("update AuthUser u set u.username=?2 where u.id=?1")
     int updateUsername(Integer id, String username);
+
+
 }
