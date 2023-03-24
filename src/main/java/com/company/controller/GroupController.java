@@ -12,6 +12,7 @@ import com.company.service.GroupService;
 import com.company.service.TeacherService;
 import com.company.service.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,22 +49,27 @@ public class GroupController {
             model.addAttribute("group", new Group());
         model.addAttribute("faculties", facultyService.findAll());
         List<AllTeachersWithNamesDTO> teachers = new ArrayList<>();
-        for (Teacher teacher : teacherService.findAll()) {
+        teacherService.findAll().forEach(teacher -> {
             User user = userService.findById(teacher.getUser_id());
-            teachers.add(new AllTeachersWithNamesDTO(teacher.getUser_id(), user.getFirstName(),user.getLastName()));
-        }
-        System.out.println("teachers = " + teachers);
+            teachers.add(new AllTeachersWithNamesDTO(teacher.getUser_id(), user.getFirstName(), user.getLastName()));
+        });
         model.addAttribute("teachers", teachers);
         return "crud/group/create";
     }
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority(T(com.company.permissions.AdminPermissions).HAS_CREATE_GROUP_PERMISSION)")
-    public String createPost(@Valid @ModelAttribute("group")CreateGroupDTO groupDTO, BindingResult errors) {
+    public String createPost(@Valid @ModelAttribute("group")CreateGroupDTO groupDTO,@RequestParam("faculty")Integer faculty,@RequestParam("owner")Integer owner, BindingResult errors) {
+//        @NotNull(message = "Faculty is required")
+//        Integer faculty,
+//
+////        @NotNull(message = "Teacher is required")
+//        @NotNull(message = "Teacher is required")
+//        Integer owner
         if (errors.hasErrors()) {
             return "crud/group/create";
         }
-        groupService.create(groupDTO);
+        groupService.create(groupDTO,faculty,owner);
         return "redirect:/admin/group";
     }
 

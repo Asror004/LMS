@@ -93,8 +93,8 @@ public class StudentController {
             combinations.add(new AttendanceAndClassesDTO(lessons.get(i), attendances.get(i)));
         }
 
-        model.addAttribute("attendances", attendances);
-        model.addAttribute("lessons", lessons);
+//        model.addAttribute("attendances", attendances);
+//        model.addAttribute("lessons", lessons);
         model.addAttribute("combinations", combinations);
         return "studentPages/my-courses";
     }
@@ -128,7 +128,7 @@ public class StudentController {
     }
 
     @GetMapping("/info")
-    @PreAuthorize("hasRole('STUDENT')")
+//    @PreAuthorize("hasRole('STUDENT')")
     public String info(Model model) {
         model.addAttribute("user", userService.findById().get());
         return "studentPages/info";

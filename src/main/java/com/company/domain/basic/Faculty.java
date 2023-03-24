@@ -25,7 +25,11 @@ public class Faculty extends Auditable {
     @Override
     public String toString() {
         return "Faculty{" +
+                "id='" + getId() + '\'' +
                 "name='" + name + '\'' +
+                "getUpdatedAt()='" + getUpdatedAt() + '\'' +
+                "isDeleted()='" + isDeleted() + '\'' +
+                "getCreatedAt()='" + getCreatedAt() + '\'' +
                 '}';
     }
 }

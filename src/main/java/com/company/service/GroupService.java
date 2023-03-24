@@ -45,15 +45,16 @@ public class GroupService {
         groupRepository.save(group);
     }
 
-    public void create(CreateGroupDTO groupDTO) {
-        Faculty faculty = facultyRepository.findById(groupDTO.faculty()).orElseThrow();
-        User teacher = userRepository.findById(groupDTO.owner()).orElseThrow();
-        Group group = Group.childBuilder()
-                .name(groupDTO.name())
-                .course(groupDTO.course())
-                .faculty(faculty)
-                .owner(teacher)
-                .build();
-        groupRepository.save(group);
+    public void create(CreateGroupDTO groupDTO,Integer facultyId,Integer ownerId) {
+        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow();
+        User teacher = userRepository.findById(ownerId).orElseThrow();
+        groupRepository.save(
+                Group.childBuilder()
+                        .course(groupDTO.course())
+                        .name(groupDTO.name())
+                        .faculty(faculty)
+                        .owner(teacher)
+                        .build()
+        );
     }
 }

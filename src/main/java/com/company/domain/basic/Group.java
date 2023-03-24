@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 public class Group extends Auditable {
     @Column(nullable = false)
     private String name;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Faculty faculty;
     @Column(nullable = false, columnDefinition = "smallint default 1")
     private Byte course;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User owner;
 
     @Builder(builderMethodName = "childBuilder")

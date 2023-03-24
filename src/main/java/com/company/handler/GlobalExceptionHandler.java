@@ -17,16 +17,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ModelAndView exception(Model model, Exception e) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("error", e.getMessage());
-        mav.setViewName("errorPages/error");;
+        mav.addObject( "error", new ErrorMessage( "IDK", "Exception", ""));
+        mav.setViewName("errorPages/errorAll");
         return mav;
     }
 
     @ExceptionHandler(TooManyRequestsException.class)
     public ModelAndView exception5() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("error", "Internal Server Error");
-        mav.setViewName("errorPages/error");
+        mav.addObject("error", new ErrorMessage("429","Too Many Requests","You have exceeded the maximum number of requests. Please try again later."));
+        mav.setViewName("errorPages/errorAll");
         return mav;
     }
 
@@ -49,20 +49,21 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     public ModelAndView exception2() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("errors/401");
+        mav.addObject("error", new ErrorMessage( "401","Unauthorized","You don't have permission to access this page."));
+        mav.setViewName("errorPages/errorAll");
         return mav;
     }
     @ExceptionHandler(HttpClientErrorException.Forbidden.class)
     public ModelAndView exception3() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("errors/403");
+        mav.setViewName("errorPages/errorAll");
         return mav;
     }
 
     @ExceptionHandler(HttpClientErrorException.NotFound.class)
     public ModelAndView exception4() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("errors/404");
+        mav.setViewName("errorPages/errorAll");
         return mav;
     }
 
