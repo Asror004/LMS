@@ -26,4 +26,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
     @Query("select f from Subject f where f.deleted = false")
     Page<Subject> findByDeletedFalse(Pageable pageable);
 
+    @Query("select s.name from Subject s where s.id in (select  l.subject.id from Lesson l join Attendance a on l.id = a.lesson.id where a.user.authUserId=?1 group by l.subject.id)")
+    List<String> getAllSubjectNamesByGroupIdAndUserId(Integer groupId);
 }

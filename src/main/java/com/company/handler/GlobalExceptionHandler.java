@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ModelAndView exception(Model model, Exception e) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject( "error", new ErrorMessage( "IDK", "Exception", ""));
+        mav.addObject( "error", new ErrorMessage( "IDK", "Exception", e.getMessage()));
         mav.setViewName("errorPages/errorAll");
         return mav;
     }
