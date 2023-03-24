@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.LocaleResolver;
 
+import java.util.concurrent.CompletableFuture;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -43,7 +45,7 @@ public class UserController {
             errors.rejectValue("passport", "", "field.exist");
             return "adminPages/student/registerStudent";
         }
-        service.save(dto);
+        CompletableFuture.runAsync(() -> service.save(dto));
         model.addAttribute("save", true);
         return "adminPages/student/registerStudent";
     }

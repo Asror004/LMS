@@ -1,13 +1,14 @@
 package com.company.security;
 
+import jakarta.servlet.http.Cookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -25,12 +26,12 @@ public class SecurityConfigurer {
             "/js/**",
             "/auth/login"
     };
-    private final AuthUserUserDetailsService authUserUserDetailsService;
+    private final AuthUserDetailsService authUserDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    public SecurityConfigurer(AuthUserUserDetailsService authUserUserDetailsService,
+    public SecurityConfigurer(AuthUserDetailsService authUserDetailsService,
                               AuthenticationFailureHandler authenticationFailureHandler) {
-        this.authUserUserDetailsService = authUserUserDetailsService;
+        this.authUserDetailsService = authUserDetailsService;
         this.authenticationFailureHandler = authenticationFailureHandler;
     }
 
@@ -60,10 +61,10 @@ public class SecurityConfigurer {
                         httpSecurityLogoutConfigurer
                                 .logoutUrl("/auth/logout")
                                 .clearAuthentication(true)
-                                .deleteCookies("JSESSIONID", "rememberME")
+                                .deleteCookies("JSESSIONID", "rememberME", "language")
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
                 )
-                .userDetailsService(authUserUserDetailsService)
+                .userDetailsService(authUserDetailsService)
                 .rememberMe(httpSecurityRememberMeConfigurer ->
                         httpSecurityRememberMeConfigurer
                                 .rememberMeParameter("rememberMe")
@@ -74,6 +75,5 @@ public class SecurityConfigurer {
 
         return http.build();
     }
-
 
 }

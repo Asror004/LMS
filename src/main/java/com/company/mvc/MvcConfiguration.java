@@ -1,6 +1,7 @@
 package com.company.mvc;
 
 import com.company.domain.basicsOfBasics.Language;
+import com.company.security.AuthUserDetails;
 import com.company.security.UserSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -9,6 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,6 +26,7 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import java.time.Duration;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -78,6 +83,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver("language");
+        cookieLocaleResolver.setCookieMaxAge(Duration.ofDays(10));
         cookieLocaleResolver.setDefaultLocale(new Locale("uz"));
         return cookieLocaleResolver;
     }

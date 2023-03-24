@@ -14,7 +14,7 @@ public class UserSession {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         var authUserDetails = authentication.getPrincipal();
-        if (authUserDetails instanceof AuthUserUserDetails a)
+        if (authUserDetails instanceof AuthUserDetails a)
             return a.authUser();
         return null;
     }

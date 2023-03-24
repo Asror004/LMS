@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 @RequiredArgsConstructor
@@ -99,7 +100,7 @@ public class AdminController {
     @PostMapping("/addStudentGroup")
     public String addStudent(@RequestParam(required = false) Integer userId,
                              @RequestParam Integer groupId, Model model){
-        service.addGroup(userId, groupId);
+        CompletableFuture.runAsync(() -> service.addGroup(userId, groupId));
         model.addAttribute("save", true);
         return "adminPages/student/searchStudent";
     }
