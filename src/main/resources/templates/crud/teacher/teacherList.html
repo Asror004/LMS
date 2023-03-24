@@ -1,75 +1,124 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
-    <title>Admin</title>
+    <title th:text="#{page.name(#{name.teacher})}"></title>
     <link rel="stylesheet" href="">
 </head>
 <body>
-
 <div th:replace="fragments :: nav"></div>
-
 <div class="w-75 mx-auto">
-    <h1>Student list</h1>
-
-    <nav th:if="${pages > 1}" aria-label="Page navigation example" class="mt-5">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" th:if="${hasPrevious}" th:href="@{'?pg='+${current - 1}+'&groupId='+${groupId}}"
-                   aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li th:each="i : ${#numbers.sequence(1, pages)}" class="page-item"
-                th:classappend="${current == i - 1} ? 'active' : ''">
-                <a class="page-link" th:text="${i}" th:href="@{'?pg='+${i - 1}+'&groupId='+${groupId}}"></a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" th:if="${hasNext}" th:href="@{'?pg='+${current + 1}+'&groupId='+${groupId}}"
-                   aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-
-    <span th:if="${students.isEmpty()}" style="position: absolute; top: 350px; left: 730px">Grupa bo'sh</span>
-
-    <table th:if="${pages > 0}" class="table table-striped mt-5">
+    <h1 class="text-center mt-3" th:text="#{page.name(#{name.teacher})}"></h1>
+    <div class="mt-5">
+        <a class="btn btn-primary me-4" href="/admin/teacher/create" th:text="#{create.name(#{name.teacher})}"></a>
+    </div>
+</div>
+<div>
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
-            <th scope="col">N</th>
-            <th scope="col">FirstName</th>
-            <th scope="col">LastName</th>
-            <th scope="col">Gender</th>
+            <th scope="col" th:text="#{name.id}"/>
+            <th scope="col" th:text="#{name.firstname}"/>
+            <th scope="col" th:text="#{name.lastname}"/>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="student, i : ${students}">
-            <td th:text="${i.count}"></td>
-            <td th:text="${student.getFirstName()}"></td>
-            <td th:text="${student.getLastName()}"></td>
-            <td th:text="${student.gender}"></td>
+        <tr th:each="teacher1,i : ${teachers}">
+            <th scope="row" th:text="${i.count}"></th>
+            <td th:text="${teacher1.name}"></td>
+            <td th:text="${teacher1.deleted}"></td>
+            <td>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdropUpdate"
+                        th:teacher-id="${teacher1.id}"
+                        th:teacher-name="${teacher1.name}"
+                        onclick="getIdOnClick(this)" th:text="#{name.edit}">
+                </button>
+
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdropDelete"
+                        th:teacher-id="${teacher1.id}"
+                        th:teacher-name="${teacher1.name}"
+                        onclick="getIdOnClick(this)" th:text="#{name.delete}">
+                </button>
+            </td>
         </tr>
         </tbody>
     </table>
-
-    <div class="position-fixed" style="bottom: 75px">
-        <a class="btn btn-warning text-white" id="back">Back</a>
-        <a class="btn btn-primary position-fixed" onclick="myRemove()" th:href="@{'/admin/searchStudent'}" style="width: 55px; height: 47px;
-         border-radius: 47%; font-size: 22px; right: 190px; padding: 4px 6px">+</a>
+    <!-- Modal Delete-->
+    <div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabelDelete" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabelDelete" style="color: orangered" th:text="#{message.carefull}"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" th:action="@{/admin/teacher/delete}" th:object="${teacher}">
+                    <div class="modal-body">
+                        <div>
+                            <input type="hidden" id="teacherIdInputDeleteId" th:field="*{id}">
+                        </div>
+                        <div style="color: black">
+                            You are going to delete <span id="teacherIdInputDeleteName" style="color: orangered">
+                        </span> teacher!!!
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{name.close}"></button>
+                        <button type="submit" class="btn btn-danger" th:text="#{name.delete}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+    <!-- Modal End-->
+    <!-- Modal Update-->
+    <div class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabelUpdate" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #daf332">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabelUpdate" th:text="#{name.update}"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" th:action="@{/admin/teacher/update}" th:object="${teacher}">
+                    <div class="modal-body">
+                        <div>
+                            <!--/*@thymesVar id="name" type="images"*/-->
+                            <input type="hidden" id="teacherIdInputUpdateId" name="teacherIdInputUpdateId" th:field="*{id}">
+                        </div>
+                        <div>
+                            <input type="text" id="teacherIdInputUpdateName" name="teacherIdInputUpdateName" th:field="*{name}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{name.close}"></button>
+                        <button type="submit" class="btn btn-primary" th:text="#{name.update}"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End-->
 </div>
 
-<section th:replace="fragments :: js_links"></section>
-
+<section th:replace="fragments::js_links"/>
 <script>
-    function myRemove(){
-        sessionStorage.removeItem('username');
+    function getIdOnClick(button) {
+        const teacherId = button.getAttribute("teacher-id"); // Get the teacher ID
+        const teacherName = button.getAttribute("teacher-name"); // Get the teacher ID
+        const teacherIdInputDeleteId = document.getElementById("teacherIdInputDeleteId");
+        const teacherIdInputDeleteName = document.getElementById("teacherIdInputDeleteName");
+        const teacherIdInputUpdateId = document.getElementById("teacherIdInputUpdateId");
+        const teacherIdInputUpdateName = document.getElementById("teacherIdInputUpdateName");
+        teacherIdInputDeleteId.value = teacherId;
+        teacherIdInputDeleteName.innerText = teacherName;
+        teacherIdInputUpdateId.value = teacherId;
+        teacherIdInputUpdateName.value = teacherName;
     }
-
-    document.getElementById("back").href = "/admin/groupSearch?group="
-        + sessionStorage.getItem("group")+"&pg=0";
 </script>
 </body>
 </html>
