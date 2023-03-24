@@ -128,7 +128,7 @@ public class StudentController {
     }
 
     @GetMapping("/info")
-    @PreAuthorize("hasRole('STUDENT')")
+//    @PreAuthorize("hasRole('STUDENT')")
     public String info(Model model) {
         model.addAttribute("user", userService.findById().get());
         return "studentPages/info";

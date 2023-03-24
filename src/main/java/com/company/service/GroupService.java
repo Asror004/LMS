@@ -48,12 +48,13 @@ public class GroupService {
     public void create(CreateGroupDTO groupDTO,Integer facultyId,Integer ownerId) {
         Faculty faculty = facultyRepository.findById(facultyId).orElseThrow();
         User teacher = userRepository.findById(ownerId).orElseThrow();
-        Group group = Group.childBuilder()
-                .course(groupDTO.course())
-                .name(groupDTO.name())
-                .faculty(faculty)
-                .owner(teacher)
-                .build();
-        groupRepository.save(group);
+        groupRepository.save(
+                Group.childBuilder()
+                        .course(groupDTO.course())
+                        .name(groupDTO.name())
+                        .faculty(faculty)
+                        .owner(teacher)
+                        .build()
+        );
     }
 }
