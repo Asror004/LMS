@@ -14,6 +14,8 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query("select g from Group g where g.deleted = false and g.name ilike '%' || ?1 || '%' order by g.name")
     Page<Group> findByName(String name, Pageable pageable);
 
+    Group findByName(String name);
+
     @Query("select g from Group g where g.deleted = false and g.faculty.name = ?1")
     Page<Group> findByDeletedFalseAndFaculty_Name(String name, Pageable pageable);
 

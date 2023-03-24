@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthUserUserDetailsService implements UserDetailsService {
+public class AuthUserDetailsService implements UserDetailsService {
     private final AuthUserRepository authUserRepository;
 
-    public AuthUserUserDetailsService(AuthUserRepository authUserRepository) {
+    public AuthUserDetailsService(AuthUserRepository authUserRepository) {
         this.authUserRepository = authUserRepository;
     }
 
@@ -19,6 +19,6 @@ public class AuthUserUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AuthUser authUser = authUserRepository.findByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Bad Credentials"));
-        return new AuthUserUserDetails(authUser);
+        return new AuthUserDetails(authUser);
     }
 }

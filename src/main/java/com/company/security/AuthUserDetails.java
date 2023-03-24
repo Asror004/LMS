@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-public record AuthUserUserDetails(AuthUser authUser) implements UserDetails {
+public record AuthUserDetails(AuthUser authUser) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

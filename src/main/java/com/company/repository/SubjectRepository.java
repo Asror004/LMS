@@ -26,4 +26,9 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
     @Query("select f from Subject f where f.deleted = false")
     Page<Subject> findByDeletedFalse(Pageable pageable);
 
+    @Query("select s from Subject s where s.deleted = false and s.name = ?1")
+    Subject findByDeletedFalseAndName(String name);
+
+
+
 }

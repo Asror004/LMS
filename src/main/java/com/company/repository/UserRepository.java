@@ -61,4 +61,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u from User u where u.deleted = false and u.authUserId = ?1")
     User findByDeletedFalseAndAuthUserId(int authUserId);
+
+    @Query("select u from User u where u.deleted = false and u.firstName = ?1")
+    User findByDeletedFalseAndFirstName(String firstName);
+
+
 }
